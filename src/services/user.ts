@@ -9,20 +9,18 @@ import CreateUserRequest from "../request/user/createUserRequest";
 import UserEntity from "../entities/user";
 import bcrypt from 'bcrypt'
 import { IUserRepository } from "../repositories/interfaces/user";
-import ProfileEntity from "../entities/profile";
 import slugify from 'slugify'
-import { UserRole } from "../entities/enums/userRoleEnum";
-import { IProfileService } from "./interfaces/profile";
+import { UserRole, Imagedefault } from "../entities/enums/enum";
 import { ITokenService } from "./interfaces/token";
 import TokenEntity from "../entities/token";
 import { IEmailService } from "./interfaces/email";
+import ProfileEntity from "../entities/profile";
 
 @injectable()
 class UserService implements IUserService {
 
     constructor(
         @inject(TYPES.UserRepository) private userRepository: IUserRepository,
-        @inject(TYPES.ProfileService) private profileService: IProfileService,
         @inject(TYPES.TokenService) private tokenService: ITokenService,
         @inject(TYPES.EmailService) private emailService: IEmailService,
         @inject(TYPES.ProducerDispatcher) private dispatcher: EventDispatcher,
@@ -47,16 +45,22 @@ class UserService implements IUserService {
         });
         const profile = new ProfileEntity({
             uuid: uuidv4(),
-            user_uuid: userEntity.uuid ?? '',
-            slug: slugify(userEntity.name ?? '') + uuidv4(),
-            roles: userEntity.roles,
-            is_active: false,
-            main_information: {
-                nickname: userEntity.name ?? '',
-                image: 'https://res.cloudinary.com/dcyohew0h/image/upload/v1626325005/posts/roxlkp46kp0sk9oqb3jg.png',
+            created_by: {
+                uuid: userEntity.uuid ?? '',
+                name: userEntity.name ?? '',
             },
-            idul_adha: null,
-            ramadhan: null,
+            slug: slugify(userEntity.name ?? '') + uuidv4(),
+            roles: [UserRole.MEMBER],
+            address: '',
+            card_number: '',
+            city: {},
+            district: {},
+            email: userEntity.email ?? '',
+            image: Imagedefault.IMAGE_DEFAULT,
+            phone: '',
+            created_at: new Date,
+            province: {},
+            updated_at: new Date,
             deleted_at: null
         })
         const tokenEntity = new TokenEntity({
@@ -72,7 +76,6 @@ class UserService implements IUserService {
         const tokenService = await this.tokenService.create(tokenEntity)
         await this.emailService.sendEmailVerificationAccout(tokenService.token, data.email ?? '')
         await this.userRepository.create(userEntity)
-        await this.profileService.create(profile)
         return { success: true }
     }
 

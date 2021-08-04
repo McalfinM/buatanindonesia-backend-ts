@@ -20,7 +20,7 @@ const user_1 = __importDefault(require("../entities/user"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const profile_1 = __importDefault(require("../entities/profile"));
 const slugify_1 = __importDefault(require("slugify"));
-const userRoleEnum_1 = require("../entities/enums/userRoleEnum");
+const enum_1 = require("../entities/enums/enum");
 const token_1 = __importDefault(require("../entities/token"));
 let UserService = class UserService {
     userRepository;
@@ -47,7 +47,7 @@ let UserService = class UserService {
             email: data.email,
             uuid: uuid_1.v4(),
             password: hash,
-            roles: [userRoleEnum_1.UserRole.MEMBER],
+            roles: [enum_1.UserRole.MEMBER],
             is_active: false,
             created_at: new Date(),
             updated_at: new Date(),

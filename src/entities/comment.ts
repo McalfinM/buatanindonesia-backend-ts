@@ -1,7 +1,8 @@
 
 import BaseEntity from "./baseEntity";
 import { IComment } from "./interfaces/comment";
-import { IEmbed } from "./interfaces/post";
+import { IEmbed } from "./interfaces/product";
+
 
 class CommentEntity extends BaseEntity {
     protected _uuid: string

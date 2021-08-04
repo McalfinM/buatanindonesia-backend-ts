@@ -2,7 +2,6 @@
 import { IUserRepository } from "./interfaces/user";
 import { injectable } from "inversify";
 import specificationInterface from "./specifications/specificationInterface";
-import { IUser } from "../models/interfaces/user";
 import { IProfileRepository } from "./interfaces/profile";
 import ProfileEntity from "../entities/profile";
 import ProfileModel from "../models/profile";
@@ -10,15 +9,25 @@ import ProfileModel from "../models/profile";
 @injectable()
 class ProfileRepository implements IProfileRepository {
     async create(data: ProfileEntity): Promise<ProfileEntity> {
-
         const result = await ProfileModel.create({
             uuid: data.uuid,
-            user_uuid: data.user_uuid,
-            main_information: data.main_information,
-            is_active: data.is_active,
-            ramadhan: data.ramadhan,
+            created_by: {
+                uuid: data.created_by.uuid ?? '',
+                name: data.created_by.name ?? '',
+            },
+            slug: data.slug,
             roles: data.roles,
-            idul_adha: data.idul_adha
+            address: data.address,
+            card_number: data.card_number,
+            city: data.city,
+            district: data.city,
+            email: data.email ?? '',
+            image: data.image,
+            phone: data.phone,
+            created_at: data.created_at,
+            province: data.province,
+            updated_at: data.updated_at,
+            deleted_at: null
         })
 
         return data
@@ -27,8 +36,29 @@ class ProfileRepository implements IProfileRepository {
     async findOne(uuid: string): Promise<ProfileEntity | null> {
 
         const result = await ProfileModel.findOne({
-            user_uuid: uuid,
-            is_active: true
+            uuid: uuid,
+            is_active: true,
+            $or: [{ deleted_at: undefined }, { deleted_at: null }]
+        })
+
+        return result ? new ProfileEntity(result) : null
+    }
+
+    async checkEmail(email: string): Promise<ProfileEntity | null> {
+
+        const result = await ProfileModel.findOne({
+            email: email,
+            $or: [{ deleted_at: undefined }, { deleted_at: null }]
+        })
+
+        return result ? new ProfileEntity(result) : null
+    }
+
+    async findOneByUuid(uuid: string): Promise<ProfileEntity | null> {
+
+        const result = await ProfileModel.findOne({
+            uuid: uuid,
+            $or: [{ deleted_at: undefined }, { deleted_at: null }]
         })
 
         return result ? new ProfileEntity(result) : null
@@ -38,32 +68,36 @@ class ProfileRepository implements IProfileRepository {
 
         const result = await ProfileModel.findOne({
             slug: slug,
-            is_active: true,
+            $or: [{ deleted_at: undefined }, { deleted_at: null }]
         })
 
         return result ? new ProfileEntity(result) : null
     }
 
     async update(data: ProfileEntity): Promise<ProfileEntity> {
-        const result = await ProfileModel.updateOne({
-            uuid: data.uuid, user_uuid: data.user_uuid,
-        }, {
-            idul_adha: data.idul_adha ?? null,
-            main_information: {
-                nickname: data.main_information?.nickname,
-                full_name: data.main_information?.full_name,
-                visi: data.main_information?.visi,
-                misi: data.main_information?.misi,
-                image: data.main_information?.image,
-                description: data.main_information?.description,
-                cloudinary_id: data.main_information?.cloudinary_id
-            },
-            ramadhan: data.ramadhan ?? null,
-            slug: data.slug,
-            user_uuid: data.user_uuid,
 
+        const result = await ProfileModel.updateOne({ uuid: data.created_by.uuid ?? '' }, {
+            data
         })
         return data
+    }
+
+    async chainUpdateFromProfile(name: string, uuid: string): Promise<{ success: true }> {
+        console.log(name, uuid)
+        const response = await ProfileModel.updateOne({ uuid: uuid }, {
+            name: name
+        })
+
+        return { success: true }
+    }
+
+    async updateIsActiveTrue(user_uuid: string, is_active: boolean): Promise<{ success: true }> {
+
+        const response = await ProfileModel.updateOne({ uuid: user_uuid }, {
+            is_active: is_active
+        })
+
+        return { success: true }
     }
 
     async index(
@@ -90,12 +124,23 @@ class ProfileRepository implements IProfileRepository {
                     total: total_customer,
                     data: result.map((data) => {
                         return new ProfileEntity({
-                            idul_adha: null,
-                            ramadhan: null,
-                            user_uuid: '',
-                            uuid: '',
+                            uuid: data.uuid,
+                            created_by: {
+                                uuid: data.created_by.uuid ?? '',
+                                name: data.created_by.name ?? '',
+                            },
                             slug: data.slug,
-                            main_information: data.main_information,
+                            roles: data.roles,
+                            address: data.address,
+                            card_number: data.card_number,
+                            city: data.city,
+                            district: data.city,
+                            email: data.email ?? '',
+                            image: data.image,
+                            phone: data.phone,
+                            created_at: data.created_at,
+                            province: data.province,
+                            updated_at: data.updated_at,
                             deleted_at: null
                         });
                     }),
@@ -105,16 +150,6 @@ class ProfileRepository implements IProfileRepository {
                 return err;
             });
     }
-
-    async updateIsActiveTrue(user_uuid: string, is_active: boolean): Promise<{ success: true }> {
-        const result = await ProfileModel.updateOne({
-            user_uuid: user_uuid,
-
-        }, { is_active: is_active })
-
-        return { success: true }
-    }
-
 }
 
 export default ProfileRepository

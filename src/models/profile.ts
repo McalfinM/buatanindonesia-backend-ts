@@ -1,22 +1,28 @@
 import { model, Schema, Model } from "mongoose";
-import { IProfile } from "./interfaces/mainInformation";
+import { IProfile } from './interfaces/profile'
 
 const ProfileSchema: Schema = new Schema(
     {
         uuid: { type: String },
-        user_uuid: { type: String },
-        main_information: { type: Object },
-        ramadhan: { type: Object },
+        created_by: { type: Object },
         slug: { type: String },
-        is_active: { type: Boolean },
-        idul_adha: { type: Object },
+        address: { type: String },
+        card_number: { type: String },
+        province_uuid: { type: String },
+        city_uuid: { type: String },
+        district_uuid: { type: String },
+        phone: { type: String },
+        email: { type: String },
+        image: { type: String },
         roles: { type: Array },
-        deleted_at: { type: Date }
+        created_at: { type: Date },
+        updated_at: { type: Date },
+        deleted_at: { type: Date },
     }
 );
 
-ProfileSchema.index('uuid')
 ProfileSchema.index('user_uuid')
+ProfileSchema.index('uuid')
 
 const ProfileModel: Model<IProfile> = model(
     "profiles",

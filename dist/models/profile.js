@@ -3,16 +3,22 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const ProfileSchema = new mongoose_1.Schema({
     uuid: { type: String },
-    user_uuid: { type: String },
-    main_information: { type: Object },
-    ramadhan: { type: Object },
+    created_by: { type: Object },
     slug: { type: String },
-    is_active: { type: Boolean },
-    idul_adha: { type: Object },
+    address: { type: String },
+    card_number: { type: String },
+    province_uuid: { type: String },
+    city_uuid: { type: String },
+    district_uuid: { type: String },
+    phone: { type: String },
+    email: { type: String },
+    image: { type: String },
     roles: { type: Array },
-    deleted_at: { type: Date }
+    created_at: { type: Date },
+    updated_at: { type: Date },
+    deleted_at: { type: Date },
 });
-ProfileSchema.index('uuid');
 ProfileSchema.index('user_uuid');
+ProfileSchema.index('uuid');
 const ProfileModel = mongoose_1.model("profiles", ProfileSchema);
 exports.default = ProfileModel;

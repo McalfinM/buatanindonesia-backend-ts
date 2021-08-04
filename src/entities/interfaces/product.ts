@@ -1,23 +1,22 @@
-import { UserRole } from "../enums/enum";
-
 export interface IEmbed {
     uuid?: string
     name?: string
     image?: string
+    province_uuid?: string
+    city_uuid?: string
 }
-export interface IProfileEntity {
+
+export interface IProductEntity {
     uuid: string
     created_by: IEmbed
+    name: string
     slug: string
-    address: string
-    card_number: string
-    province: IEmbed
-    city: IEmbed
-    district: IEmbed
-    phone: string
-    email: string
+    description: string
+    price: number
+    stock: number
     image: string
-    roles: string[]
+    cloudinary_id: string
+    is_active: boolean
     created_at: Date | null
     updated_at: Date | null
     deleted_at: Date | null

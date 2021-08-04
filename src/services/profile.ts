@@ -3,7 +3,6 @@ import { TYPES } from "../types";
 import { v4 as uuidv4 } from 'uuid'
 import { events } from "../events/events";
 import { EventDispatcher } from "event-dispatch";
-import { IProfileService } from "./interfaces/profile";
 import ProfileEntity from "../entities/profile";
 import { IProfileRepository } from "../repositories/interfaces/profile";
 import GetProfileRequest from "../request/profile/getProfileRequest";
@@ -13,16 +12,11 @@ import { IUser } from "../models/interfaces/user";
 import UpdateProfileRequest from "../request/profile/updateProfileRequest";
 import { ErrorNotFound } from "../helpers/errors";
 import { cloud } from "../helpers/cloudinary";
-import { IRemasLikeService } from "./interfaces/remasLike";
-import { IPostRepository } from "../repositories/interfaces/post";
-import { ICommentRemasService } from "./interfaces/commentRemas";
 import { ICommentService } from "./interfaces/comment";
-import CommentRemasEntity from "../entities/commentRemas";
 import { IUserService } from "./interfaces/user";
 import { IUserRepository } from "../repositories/interfaces/user";
-import { IRequestRemasService } from "./interfaces/requestRemas";
-import { IRegistrationMemberRemasService } from "./interfaces/registrationMemberRemas";
-import { IRegistrationMemberRemasRepository } from "../repositories/interfaces/registrationMemberRemas";
+import { UserRole } from "../entities/enums/enum";
+import { IProfileService } from "./interfaces/profile";
 
 @injectable()
 class ProfileService implements IProfileService {
@@ -30,13 +24,8 @@ class ProfileService implements IProfileService {
     constructor(
 
         @inject(TYPES.ProfileRepository) private profileReopsitory: IProfileRepository,
-        @inject(TYPES.PostRepository) private postService: IPostRepository,
-        @inject(TYPES.RemasLikeService) private remasService: IRemasLikeService,
-        @inject(TYPES.CommentRemasService) private commentRemasService: ICommentRemasService,
-        @inject(TYPES.RegistrationMemberRemasRepository) private registerMemberRemas: IRegistrationMemberRemasRepository,
         @inject(TYPES.CommentService) private commentService: ICommentService,
         @inject(TYPES.UserRepository) private userService: IUserRepository,
-        @inject(TYPES.RequestRemasService) private requestRemasService: IRequestRemasService,
         @inject(TYPES.ProducerDispatcher) private dispatcher: EventDispatcher
     ) { }
 
@@ -44,14 +33,23 @@ class ProfileService implements IProfileService {
         const searchData = await this.profileReopsitory.findOne(data.uuid ?? '')
 
         const profileEntity = new ProfileEntity({
-            main_information: data.main_information,
-            ramadhan: data.ramadhan ?? null,
-            idul_adha: data.idul_adha ?? null,
-            roles: data.roles,
-            is_active: data.is_active,
-            user_uuid: data.user_uuid ?? '',
-            uuid: data.uuid ?? '',
-            slug: slugify(data.slug) + uuidv4(),
+            uuid: data.uuid,
+            created_by: {
+                uuid: data.created_by.uuid?? '',
+                name: data.created_by.name ?? '',
+            },
+            slug: slugify(data.created_by.name ?? '') + uuidv4(),
+            roles: [UserRole.MEMBER],
+            address: '',
+            card_number: '',
+            city: data.city,
+            district: data.city,
+            email: data.email ?? '',
+            image: data.image,
+            phone: data.phone,
+            created_at: data.created_at,
+            province: data.province,
+            updated_at: data.updated_at,
             deleted_at: null
         })
         await this.profileReopsitory.create(profileEntity)
