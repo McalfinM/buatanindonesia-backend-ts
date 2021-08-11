@@ -20,6 +20,7 @@ let CommentRepository = class CommentRepository {
             comment: data.comment,
             post_uuid: data.post_uuid,
             ip_address: data.ip_address,
+            key: data.key,
             created_at: data.created_at,
             deleted_at: data.deleted_at,
             updated_at: data.updated_at,
@@ -47,12 +48,11 @@ let CommentRepository = class CommentRepository {
         return { success: true };
     }
     async chainUpdateFromProfile(data) {
-        await comment_2.default.updateMany({ "created_by.uuid": data.user_uuid }, {
+        await comment_2.default.updateMany({ "created_by.uuid": data.created_by.uuid }, {
             created_by: {
-                name: data.main_information?.nickname ?? '',
-                uuid: data.user_uuid ?? "",
-                image: data.main_information?.image,
-                slug: data.slug
+                name: data.created_by?.name ?? '',
+                image: data.created_by?.image,
+                slug: data.slug ?? ''
             }
         });
         return { success: true };
@@ -66,6 +66,7 @@ let CommentRepository = class CommentRepository {
                         uuid: data.uuid,
                         created_by: data.created_by,
                         comment: data.comment,
+                        key: data.key,
                         created_at: data.created_at,
                         updated_at: data.updated_at,
                     });

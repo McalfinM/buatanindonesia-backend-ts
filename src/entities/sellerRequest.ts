@@ -1,17 +1,21 @@
 
-import { IProvinces } from "../models/interfaces/province";
 import BaseEntity from "./baseEntity";
 import { IEmbed } from "./interfaces/product";
 import { ISellerRequestEntity } from './interfaces/sellerRequest'
 
-class ProvinceEntity extends BaseEntity {
+class SellerRequestEntity extends BaseEntity {
 
     protected _uuid: string
+    protected _name: string
     protected _created_by: IEmbed
+    protected _bank: IEmbed
     protected _email: string
     protected _card_holder_name: string
-    protected _image: string
+    protected _card_number: string
+    protected _image: string[]
     protected _status: string
+    protected _phone: string
+    protected _ktp_image: string | null
     protected _created_at: Date | null
     protected _updated_at: Date | null
     protected _deleted_at: Date | null
@@ -26,7 +30,12 @@ class ProvinceEntity extends BaseEntity {
         this._email = params.email
         this._card_holder_name = params.card_holder_name
         this._image = params.image
+        this._card_number = params.card_number
+        this._phone = params.phone
         this._status = params.status
+        this._name = params.name
+        this._ktp_image = params.ktp_image
+        this._bank = params.bank
         this._created_at = params.created_at
         this._updated_at = params.updated_at
         this._deleted_at = params.deleted_at
@@ -56,6 +65,22 @@ class ProvinceEntity extends BaseEntity {
         this._email = email
     }
 
+    get name(): string {
+        return this._name
+    }
+
+    set name(name: string) {
+        this._name = name
+    }
+
+    get ktp_image(): string | null {
+        return this._ktp_image
+    }
+
+    set ktp_image(ktp_image: string | null) {
+        this._ktp_image = ktp_image
+    }
+
     get card_holder_name(): string {
         return this._card_holder_name
     }
@@ -64,12 +89,28 @@ class ProvinceEntity extends BaseEntity {
         this._card_holder_name = card_holder_name
     }
 
-    get image(): string {
+    get card_number(): string {
+        return this._card_number
+    }
+
+    set card_number(card_number: string) {
+        this._card_number = card_number
+    }
+
+    get image(): string[] {
         return this._image
     }
 
-    set image(image: string) {
+    set image(image: string[]) {
         this._image = image
+    }
+
+    get phone(): string {
+        return this._phone
+    }
+
+    set phone(phone: string) {
+        this._phone = phone
     }
 
     get status(): string {
@@ -78,6 +119,14 @@ class ProvinceEntity extends BaseEntity {
 
     set status(status: string) {
         this._status = status
+    }
+
+    get bank(): IEmbed {
+        return this._bank
+    }
+
+    set bank(bank: IEmbed) {
+        this._bank = bank
     }
 
     get created_at(): Date | null {
@@ -109,11 +158,16 @@ class ProvinceEntity extends BaseEntity {
     toJson(): object {
         return {
             uuid: this.uuid,
+            name: this.name,
             created_by: this.created_by,
+            bank: this.bank,
             email: this.email,
             card_holder_name: this.card_holder_name,
+            card_number: this.card_number,
             image: this.image,
             status: this.status,
+            phone: this.phone,
+            ktp_image: this.ktp_image,
             created_at: this.created_at,
             updated_at: this.updated_at,
             deleted_at: this.deleted_at,
@@ -127,11 +181,9 @@ class ProvinceEntity extends BaseEntity {
             image: this.image,
             status: this.status,
             created_at: this.created_at,
-            updated_at: this.updated_at,
-            deleted_at: this.deleted_at,
         };
     }
 
 }
 
-export default ProvinceEntity;
+export default SellerRequestEntity;

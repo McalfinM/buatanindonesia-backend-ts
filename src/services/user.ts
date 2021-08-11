@@ -15,6 +15,7 @@ import { ITokenService } from "./interfaces/token";
 import TokenEntity from "../entities/token";
 import { IEmailService } from "./interfaces/email";
 import ProfileEntity from "../entities/profile";
+import { IProfileService } from "./interfaces/profile";
 
 @injectable()
 class UserService implements IUserService {
@@ -22,13 +23,19 @@ class UserService implements IUserService {
     constructor(
         @inject(TYPES.UserRepository) private userRepository: IUserRepository,
         @inject(TYPES.TokenService) private tokenService: ITokenService,
+        @inject(TYPES.ProfileService) private profileService: IProfileService,
         @inject(TYPES.EmailService) private emailService: IEmailService,
         @inject(TYPES.ProducerDispatcher) private dispatcher: EventDispatcher,
     ) { }
 
     async create(data: CreateUserRequest): Promise<{ success: true }> {
+        if (data.password !== data.confirm_password) {
+            throw new ErrorBadRequest('Password tidak sama', '@Create User Service')
+        }
         data.email?.toLowerCase()
         const findUser = await this.userRepository.checkEmail(data.email ?? '')
+        const findUsername = await this.userRepository.checkUsername(data.name ?? '')
+        if (findUsername) throw new ErrorBadRequest('Can\'t use this username', '@Service User Create')
         if (findUser) throw new ErrorBadRequest('Email already registered', '@Service User Create')
         const salt = await bcrypt.genSalt(12)
         const hash = bcrypt.hashSync(data.password, salt)
@@ -57,7 +64,10 @@ class UserService implements IUserService {
             district: {},
             email: userEntity.email ?? '',
             image: Imagedefault.IMAGE_DEFAULT,
+            village: {},
             phone: '',
+            cloudinary_id: '',
+            bank: {},
             created_at: new Date,
             province: {},
             updated_at: new Date,
@@ -74,13 +84,14 @@ class UserService implements IUserService {
             updated_at: new Date
         })
         const tokenService = await this.tokenService.create(tokenEntity)
-        await this.emailService.sendEmailVerificationAccout(tokenService.token, data.email ?? '')
+        const profileService = await this.profileService.create(profile)
+        // await this.emailService.sendEmailVerificationAccout(tokenService.token, data.email ?? '')
         await this.userRepository.create(userEntity)
         return { success: true }
     }
 
     async findOne(uuid: string): Promise<UserEntity | null> {
-        const result = await this.userRepository.checkEmail(uuid)
+        const result = await this.userRepository.findOne(uuid)
 
         return result
     }
@@ -97,6 +108,12 @@ class UserService implements IUserService {
 
     async chainUpdateFromProfile(name: string, uuid: string): Promise<{ success: true }> {
         const response = await this.userRepository.chainUpdateFromProfile(name, uuid)
+
+        return { success: true }
+    }
+
+    async updateForSeller(data: UserEntity): Promise<{ success: true }> {
+        await this.userRepository.update(data)
 
         return { success: true }
     }

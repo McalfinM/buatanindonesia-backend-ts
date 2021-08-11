@@ -1,5 +1,5 @@
 import BaseRouter from './baseRouter'
-import { bodyValidation } from '../validators/vehicleBrand'
+import { bodyValidation } from '../validators/auth/auth'
 import { Router } from 'express'
 import IRouter from './interfaces/router'
 import { IUserController } from '../controllers/interfaces/user'
@@ -25,7 +25,7 @@ class AuthRouter extends BaseRouter {
     routes(): IRouter {
         // call controllers here
         this.router.post('/login', this.authController.login)
-        this.router.post('/register', this.authController.register)
+        this.router.post('/register', bodyValidation(), validate, this.authController.register)
         return this
     }
 

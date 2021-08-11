@@ -4,6 +4,7 @@ export interface IEmbed {
     image?: string
     province_uuid?: string
     city_uuid?: string
+    code?: string
 }
 
 export interface IProductEntity {
@@ -17,6 +18,7 @@ export interface IProductEntity {
     image: string
     cloudinary_id: string
     is_active: boolean
+    category: IEmbed
     created_at: Date | null
     updated_at: Date | null
     deleted_at: Date | null

@@ -4,6 +4,7 @@
 class CreateCommentRequest {
     protected _post_uuid: string
     protected _comment: string
+    protected _key: string
     protected _ip_address: string
     protected _created_at: Date | null
     protected _updated_at: Date | null
@@ -14,6 +15,7 @@ class CreateCommentRequest {
         post_uuid: string
         comment: string
         ip_address: string
+        key: string
         created_at: Date | null
         updated_at: Date | null
         deleted_at: Date | null
@@ -22,6 +24,7 @@ class CreateCommentRequest {
         this._post_uuid = body.post_uuid
         this._comment = body.comment
         this._ip_address = body.ip_address
+        this._key = body.key
         this._created_at = body.created_at
         this._updated_at = body.updated_at
         this._deleted_at = body.deleted_at
@@ -34,6 +37,9 @@ class CreateCommentRequest {
     }
     get ip_address(): string {
         return this._ip_address
+    }
+    get key(): string {
+        return this._key
     }
     get created_at(): Date | null {
         return this._created_at

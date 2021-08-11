@@ -5,13 +5,17 @@ const SellerRequest = new mongoose_1.Schema({
     uuid: { type: String },
     created_by: { type: Object },
     email: { type: String },
+    bank: { type: Object },
     card_holder_name: { type: String },
-    image: { type: String },
+    phone: { type: String },
+    image: { type: Array },
+    ktp_image: { type: String },
+    name: { type: String },
     status: { type: String },
     created_at: { type: Date },
     updated_at: { type: Date },
     deleted_at: { type: Date },
 });
 SellerRequest.index('uuid');
-const SellerModel = mongoose_1.model("SellerRequest", SellerRequest);
-exports.default = SellerModel;
+const SellerRequestModel = mongoose_1.model("Seller_Request", SellerRequest);
+exports.default = SellerRequestModel;

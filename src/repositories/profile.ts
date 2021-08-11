@@ -36,8 +36,7 @@ class ProfileRepository implements IProfileRepository {
     async findOne(uuid: string): Promise<ProfileEntity | null> {
 
         const result = await ProfileModel.findOne({
-            uuid: uuid,
-            is_active: true,
+            "created_by.uuid": uuid,
             $or: [{ deleted_at: undefined }, { deleted_at: null }]
         })
 
@@ -75,9 +74,8 @@ class ProfileRepository implements IProfileRepository {
     }
 
     async update(data: ProfileEntity): Promise<ProfileEntity> {
-
-        const result = await ProfileModel.updateOne({ uuid: data.created_by.uuid ?? '' }, {
-            data
+        const result = await ProfileModel.updateOne({ "created_by.uuid": data.created_by.uuid ?? '' }, {
+            ...data.toJson()
         })
         return data
     }
@@ -137,9 +135,12 @@ class ProfileRepository implements IProfileRepository {
                             district: data.city,
                             email: data.email ?? '',
                             image: data.image,
+                            cloudinary_id: data.cloudinary_id,
+                            village: data.village,
                             phone: data.phone,
                             created_at: data.created_at,
                             province: data.province,
+                            bank: data.bank,
                             updated_at: data.updated_at,
                             deleted_at: null
                         });

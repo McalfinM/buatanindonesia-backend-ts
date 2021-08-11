@@ -1,7 +1,13 @@
 
-import { IVillage } from "../models/interfaces/villages";
 import BaseEntity from "./baseEntity";
 
+export interface IVillage {
+    uuid: string
+    district_uuid: string
+    name: string
+    code: string
+    postal_code: string
+}
 class VillageEntity extends BaseEntity {
 
     protected _uuid: string

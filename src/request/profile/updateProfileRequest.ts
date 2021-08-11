@@ -1,114 +1,119 @@
-import { IEmbed } from "../../entities/interfaces/post"
-import { IIdulAdha, IZakat } from "../../entities/interfaces/profile"
-
 class UpdateProfileRequest {
-    protected _nickname: string | null
-    protected _full_name: string | null
-    protected _address: string | null
-    protected _birthday: string | null
-    protected _cloudinary_id: string | null
-    protected _description: string | null
-    protected _visi: string | null
-    protected _misi: string | null
-    protected _image: string | null
-    protected _idul_adha: IIdulAdha | null
-    protected _ramadhan: IZakat | null
-
+    protected _name: string
+    protected _address: string
+    protected _card_number: string
+    protected _province_uuid: string
+    protected _city_uuid: string
+    protected _district_uuid: string
+    protected _village_uuid: string
+    protected _bank_uuid: string
+    protected _phone: string
+    protected _email: string
+    protected _image: string
+    protected _cloudinary_id: string
 
     constructor(body: {
-        nickname: string | null
-        full_name: string | null
-        visi: string | null
-        misi: string | null
-        birthday: string | null
-        description: string | null
-        cloudinary_id: string | null
-        address: string | null
-        image: string | null
-        idul_adha: IIdulAdha | null
-        ramadhan: IZakat | null
+        name: string
+        address: string
+        card_number: string
+        province_uuid: string
+        city_uuid: string
+        district_uuid: string
+        village_uuid: string
+        bank_uuid: string
+        phone: string
+        email: string
+        image: string
+        cloudinary_id: string
 
     }) {
-        this._nickname = body.nickname
-        this._full_name = body.full_name
-        this._visi = body.visi
-        this._misi = body.misi
-        this._description = body.description
+        this._name = body.name
+        this._address = body.address
+        this._card_number = body.card_number
+        this._province_uuid = body.province_uuid
+        this._city_uuid = body.city_uuid
+        this._district_uuid = body.district_uuid
+        this._village_uuid = body.village_uuid
+        this._phone = body.phone
+        this._email = body.email
         this._image = body.image
         this._cloudinary_id = body.cloudinary_id
-        this._address = body.address
-        this._birthday = body.birthday
-        this._idul_adha = body.idul_adha
-        this._ramadhan = body.ramadhan
+        this._bank_uuid = body.bank_uuid
     }
 
-    get nickname(): string | null {
-        return this._nickname
+
+    get name(): string {
+        return this._name
     }
-    set nickname(nickname: string | null) {
-        this._nickname = nickname
+    set name(name: string) {
+        this._name = name
     }
-    get full_name(): string | null {
-        return this._full_name
-    }
-    set full_name(full_name: string | null) {
-        this._full_name = full_name
-    }
-    get visi(): string | null {
-        return this._visi
-    }
-    set visi(visi: string | null) {
-        this._visi = visi
-    }
-    get misi(): string | null {
-        return this._misi
-    }
-    set misi(misi: string | null) {
-        this._misi = misi
-    }
-    get description(): string | null {
-        return this._description
-    }
-    set birthday(birthday: string | null) {
-        this._birthday = birthday
-    }
-    get image(): string | null {
-        return this._image
-    }
-    set description(description: string | null) {
-        this._description = description
-    }
-    get address(): string | null {
+    get address(): string {
         return this._address
     }
-    set cloudinary_id(cloudinary_id: string | null) {
-        this._cloudinary_id = cloudinary_id
-    }
-    get cloudinary_id(): string | null {
-        return this._cloudinary_id
-    }
-    set address(address: string | null) {
+    set address(address: string) {
         this._address = address
     }
-    get birthday(): string | null {
-        return this._birthday
+    get card_number(): string {
+        return this._card_number
     }
-    set image(image: string | null) {
+    set card_number(card_number: string) {
+        this._card_number = card_number
+    }
+    get province_uuid(): string {
+        return this._province_uuid
+    }
+    set province_uuid(province_uuid: string) {
+        this._province_uuid = province_uuid
+    }
+    get city_uuid(): string {
+        return this._city_uuid
+    }
+    set city_uuid(city_uuid: string) {
+        this._city_uuid = city_uuid
+    }
+    get district_uuid(): string {
+        return this._district_uuid
+    }
+    set district_uuid(district_uuid: string) {
+        this._district_uuid = district_uuid
+    }
+    get village_uuid(): string {
+        return this._village_uuid
+    }
+    set village_uuid(village_uuid: string) {
+        this._village_uuid = village_uuid
+    }
+    get phone(): string {
+        return this._phone
+    }
+    set phone(phone: string) {
+        this._phone = phone
+    }
+    get email(): string {
+        return this._email
+    }
+    set email(email: string) {
+        this._email = email
+    }
+    get image(): string {
+        return this._image
+    }
+    set image(image: string) {
         this._image = image
     }
-    get idul_adha(): IIdulAdha | null {
-        return this._idul_adha
+    get cloudinary_id(): string {
+        return this._cloudinary_id
     }
-    set idul_adha(idul_adha: IIdulAdha | null) {
-        this._idul_adha = idul_adha
+    set cloudinary_id(cloudinary_id: string) {
+        this._cloudinary_id = cloudinary_id
     }
-    get ramadhan(): IZakat | null {
-        return this._ramadhan
+    get bank_uuid(): string {
+        return this._bank_uuid
     }
-    set ramadhan(ramadhan: IZakat | null) {
-        this._ramadhan = ramadhan
+    set bank_uuid(bank_uuid: string) {
+        this._bank_uuid = bank_uuid
     }
-
 }
 
-export default UpdateProfileRequest
+export default UpdateProfileRequest;

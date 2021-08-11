@@ -37,6 +37,7 @@ let CommentService = class CommentService {
                 uuid: userEntity.uuid ?? '',
                 name: userEntity.name ?? ''
             },
+            key: data.key,
             post_uuid: data.post_uuid,
             ip_address: data.ip_address,
             comment: data.comment,
@@ -61,6 +62,7 @@ let CommentService = class CommentService {
                 uuid: user.uuid,
                 name: user.name
             },
+            key: findComment.key,
             post_uuid: findComment.post_uuid,
             comment: data.comment,
             created_at: findComment.created_at,

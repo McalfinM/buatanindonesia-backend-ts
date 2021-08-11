@@ -16,6 +16,7 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
         let decoded: any = jwt.verify(token ?? '', process?.env?.JWT_SECRET ?? '');
 
         if (dateToUnixTimestamp(new Date()) > (decoded.iat + TOKEN_EXPIRE_TIME_IN_SECOND)) {
+
             throw new ErrorUnauthenticated('expired_token', "authenticate")
         }
 
@@ -39,20 +40,22 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
         //     console.log('req.user.uuid:', req.user?.uuid)
         //     next();
         // })
+
         req.user = {
             uuid: decoded.uuid,
             // roles: decoded.roles,
             // accesses: decoded.accesses,
             name: decoded.name,
-            email: decoded.email,
+            // email: decoded.email,
             // phone_number: decoded.phone_number,
             iat: decoded.iat,
         }
         next();
 
     } catch (err) {
-        return res.status(500).json({
-            message: "something error"
+        console.log(err)
+        return res.status(403).json({
+            message: "Unauthenticated"
         })
     }
 }

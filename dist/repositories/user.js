@@ -31,13 +31,20 @@ let UserRepository = class UserRepository {
         const result = await user_2.default.findOne({
             uuid: uuid,
             is_active: true,
-            $or: [{ deleted_at: undefined }]
+            $or: [{ deleted_at: undefined }, { deleted_at: null }]
         });
         return result ? new user_1.default(result) : null;
     }
     async checkEmail(email) {
         const result = await user_2.default.findOne({
             email: email,
+            $or: [{ deleted_at: undefined }]
+        });
+        return result ? new user_1.default(result) : null;
+    }
+    async checkUsername(name) {
+        const result = await user_2.default.findOne({
+            name: name,
             $or: [{ deleted_at: undefined }]
         });
         return result ? new user_1.default(result) : null;
@@ -49,9 +56,9 @@ let UserRepository = class UserRepository {
         });
         return result ? new user_1.default(result) : null;
     }
-    async update(data, user) {
-        const result = await user_2.default.updateOne({ uuid: user.uuid ?? '' }, {
-            data
+    async update(data) {
+        const result = await user_2.default.updateOne({ uuid: data.uuid ?? '' }, {
+            ...data.toJson()
         });
         return data;
     }

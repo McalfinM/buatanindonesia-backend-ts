@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 class CreateCommentRequest {
     _post_uuid;
     _comment;
+    _key;
     _ip_address;
     _created_at;
     _updated_at;
@@ -11,6 +12,7 @@ class CreateCommentRequest {
         this._post_uuid = body.post_uuid;
         this._comment = body.comment;
         this._ip_address = body.ip_address;
+        this._key = body.key;
         this._created_at = body.created_at;
         this._updated_at = body.updated_at;
         this._deleted_at = body.deleted_at;
@@ -23,6 +25,9 @@ class CreateCommentRequest {
     }
     get ip_address() {
         return this._ip_address;
+    }
+    get key() {
+        return this._key;
     }
     get created_at() {
         return this._created_at;

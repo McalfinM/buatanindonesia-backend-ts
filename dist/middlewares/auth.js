@@ -40,15 +40,16 @@ const authenticate = async (req, res, next) => {
             // roles: decoded.roles,
             // accesses: decoded.accesses,
             name: decoded.name,
-            email: decoded.email,
+            // email: decoded.email,
             // phone_number: decoded.phone_number,
             iat: decoded.iat,
         };
         next();
     }
     catch (err) {
-        return res.status(500).json({
-            message: "something error"
+        console.log(err);
+        return res.status(403).json({
+            message: "Unauthenticated"
         });
     }
 };

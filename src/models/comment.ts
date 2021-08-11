@@ -8,6 +8,7 @@ const CommentSchema: Schema = new Schema(
         comment: { type: String },
         post_uuid: { type: String },
         ip_address: { type: String },
+        key: { type: String },
         created_at: { type: Date },
         deleted_at: { type: Date },
         updated_at: { type: Date }

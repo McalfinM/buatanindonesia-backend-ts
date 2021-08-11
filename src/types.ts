@@ -9,8 +9,8 @@ const TYPES = {
     UserController: Symbol.for("UserController"),
     UserService: Symbol.for("UserService"),
     UserRepository: Symbol.for("UserRepository"),
-    ProfileRouter: Symbol.for("ProfileRouter"),
-    ProfileController: Symbol.for("ProfileController"),
+    // ProfileRouter: Symbol.for("ProfileRouter"),
+    // ProfileController: Symbol.for("ProfileController"),
     ProfileService: Symbol.for("ProfileService"),
     ProfileRepository: Symbol.for("ProfileRepository"),
     CommentRouter: Symbol.for("CommentRouter"),
@@ -25,7 +25,9 @@ const TYPES = {
     CategoryController: Symbol.for("CategoryController"),
     CategoryService: Symbol.for("CategoryService"),
     CategoryRepository: Symbol.for("CategoryRepository"),
+
     EmailService: Symbol.for("EmailService"),
+
     TokenRouter: Symbol.for("TokenRouter"),
     TokenController: Symbol.for("TokenController"),
     TokenService: Symbol.for("TokenService"),
@@ -40,6 +42,39 @@ const TYPES = {
     CityController: Symbol.for("CityController"),
     CityService: Symbol.for("CityService"),
     CityRepository: Symbol.for("CityRepository"),
+
+    DistrictRouter: Symbol.for("DistrictRouter"),
+    DistrictController: Symbol.for("DistrictController"),
+    DistrictService: Symbol.for("DistrictService"),
+    DistrictRepository: Symbol.for("DistrictRepository"),
+
+
+    VillageRouter: Symbol.for("VillageRouter"),
+    VillageController: Symbol.for("VillageController"),
+    VillageService: Symbol.for("VillageService"),
+    VillageRepository: Symbol.for("VillageRepository"),
+
+
+    SellerRequestRouter: Symbol.for("SellerRequestRouter"),
+    SellerRequestController: Symbol.for("SellerRequestController"),
+    SellerRequestService: Symbol.for("SellerRequestService"),
+    SellerRequestRepository: Symbol.for("SellerRequestRepository"),
+
+    BankRouter: Symbol.for("BankRouter"),
+    BankController: Symbol.for("BankController"),
+    BankService: Symbol.for("BankService"),
+    BankRepository: Symbol.for("BankRepository"),
+
+    ProductRouter: Symbol.for("ProductRouter"),
+    ProductController: Symbol.for("ProductController"),
+    ProductService: Symbol.for("ProductService"),
+    ProductRepository: Symbol.for("ProductRepository"),
+
+    CartRouter: Symbol.for("CartRouter"),
+    CartController: Symbol.for("CartController"),
+    CartService: Symbol.for("CartService"),
+    CartRepository: Symbol.for("CartRepository"),
+
     ProducerDispatcher: Symbol.for("ProducerDispatcher"),
     ConsumerDispatcher: Symbol.for("ConsumerDispatcher")
 };

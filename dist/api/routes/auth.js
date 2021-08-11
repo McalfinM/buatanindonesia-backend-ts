@@ -13,7 +13,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const baseRouter_1 = __importDefault(require("./baseRouter"));
+const auth_1 = require("../validators/auth/auth");
 const express_1 = require("express");
+const requestValidation_1 = require("../../middlewares/requestValidation");
 const inversify_1 = require("inversify");
 const types_1 = require("../../types");
 let AuthRouter = class AuthRouter extends baseRouter_1.default {
@@ -29,7 +31,7 @@ let AuthRouter = class AuthRouter extends baseRouter_1.default {
     routes() {
         // call controllers here
         this.router.post('/login', this.authController.login);
-        this.router.post('/register', this.authController.register);
+        this.router.post('/register', auth_1.bodyValidation(), requestValidation_1.validate, this.authController.register);
         return this;
     }
 };

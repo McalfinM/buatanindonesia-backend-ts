@@ -9,4 +9,5 @@ export interface IUserService {
     findOne(uuid: string): Promise<UserEntity | null>
     checkEmail(email: string): Promise<UserEntity | null>
     chainUpdateFromProfile(name: string, uuid: string): Promise<{ success: true }>
+    updateForSeller(data: UserEntity): Promise<{ success: true }>
 }

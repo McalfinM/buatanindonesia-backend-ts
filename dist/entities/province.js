@@ -11,8 +11,8 @@ class ProvinceEntity extends baseEntity_1.default {
     constructor(params) {
         super();
         this._uuid = params.uuid;
-        this._name = params.name,
-            this._code = params.code;
+        this._name = params.name;
+        this._code = params.code;
     }
     get uuid() {
         return this._uuid;

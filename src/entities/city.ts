@@ -1,8 +1,13 @@
 
-import { ICity } from "../models/interfaces/city";
-import { IProvinces } from "../models/interfaces/province";
 import BaseEntity from "./baseEntity";
 
+export interface ICity {
+    uuid: string
+    province_uuid: string
+    name: string
+    code: string
+
+}
 class CityEntity extends BaseEntity {
 
     protected _uuid: string

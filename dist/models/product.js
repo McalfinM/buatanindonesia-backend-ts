@@ -12,6 +12,7 @@ const ProductSchema = new mongoose_1.Schema({
     image: { type: String },
     cloudinary_id: { type: String },
     is_active: { type: Boolean },
+    category: { type: Object },
     created_at: { type: Date },
     updated_at: { type: Date },
     deleted_at: { type: Date },

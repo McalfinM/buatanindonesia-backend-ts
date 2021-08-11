@@ -11,6 +11,7 @@ const ProfileSchema = new mongoose_1.Schema({
     city_uuid: { type: String },
     district_uuid: { type: String },
     phone: { type: String },
+    bank: { type: Object },
     email: { type: String },
     image: { type: String },
     roles: { type: Array },

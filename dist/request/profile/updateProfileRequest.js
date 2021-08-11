@@ -1,95 +1,103 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class UpdateProfileRequest {
-    _nickname;
-    _full_name;
+    _name;
     _address;
-    _birthday;
-    _cloudinary_id;
-    _description;
-    _visi;
-    _misi;
+    _card_number;
+    _province_uuid;
+    _city_uuid;
+    _district_uuid;
+    _village_uuid;
+    _bank_uuid;
+    _phone;
+    _email;
     _image;
-    _idul_adha;
-    _ramadhan;
+    _cloudinary_id;
     constructor(body) {
-        this._nickname = body.nickname;
-        this._full_name = body.full_name;
-        this._visi = body.visi;
-        this._misi = body.misi;
-        this._description = body.description;
+        this._name = body.name;
+        this._address = body.address;
+        this._card_number = body.card_number;
+        this._province_uuid = body.province_uuid;
+        this._city_uuid = body.city_uuid;
+        this._district_uuid = body.district_uuid;
+        this._village_uuid = body.village_uuid;
+        this._phone = body.phone;
+        this._email = body.email;
         this._image = body.image;
         this._cloudinary_id = body.cloudinary_id;
-        this._address = body.address;
-        this._birthday = body.birthday;
-        this._idul_adha = body.idul_adha;
-        this._ramadhan = body.ramadhan;
+        this._bank_uuid = body.bank_uuid;
     }
-    get nickname() {
-        return this._nickname;
+    get name() {
+        return this._name;
     }
-    set nickname(nickname) {
-        this._nickname = nickname;
-    }
-    get full_name() {
-        return this._full_name;
-    }
-    set full_name(full_name) {
-        this._full_name = full_name;
-    }
-    get visi() {
-        return this._visi;
-    }
-    set visi(visi) {
-        this._visi = visi;
-    }
-    get misi() {
-        return this._misi;
-    }
-    set misi(misi) {
-        this._misi = misi;
-    }
-    get description() {
-        return this._description;
-    }
-    set birthday(birthday) {
-        this._birthday = birthday;
-    }
-    get image() {
-        return this._image;
-    }
-    set description(description) {
-        this._description = description;
+    set name(name) {
+        this._name = name;
     }
     get address() {
         return this._address;
     }
-    set cloudinary_id(cloudinary_id) {
-        this._cloudinary_id = cloudinary_id;
-    }
-    get cloudinary_id() {
-        return this._cloudinary_id;
-    }
     set address(address) {
         this._address = address;
     }
-    get birthday() {
-        return this._birthday;
+    get card_number() {
+        return this._card_number;
+    }
+    set card_number(card_number) {
+        this._card_number = card_number;
+    }
+    get province_uuid() {
+        return this._province_uuid;
+    }
+    set province_uuid(province_uuid) {
+        this._province_uuid = province_uuid;
+    }
+    get city_uuid() {
+        return this._city_uuid;
+    }
+    set city_uuid(city_uuid) {
+        this._city_uuid = city_uuid;
+    }
+    get district_uuid() {
+        return this._district_uuid;
+    }
+    set district_uuid(district_uuid) {
+        this._district_uuid = district_uuid;
+    }
+    get village_uuid() {
+        return this._village_uuid;
+    }
+    set village_uuid(village_uuid) {
+        this._village_uuid = village_uuid;
+    }
+    get phone() {
+        return this._phone;
+    }
+    set phone(phone) {
+        this._phone = phone;
+    }
+    get email() {
+        return this._email;
+    }
+    set email(email) {
+        this._email = email;
+    }
+    get image() {
+        return this._image;
     }
     set image(image) {
         this._image = image;
     }
-    get idul_adha() {
-        return this._idul_adha;
+    get cloudinary_id() {
+        return this._cloudinary_id;
     }
-    set idul_adha(idul_adha) {
-        this._idul_adha = idul_adha;
+    set cloudinary_id(cloudinary_id) {
+        this._cloudinary_id = cloudinary_id;
     }
-    get ramadhan() {
-        return this._ramadhan;
+    get bank_uuid() {
+        return this._bank_uuid;
     }
-    set ramadhan(ramadhan) {
-        this._ramadhan = ramadhan;
+    set bank_uuid(bank_uuid) {
+        this._bank_uuid = bank_uuid;
     }
 }
 exports.default = UpdateProfileRequest;

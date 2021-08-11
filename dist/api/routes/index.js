@@ -15,49 +15,53 @@ const types_1 = require("../../types");
 let IndexRouter = class IndexRouter {
     userRouter;
     authRouter;
-    postRouter;
-    profileRouter;
-    commentRouter;
-    likeRouter;
-    categoryRouter;
-    remasLikeRouter;
-    commentRemasRouter;
-    registrationMemberRemasRouter;
-    EventRouter;
-    requestRemasRouter;
     tokenRouter;
+    provinceRouter;
+    cityRouter;
+    districtRouter;
+    villageRouter;
+    sellerRequestRouter;
+    bankRouter;
+    productRouter;
+    cartRouter;
     router;
-    constructor(userRouter, authRouter, postRouter, profileRouter, commentRouter, likeRouter, categoryRouter, remasLikeRouter, commentRemasRouter, registrationMemberRemasRouter, EventRouter, requestRemasRouter, tokenRouter) {
+    constructor(userRouter, authRouter, 
+    // @inject(TYPES.PostRouter) private postRouter: IRouter,
+    // @inject(TYPES.ProfileRouter) private profileRouter: IRouter,
+    // @inject(TYPES.CommentRouter) private commentRouter: IRouter,
+    // @inject(TYPES.LikeRouter) private likeRouter: IRouter,
+    // @inject(TYPES.CategoryRouter) private categoryRouter: IRouter,
+    tokenRouter, provinceRouter, cityRouter, districtRouter, villageRouter, sellerRequestRouter, bankRouter, productRouter, cartRouter) {
         this.userRouter = userRouter;
         this.authRouter = authRouter;
-        this.postRouter = postRouter;
-        this.profileRouter = profileRouter;
-        this.commentRouter = commentRouter;
-        this.likeRouter = likeRouter;
-        this.categoryRouter = categoryRouter;
-        this.remasLikeRouter = remasLikeRouter;
-        this.commentRemasRouter = commentRemasRouter;
-        this.registrationMemberRemasRouter = registrationMemberRemasRouter;
-        this.EventRouter = EventRouter;
-        this.requestRemasRouter = requestRemasRouter;
         this.tokenRouter = tokenRouter;
+        this.provinceRouter = provinceRouter;
+        this.cityRouter = cityRouter;
+        this.districtRouter = districtRouter;
+        this.villageRouter = villageRouter;
+        this.sellerRequestRouter = sellerRequestRouter;
+        this.bankRouter = bankRouter;
+        this.productRouter = productRouter;
+        this.cartRouter = cartRouter;
         this.router = express_1.Router();
         this.routes();
     }
     routes() {
         this.router.use("/api/v1/users", this.userRouter.router);
         this.router.use("/api/v1/auth", this.authRouter.router);
-        this.router.use("/api/v1/posts", this.postRouter.router);
-        this.router.use("/api/v1/profiles", this.profileRouter.router);
-        this.router.use("/api/v1/comments", this.commentRouter.router);
-        this.router.use("/api/v1/category", this.categoryRouter.router);
-        this.router.use("/api/v1/likes", this.likeRouter.router);
-        this.router.use("/api/v1/remas-likes", this.remasLikeRouter.router);
-        this.router.use("/api/v1/remas-comments", this.commentRemasRouter.router);
-        this.router.use("/api/v1/remas-member-register", this.registrationMemberRemasRouter.router);
-        this.router.use("/api/v1/events", this.EventRouter.router);
-        this.router.use("/api/v1/request-remas", this.requestRemasRouter.router);
+        // this.router.use("/api/v1/profiles", this.profileRouter.router)
+        // this.router.use("/api/v1/comments", this.commentRouter.router)
+        // this.router.use("/api/v1/category", this.categoryRouter.router)
+        // this.router.use("/api/v1/likes", this.likeRouter.router)
         this.router.use("/api/v1/token", this.tokenRouter.router);
+        this.router.use("/api/v1/provinces", this.provinceRouter.router);
+        this.router.use("/api/v1/cities", this.cityRouter.router);
+        this.router.use("/api/v1/districts", this.districtRouter.router);
+        this.router.use("/api/v1/villages", this.villageRouter.router);
+        this.router.use("/api/v1/seller-requests", this.sellerRequestRouter.router);
+        this.router.use("/api/v1/banks", this.bankRouter.router);
+        this.router.use("/api/v1/products", this.productRouter.router);
+        this.router.use("/api/v1/carts", this.cartRouter.router);
         return this;
     }
 };
@@ -65,16 +69,14 @@ IndexRouter = __decorate([
     inversify_1.injectable(),
     __param(0, inversify_1.inject(types_1.TYPES.UserRouter)),
     __param(1, inversify_1.inject(types_1.TYPES.AuthRouter)),
-    __param(2, inversify_1.inject(types_1.TYPES.PostRouter)),
-    __param(3, inversify_1.inject(types_1.TYPES.ProfileRouter)),
-    __param(4, inversify_1.inject(types_1.TYPES.CommentRouter)),
-    __param(5, inversify_1.inject(types_1.TYPES.LikeRouter)),
-    __param(6, inversify_1.inject(types_1.TYPES.CategoryRouter)),
-    __param(7, inversify_1.inject(types_1.TYPES.RemasLikeRouter)),
-    __param(8, inversify_1.inject(types_1.TYPES.CommentRemasRouter)),
-    __param(9, inversify_1.inject(types_1.TYPES.RegistrationMemberRemasRouter)),
-    __param(10, inversify_1.inject(types_1.TYPES.EventRouter)),
-    __param(11, inversify_1.inject(types_1.TYPES.RequestRemasRouter)),
-    __param(12, inversify_1.inject(types_1.TYPES.TokenRouter))
+    __param(2, inversify_1.inject(types_1.TYPES.TokenRouter)),
+    __param(3, inversify_1.inject(types_1.TYPES.ProvinceRouter)),
+    __param(4, inversify_1.inject(types_1.TYPES.CityRouter)),
+    __param(5, inversify_1.inject(types_1.TYPES.DistrictRouter)),
+    __param(6, inversify_1.inject(types_1.TYPES.VillageRouter)),
+    __param(7, inversify_1.inject(types_1.TYPES.SellerRequestRouter)),
+    __param(8, inversify_1.inject(types_1.TYPES.BankRouter)),
+    __param(9, inversify_1.inject(types_1.TYPES.ProductRouter)),
+    __param(10, inversify_1.inject(types_1.TYPES.CartRouter))
 ], IndexRouter);
 exports.default = IndexRouter;

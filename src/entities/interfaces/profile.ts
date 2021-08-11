@@ -4,6 +4,7 @@ export interface IEmbed {
     uuid?: string
     name?: string
     image?: string
+    slug?: string
 }
 export interface IProfileEntity {
     uuid: string
@@ -14,10 +15,13 @@ export interface IProfileEntity {
     province: IEmbed
     city: IEmbed
     district: IEmbed
+    village: IEmbed
     phone: string
     email: string
+    cloudinary_id: string
     image: string
     roles: string[]
+    bank: IEmbed
     created_at: Date | null
     updated_at: Date | null
     deleted_at: Date | null

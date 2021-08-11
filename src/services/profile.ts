@@ -17,6 +17,12 @@ import { IUserService } from "./interfaces/user";
 import { IUserRepository } from "../repositories/interfaces/user";
 import { UserRole } from "../entities/enums/enum";
 import { IProfileService } from "./interfaces/profile";
+import { IProvinceService } from "./interfaces/province";
+import { ICityService } from "./interfaces/city";
+import { IDistrictService } from "./interfaces/district";
+import { IVillageSerivce } from "./interfaces/village";
+import CommentEntity from "../entities/comment";
+import { IBankService } from "./interfaces/bank";
 
 @injectable()
 class ProfileService implements IProfileService {
@@ -25,20 +31,25 @@ class ProfileService implements IProfileService {
 
         @inject(TYPES.ProfileRepository) private profileReopsitory: IProfileRepository,
         @inject(TYPES.CommentService) private commentService: ICommentService,
-        @inject(TYPES.UserRepository) private userService: IUserRepository,
+        @inject(TYPES.ProvinceService) private provinceService: IProvinceService,
+        @inject(TYPES.CityService) private cityService: ICityService,
+        @inject(TYPES.DistrictService) private districtService: IDistrictService,
+        @inject(TYPES.VillageService) private villageService: IVillageSerivce,
+        @inject(TYPES.BankService) private bankService: IBankService,
         @inject(TYPES.ProducerDispatcher) private dispatcher: EventDispatcher
     ) { }
 
     async create(data: ProfileEntity): Promise<{ success: true }> {
-        const searchData = await this.profileReopsitory.findOne(data.uuid ?? '')
-
         const profileEntity = new ProfileEntity({
             uuid: data.uuid,
             created_by: {
-                uuid: data.created_by.uuid?? '',
+                uuid: data.created_by.uuid ?? '',
                 name: data.created_by.name ?? '',
             },
-            slug: slugify(data.created_by.name ?? '') + uuidv4(),
+            slug: slugify(data.created_by.name ?? '', {
+                replacement: '-',
+                strict: true
+            }) + uuidv4(),
             roles: [UserRole.MEMBER],
             address: '',
             card_number: '',
@@ -46,9 +57,12 @@ class ProfileService implements IProfileService {
             district: data.city,
             email: data.email ?? '',
             image: data.image,
+            village: data.village,
             phone: data.phone,
+            cloudinary_id: data.cloudinary_id,
             created_at: data.created_at,
             province: data.province,
+            bank: data.bank,
             updated_at: data.updated_at,
             deleted_at: null
         })
@@ -64,80 +78,72 @@ class ProfileService implements IProfileService {
 
     async update(data: UpdateProfileRequest, user: IUser): Promise<{ success: true }> {
         const searchProfile = await this.profileReopsitory.findOne(user.uuid)
-        const postService = await this.postService.findPostWithAuth(user)
-        const commentRemas = await this.commentRemasService.findOne(user.uuid)
+        const province = await this.provinceService.findOne(data.province_uuid)
+        const city = await this.cityService.findOne(data.city_uuid)
+        const district = await this.districtService.findOne(data.district_uuid)
+        const village = await this.villageService.findOne(data.village_uuid)
         const commentService = await this.commentService.findOne(user.uuid)
-        const userService = await this.userService.findOneByUuid(user.uuid)
-        const findrequestRemas = await this.requestRemasService.findWithUserUuid(user)
-        const findRegistrationMember = await this.registerMemberRemas.findOneUserUuid(user.uuid)
-
+        const bank = data.bank_uuid ? await this.bankService.findOne(data.bank_uuid) : null
         if (!searchProfile) throw new ErrorNotFound('Data not found', '@Service Update profile')
         let slugi = ''
-        if (searchProfile.main_information?.nickname !== data.nickname) {
-            slugi = slugify(data.nickname ?? '')
+        if (searchProfile.created_by.name !== data.name) {
+            slugi = slugify(data.name ?? '', {
+                replacement: '-',
+                strict: true,
+            }) + uuidv4()
         } else {
             slugi = searchProfile.slug
         }
 
-        if (searchProfile.main_information?.cloudinary_id !== data.cloudinary_id) {
-            await cloud.uploader.destroy('profile/' + searchProfile.main_information?.cloudinary_id)
+        if (searchProfile.cloudinary_id !== data.cloudinary_id) {
+            await cloud.uploader.destroy('profile/' + searchProfile.cloudinary_id)
         }
         const profileEntity = new ProfileEntity({
-            idul_adha: data.idul_adha ?? null,
-            main_information: {
-                nickname: data.nickname ?? '',
-                full_name: data.full_name ?? '',
-                address: data.address ?? '',
-                birthday: data.birthday ?? '',
-                cloudinary_id: data.cloudinary_id ?? '',
-                description: data.description ?? '',
-                image: data.image ?? '',
-                member: '',
-                misi: data.misi ?? '',
-                visi: data.visi ?? '',
+            uuid: searchProfile.uuid,
+            created_by: {
+                uuid: searchProfile.uuid,
+                name: data.name ?? '',
             },
-            ramadhan: data.ramadhan ?? null,
             slug: slugi,
-            user_uuid: user.uuid,
-            uuid: searchProfile.uuid ?? '',
+            roles: [UserRole.MEMBER],
+            address: data.address,
+            card_number: data.card_number,
+            city: city ?? {},
+            district: district ?? {},
+            province: province ?? {},
+            village: village ?? {},
+            email: data.email ?? '',
+            image: data.image,
+            phone: data.phone,
+            cloudinary_id: data.cloudinary_id,
+            bank: {
+                uuid: bank?.uuid ?? '',
+                name: bank?.name ?? ''
+            },
+            created_at: searchProfile.created_at,
+            updated_at: new Date,
             deleted_at: null
         })
-        if (postService.data.length > 0) {
-            if (postService.data[0].created_by.name !== data.nickname || postService.data[0].created_by.image !== data.image) {
-                await this.postService.chainUpdateFromProfile(profileEntity)
-            }
+        // if (postService.data.length > 0) {
+        //     if (postService.data[0].created_by.name !== data.nickname || postService.data[0].created_by.image !== data.image) {
+        //         await this.postService.chainUpdateFromProfile(profileEntity)
+        //     }
 
-        }
-        if (commentRemas) {
-            if (commentRemas?.created_by.name !== data.nickname || commentRemas.created_by.image !== data.image) {
-                await this.commentRemasService.chainUpdateFromProfile(profileEntity)
-            }
+        // }
 
-        }
         if (commentService) {
-            if (commentService.created_by.name !== data.nickname || commentService.created_by.image !== data.image) {
+            if (commentService.created_by.name !== data.name || commentService.created_by.image !== data.image) {
                 await this.commentService.chainUpdateFromProfile(profileEntity)
             }
         }
 
-        if (userService) {
+        // if (userService) {
 
-            if (userService.name !== data.nickname) {
-                await this.userService.chainUpdateFromProfile(data.nickname ?? '', user.uuid)
-            }
-        }
+        //     if (userService.name !== data.nickname) {
+        //         await this.userService.chainUpdateFromProfile(data.nickname ?? '', user.uuid)
+        //     }
+        // }
 
-        if (findrequestRemas) {
-            if (findrequestRemas.created_by.name !== data.nickname || findrequestRemas.created_by.image !== data.image) {
-                await this.requestRemasService.chainUpdateFromProfile(profileEntity)
-            }
-        }
-
-        if (findRegistrationMember) {
-            if (findRegistrationMember.created_by?.name !== data.nickname || findRegistrationMember.created_by.image !== data.image) {
-                await this.registerMemberRemas.chainUpdateFromProfile(profileEntity)
-            }
-        }
 
 
         await this.profileReopsitory.update(profileEntity)
@@ -145,13 +151,13 @@ class ProfileService implements IProfileService {
         return { success: true }
     }
 
-    async findOneBySlug(slug: string): Promise<{ data: ProfileEntity | null, comment: CommentRemasEntity[], likes: string[] }> {
+    async findOneBySlug(slug: string): Promise<{ data: ProfileEntity | null, comment: CommentEntity[], likes: string[] }> {
         const result = await this.profileReopsitory.findOneBySlug(slug)
-        const likes = await this.remasService.find(result?.user_uuid ?? '')
-        const commentEntity = await this.commentRemasService.find(result?.user_uuid ?? '')
-        const stringLikes = []
+        const likes = await this.commentService.find(result?.uuid ?? '')
+        const commentEntity = await this.commentService.find(result?.uuid ?? '')
+        let stringLikes: string[] = []
         for (let i = 0; i < likes.data.length; i++) {
-            stringLikes.push(likes.data[i].user_uuid)
+            stringLikes.push(likes.data[i].created_by.uuid ?? '')
         }
         return {
             data: result,
@@ -173,6 +179,12 @@ class ProfileService implements IProfileService {
 
     async updateIsActiveTrue(user_uuid: string, is_active: boolean): Promise<{ success: true }> {
         await this.profileReopsitory.updateIsActiveTrue(user_uuid, is_active)
+        return { success: true }
+    }
+
+    async updateForSeller(data: ProfileEntity): Promise<{ success: true }> {
+        await this.profileReopsitory.update(data)
+
         return { success: true }
     }
 

@@ -84,7 +84,10 @@ class UserEntity extends baseEntity_1.default {
         return {
             uuid: this.uuid,
             name: this.name,
+            email: this.email,
             password: this.password,
+            roles: this.roles,
+            is_active: this.is_active,
             created_at: this.created_at,
             updated_at: this.updated_at,
             deleted_at: this.deleted_at,

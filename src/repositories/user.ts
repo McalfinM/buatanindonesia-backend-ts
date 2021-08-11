@@ -29,7 +29,7 @@ class UserRepository implements IUserRepository {
         const result = await UserModel.findOne({
             uuid: uuid,
             is_active: true,
-            $or: [{ deleted_at: undefined }]
+            $or: [{ deleted_at: undefined }, { deleted_at: null }]
         })
 
         return result ? new UserEntity(result) : null
@@ -39,6 +39,16 @@ class UserRepository implements IUserRepository {
 
         const result = await UserModel.findOne({
             email: email,
+            $or: [{ deleted_at: undefined }]
+        })
+
+        return result ? new UserEntity(result) : null
+    }
+
+    async checkUsername(name: string): Promise<UserEntity | null> {
+
+        const result = await UserModel.findOne({
+            name: name,
             $or: [{ deleted_at: undefined }]
         })
 
@@ -55,10 +65,9 @@ class UserRepository implements IUserRepository {
         return result ? new UserEntity(result) : null
     }
 
-    async update(data: UserEntity, user: IUser): Promise<UserEntity> {
-
-        const result = await UserModel.updateOne({ uuid: user.uuid ?? '' }, {
-            data
+    async update(data: UserEntity): Promise<UserEntity> {
+        const result = await UserModel.updateOne({ uuid: data.uuid ?? '' }, {
+            ...data.toJson()
         })
         return data
     }

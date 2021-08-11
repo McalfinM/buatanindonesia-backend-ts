@@ -1,4 +1,5 @@
-import { IEmbed } from "./product";
+import { IEmbed } from "./profile";
+
 
 export interface IProduct {
     uuid: string
@@ -7,19 +8,16 @@ export interface IProduct {
     name: string
     image: string
     stock: number
+    slug: string
+    quantity: number
+    seller_by: IEmbed
 }
 
 export interface ICartEntity {
     uuid: string
     created_by: IEmbed
-    seller_by: IEmbed
-    order_id: string
     quantity: number
-    product: IProduct
-    price: number
-    image: string
-    cloudinary_id: string
-    is_active: boolean
+    product: IProduct[]
     created_at: Date | null
     updated_at: Date | null
     deleted_at: Date | null

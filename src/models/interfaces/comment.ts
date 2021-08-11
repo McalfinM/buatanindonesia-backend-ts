@@ -1,5 +1,5 @@
 import { Document } from "mongoose";
-import { IEmbed } from "../../entities/interfaces/post";
+import { IEmbed } from "../../entities/interfaces/profile";
 
 export interface IComment extends Document {
     uuid: string
@@ -7,6 +7,7 @@ export interface IComment extends Document {
     comment: string
     post_uuid: string
     ip_address?: string
+    key: string
     created_at: Date | null
     updated_at: Date | null
     deleted_at: Date | null

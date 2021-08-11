@@ -15,6 +15,7 @@ class ProductEntity extends baseEntity_1.default {
     _image;
     _cloudinary_id;
     _is_active;
+    _category;
     _created_at;
     _updated_at;
     _deleted_at;
@@ -30,6 +31,7 @@ class ProductEntity extends baseEntity_1.default {
         this._image = params.image;
         this._cloudinary_id = params.cloudinary_id;
         this._is_active = params.is_active;
+        this._category = params.category;
         this._created_at = params.created_at;
         this._updated_at = params.updated_at;
         this._deleted_at = params.deleted_at;
@@ -94,6 +96,12 @@ class ProductEntity extends baseEntity_1.default {
     set is_active(is_active) {
         this._is_active = is_active;
     }
+    get category() {
+        return this._category;
+    }
+    set category(category) {
+        this._category = category;
+    }
     get created_at() {
         return this._created_at;
     }
@@ -122,6 +130,7 @@ class ProductEntity extends baseEntity_1.default {
             price: this.price,
             stock: this.stock,
             image: this.image,
+            cloudinary_id: this.cloudinary_id,
             is_active: this.is_active,
             created_at: this.created_at,
             updated_at: this.updated_at,

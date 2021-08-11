@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.StatusPayment = exports.PaymentMethod = exports.UserRole = void 0;
+exports.Imagedefault = exports.StatusPayment = exports.PaymentMethod = exports.UserRole = void 0;
 var UserRole;
 (function (UserRole) {
     UserRole["ADMIN"] = "admin";
@@ -19,3 +19,7 @@ var StatusPayment;
     StatusPayment["PAID"] = "PAID";
     StatusPayment["CANCELED"] = "Cancel";
 })(StatusPayment = exports.StatusPayment || (exports.StatusPayment = {}));
+var Imagedefault;
+(function (Imagedefault) {
+    Imagedefault["IMAGE_DEFAULT"] = "https://res.cloudinary.com/dti2eqvdi/image/upload/v1627998960/profile/No_Image_Available_kvppd7.jpg";
+})(Imagedefault = exports.Imagedefault || (exports.Imagedefault = {}));

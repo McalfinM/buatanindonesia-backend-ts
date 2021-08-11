@@ -5,6 +5,7 @@ class CreateUserRequest {
     _name;
     _email;
     _password;
+    _confirm_password;
     _created_at;
     _updated_at;
     _deleted_at;
@@ -13,6 +14,7 @@ class CreateUserRequest {
         this._name = body.name;
         this._email = body.email;
         this._password = body.password;
+        this._confirm_password = body.confirm_password;
         this._created_at = body.created_at;
         this._updated_at = body.updated_at;
         this._deleted_at = body.deleted_at;
@@ -28,6 +30,9 @@ class CreateUserRequest {
     }
     get password() {
         return this._password;
+    }
+    get confirm_password() {
+        return this._confirm_password;
     }
     get created_at() {
         return this._created_at;

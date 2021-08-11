@@ -2,6 +2,11 @@
 import { IProvinces } from "../models/interfaces/province";
 import BaseEntity from "./baseEntity";
 
+export interface IProvince {
+    uuid: string
+    name: string
+    code: string
+}
 class ProvinceEntity extends BaseEntity {
 
     protected _uuid: string
@@ -9,11 +14,11 @@ class ProvinceEntity extends BaseEntity {
     protected _code: string
 
 
-    constructor(params: IProvinces) {
+    constructor(params: IProvince) {
         super();
         this._uuid = params.uuid
-        this._name = params.name,
-            this._code = params.code
+        this._name = params.name
+        this._code = params.code
     }
 
     get uuid(): string {

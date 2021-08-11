@@ -18,4 +18,5 @@ export interface IProfileService {
         data: ProfileEntity[];
     }>
     updateIsActiveTrue(user_uuid: string, is_active: boolean): Promise<{ success: true }>
+    updateForSeller(data: ProfileEntity): Promise<{ success: true }>
 }

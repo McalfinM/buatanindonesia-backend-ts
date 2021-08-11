@@ -10,6 +10,7 @@ class CommentEntity extends BaseEntity {
     protected _comment: string
     protected _post_uuid?: string
     protected _ip_address?: string
+    protected _key: string
     protected _created_at: Date | null
     protected _updated_at: Date | null
     protected _deleted_at?: Date | null
@@ -21,6 +22,7 @@ class CommentEntity extends BaseEntity {
         this._comment = params.comment
         this._post_uuid = params.post_uuid
         this._ip_address = params.ip_address
+        this._key = params.key
         this._created_at = params.created_at
         this._deleted_at = params.deleted_at
         this._updated_at = params.updated_at
@@ -61,6 +63,13 @@ class CommentEntity extends BaseEntity {
 
     set post_uuid(post_uuid: string | undefined) {
         this._post_uuid = post_uuid
+    }
+    get key(): string {
+        return this._key
+    }
+
+    set key(key: string) {
+        this._key = key
     }
     get created_at(): Date | null {
         return this._created_at

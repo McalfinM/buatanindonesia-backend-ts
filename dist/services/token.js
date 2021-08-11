@@ -18,15 +18,16 @@ const types_1 = require("../types");
 const crypto_1 = __importDefault(require("crypto"));
 const uuid_1 = require("uuid");
 const errors_1 = require("../helpers/errors");
+// import { IProfileService } from "./interfaces/profile";
 let TokenService = class TokenService {
     tokenRepository;
     userService;
-    profileService;
     dispatcher;
-    constructor(tokenRepository, userService, profileService, dispatcher) {
+    constructor(tokenRepository, userService, 
+    // @inject(TYPES.ProfileService) private profileService: IProfileService,
+    dispatcher) {
         this.tokenRepository = tokenRepository;
         this.userService = userService;
-        this.profileService = profileService;
         this.dispatcher = dispatcher;
     }
     async create(data) {
@@ -70,7 +71,7 @@ let TokenService = class TokenService {
         });
         const result = await this.tokenRepository.update(tokenEntity, user.uuid ?? '');
         await this.userService.updateIsActiveTrue(findToken.user_uuid, true);
-        await this.profileService.updateIsActiveTrue(findToken.user_uuid, true);
+        // await this.profileService.updateIsActiveTrue(findToken.user_uuid, true)
         return result;
     }
     async findOneWithToken(token) {
@@ -86,7 +87,6 @@ TokenService = __decorate([
     inversify_1.injectable(),
     __param(0, inversify_1.inject(types_1.TYPES.TokenRepository)),
     __param(1, inversify_1.inject(types_1.TYPES.UserRepository)),
-    __param(2, inversify_1.inject(types_1.TYPES.ProfileService)),
-    __param(3, inversify_1.inject(types_1.TYPES.ProducerDispatcher))
+    __param(2, inversify_1.inject(types_1.TYPES.ProducerDispatcher))
 ], TokenService);
 exports.default = TokenService;

@@ -1,5 +1,4 @@
 import { model, Schema, Model } from "mongoose";
-import { IDistrict } from "./interfaces/district";
 import { IProduct } from "./interfaces/product";
 
 const ProductSchema: Schema = new Schema(
@@ -14,6 +13,7 @@ const ProductSchema: Schema = new Schema(
         image: { type: String },
         cloudinary_id: { type: String },
         is_active: { type: Boolean },
+        category: { type: Object },
         created_at: { type: Date },
         updated_at: { type: Date },
         deleted_at: { type: Date },

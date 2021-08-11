@@ -15,10 +15,13 @@ class ProfileEntity extends BaseEntity {
     protected _province: IEmbed
     protected _city: IEmbed
     protected _district: IEmbed
+    protected _village: IEmbed
     protected _phone: string
     protected _email: string
     protected _image: string
+    protected _cloudinary_id: string
     protected _roles: string[]
+    protected _bank: IEmbed
     protected _created_at: Date | null
     protected _updated_at: Date | null
     protected _deleted_at: Date | null
@@ -33,10 +36,13 @@ class ProfileEntity extends BaseEntity {
         this._province = params.province
         this._city = params.city
         this._district = params.district
+        this._village = params.village
+        this._cloudinary_id = params.cloudinary_id
         this._phone = params.phone
         this._email = params.email
         this._image = params.image
         this._roles = params.roles
+        this._bank = params.bank
         this._created_at = params.created_at
         this._updated_at = params.updated_at
         this._deleted_at = params.deleted_at
@@ -90,6 +96,12 @@ class ProfileEntity extends BaseEntity {
     set district(district: IEmbed) {
         this._district = district
     }
+    get village(): IEmbed {
+        return this._village
+    }
+    set village(village: IEmbed) {
+        this._village = village
+    }
     get phone(): string {
         return this._phone
     }
@@ -108,11 +120,23 @@ class ProfileEntity extends BaseEntity {
     set image(image: string) {
         this._image = image
     }
+    get cloudinary_id(): string {
+        return this._cloudinary_id
+    }
+    set cloudinary_id(cloudinary_id: string) {
+        this._cloudinary_id = cloudinary_id
+    }
     get roles(): string[] {
         return this._roles
     }
     set roles(roles: string[]) {
         this._roles = roles
+    }
+    get bank(): IEmbed {
+        return this._bank
+    }
+    set bank(bank: IEmbed) {
+        this._bank = bank
     }
     get created_at(): Date | null {
         return this._created_at
@@ -140,12 +164,15 @@ class ProfileEntity extends BaseEntity {
             slug: this.slug,
             address: this.address,
             card_number: this.card_number,
-            province_uuid: this.province,
+            province: this.province,
             city: this.city,
             district: this.district,
+            village: this.village,
             phone: this.phone,
+            bank: this.bank,
             email: this.email,
             image: this.image,
+            cloudinary_id: this.cloudinary_id,
             roles: this.roles,
             created_at: this.created_at,
             updated_at: this.updated_at,
