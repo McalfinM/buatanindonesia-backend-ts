@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const PaymentSchema = new mongoose_1.Schema({
     uuid: { type: String },
-    order_id: { type: String },
+    no_invoice: { type: String },
     address: { type: String },
     delivery_date: { type: String },
     phone: { type: String },

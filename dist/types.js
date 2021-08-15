@@ -64,6 +64,10 @@ const TYPES = {
     CartController: Symbol.for("CartController"),
     CartService: Symbol.for("CartService"),
     CartRepository: Symbol.for("CartRepository"),
+    PaymentRouter: Symbol.for("PaymentRouter"),
+    PaymentController: Symbol.for("PaymentController"),
+    PaymentService: Symbol.for("PaymentService"),
+    PaymentRepository: Symbol.for("PaymentRepository"),
     ProducerDispatcher: Symbol.for("ProducerDispatcher"),
     ConsumerDispatcher: Symbol.for("ConsumerDispatcher")
 };

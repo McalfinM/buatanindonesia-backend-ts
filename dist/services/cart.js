@@ -68,7 +68,7 @@ let CartService = class CartService {
                 throw new errors_1.ErrorNotFound('Product not found', '@Service create or update cart');
             for (let i = 0; i < searchCart.product.length; i++) {
                 if (searchCart.product[i].product_uuid === data.product_uuid) {
-                    const deleteCart = await this.cartRepository.delete(searchCart.product[i].uuid, user.uuid);
+                    await this.cartRepository.delete(searchCart.product[i].uuid ?? '', user.uuid);
                     searchCart.product[i].quantity += 1;
                     return await this.cartRepository.update(searchCart);
                 }

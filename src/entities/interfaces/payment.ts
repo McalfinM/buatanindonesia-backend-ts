@@ -4,9 +4,9 @@ import { IEmbed } from "./product";
 
 export interface IPaymentEntity {
     uuid: string
-    order_id: string
+    no_invoice: string
     address: string
-    delivery_date: string
+    delivery_date: Date
     phone: string
     email: string
     notes: string
@@ -22,7 +22,6 @@ export interface IPaymentEntity {
     total_price: number
     image: string
     cloudinary_id: string
-    is_active: boolean
     created_at: Date | null
     updated_at: Date | null
     deleted_at: Date | null

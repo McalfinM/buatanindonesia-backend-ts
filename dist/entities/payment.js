@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const baseEntity_1 = __importDefault(require("./baseEntity"));
 class PaymentEntity extends baseEntity_1.default {
     _uuid;
-    _order_id;
+    _no_invoice;
     _address;
     _delivery_date;
     _phone;
@@ -24,14 +24,13 @@ class PaymentEntity extends baseEntity_1.default {
     _total_price;
     _image;
     _cloudinary_id;
-    _is_active;
     _created_at;
     _updated_at;
     _deleted_at;
     constructor(params) {
         super();
         this._uuid = params.uuid;
-        this._order_id = params.order_id;
+        this._no_invoice = params.no_invoice;
         this._address = params.address;
         this._delivery_date = params.delivery_date;
         this._phone = params.phone;
@@ -49,7 +48,6 @@ class PaymentEntity extends baseEntity_1.default {
         this._total_price = params.total_price;
         this._image = params.image;
         this._cloudinary_id = params.cloudinary_id;
-        this._is_active = params.is_active;
         this._created_at = params.created_at;
         this._updated_at = params.updated_at;
         this._deleted_at = params.deleted_at;
@@ -60,11 +58,11 @@ class PaymentEntity extends baseEntity_1.default {
     set uuid(uuid) {
         this._uuid = uuid;
     }
-    get order_id() {
-        return this._order_id;
+    get no_invoice() {
+        return this._no_invoice;
     }
-    set order_id(order_id) {
-        this._order_id = order_id;
+    set no_invoice(no_invoice) {
+        this._no_invoice = no_invoice;
     }
     get address() {
         return this._address;
@@ -168,12 +166,6 @@ class PaymentEntity extends baseEntity_1.default {
     set cloudinary_id(cloudinary_id) {
         this._cloudinary_id = cloudinary_id;
     }
-    get is_active() {
-        return this._is_active;
-    }
-    set is_active(is_active) {
-        this._is_active = is_active;
-    }
     get created_at() {
         return this._created_at;
     }
@@ -195,7 +187,7 @@ class PaymentEntity extends baseEntity_1.default {
     toJson() {
         return {
             uuid: this.uuid,
-            order_id: this.order_id,
+            no_invoice: this.no_invoice,
             address: this.address,
             delivery_date: this.delivery_date,
             phone: this.phone,
@@ -213,7 +205,6 @@ class PaymentEntity extends baseEntity_1.default {
             total_price: this.total_price,
             image: this.image,
             cloudinary_id: this.cloudinary_id,
-            is_active: this.is_active,
             created_at: this.created_at,
             updated_at: this.updated_at,
             deleted_at: this.deleted_at,
@@ -222,7 +213,7 @@ class PaymentEntity extends baseEntity_1.default {
     toListData() {
         return {
             uuid: this.uuid,
-            order_id: this.order_id,
+            no_invoice: this.no_invoice,
             address: this.address,
             delivery_date: this.delivery_date,
             created_by: this.created_by,
@@ -239,7 +230,7 @@ class PaymentEntity extends baseEntity_1.default {
     toDetailData() {
         return {
             uuid: this.uuid,
-            order_id: this.order_id,
+            no_invoice: this.no_invoice,
             address: this.address,
             delivery_date: this.delivery_date,
             phone: this.phone,
@@ -257,7 +248,6 @@ class PaymentEntity extends baseEntity_1.default {
             total_price: this.total_price,
             image: this.image,
             cloudinary_id: this.cloudinary_id,
-            is_active: this.is_active,
             created_at: this.created_at,
             updated_at: this.updated_at,
         };

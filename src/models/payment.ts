@@ -4,7 +4,7 @@ import { IPayment } from "./interfaces/payment";
 const PaymentSchema: Schema = new Schema(
     {
         uuid: { type: String },
-        order_id: { type: String },
+        no_invoice: { type: String },
         address: { type: String },
         delivery_date: { type: String },
         phone: { type: String },

@@ -7,9 +7,9 @@ import { IEmbed } from "./interfaces/product";
 
 class PaymentEntity extends BaseEntity {
     protected _uuid: string
-    protected _order_id: string
+    protected _no_invoice: string
     protected _address: string
-    protected _delivery_date: string
+    protected _delivery_date: Date
     protected _phone: string
     protected _email: string
     protected _notes: string
@@ -25,7 +25,6 @@ class PaymentEntity extends BaseEntity {
     protected _total_price: number
     protected _image: string
     protected _cloudinary_id: string
-    protected _is_active: boolean
     protected _created_at: Date | null
     protected _updated_at: Date | null
     protected _deleted_at: Date | null
@@ -33,7 +32,7 @@ class PaymentEntity extends BaseEntity {
     constructor(params: IPaymentEntity) {
         super();
         this._uuid = params.uuid
-        this._order_id = params.order_id
+        this._no_invoice = params.no_invoice
         this._address = params.address
         this._delivery_date = params.delivery_date
         this._phone = params.phone
@@ -51,7 +50,6 @@ class PaymentEntity extends BaseEntity {
         this._total_price = params.total_price
         this._image = params.image
         this._cloudinary_id = params.cloudinary_id
-        this._is_active = params.is_active
         this._created_at = params.created_at
         this._updated_at = params.updated_at
         this._deleted_at = params.deleted_at
@@ -63,11 +61,11 @@ class PaymentEntity extends BaseEntity {
     set uuid(uuid: string) {
         this._uuid = uuid
     }
-    get order_id(): string {
-        return this._order_id
+    get no_invoice(): string {
+        return this._no_invoice
     }
-    set order_id(order_id: string) {
-        this._order_id = order_id
+    set no_invoice(no_invoice: string) {
+        this._no_invoice = no_invoice
     }
     get address(): string {
         return this._address
@@ -75,10 +73,10 @@ class PaymentEntity extends BaseEntity {
     set address(address: string) {
         this._address = address
     }
-    get delivery_date(): string {
+    get delivery_date(): Date {
         return this._delivery_date
     }
-    set delivery_date(delivery_date: string) {
+    set delivery_date(delivery_date: Date) {
         this._delivery_date = delivery_date
     }
     get phone(): string {
@@ -171,12 +169,6 @@ class PaymentEntity extends BaseEntity {
     set cloudinary_id(cloudinary_id: string) {
         this._cloudinary_id = cloudinary_id
     }
-    get is_active(): boolean {
-        return this._is_active
-    }
-    set is_active(is_active: boolean) {
-        this._is_active = is_active
-    }
     get created_at(): Date | null {
         return this._created_at
     }
@@ -199,7 +191,7 @@ class PaymentEntity extends BaseEntity {
     toJson(): object {
         return {
             uuid: this.uuid,
-            order_id: this.order_id,
+            no_invoice: this.no_invoice,
             address: this.address,
             delivery_date: this.delivery_date,
             phone: this.phone,
@@ -217,7 +209,6 @@ class PaymentEntity extends BaseEntity {
             total_price: this.total_price,
             image: this.image,
             cloudinary_id: this.cloudinary_id,
-            is_active: this.is_active,
             created_at: this.created_at,
             updated_at: this.updated_at,
             deleted_at: this.deleted_at,
@@ -227,7 +218,7 @@ class PaymentEntity extends BaseEntity {
     toListData(): {} {
         return {
             uuid: this.uuid,
-            order_id: this.order_id,
+            no_invoice: this.no_invoice,
             address: this.address,
             delivery_date: this.delivery_date,
             created_by: this.created_by,
@@ -246,7 +237,7 @@ class PaymentEntity extends BaseEntity {
     toDetailData(): {} {
         return {
             uuid: this.uuid,
-            order_id: this.order_id,
+            no_invoice: this.no_invoice,
             address: this.address,
             delivery_date: this.delivery_date,
             phone: this.phone,
@@ -264,7 +255,6 @@ class PaymentEntity extends BaseEntity {
             total_price: this.total_price,
             image: this.image,
             cloudinary_id: this.cloudinary_id,
-            is_active: this.is_active,
             created_at: this.created_at,
             updated_at: this.updated_at,
         };
