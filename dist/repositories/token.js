@@ -68,6 +68,6 @@ let TokenRepository = class TokenRepository {
     }
 };
 TokenRepository = __decorate([
-    inversify_1.injectable()
+    (0, inversify_1.injectable)()
 ], TokenRepository);
 exports.default = TokenRepository;

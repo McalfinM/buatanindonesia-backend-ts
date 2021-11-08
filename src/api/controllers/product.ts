@@ -36,7 +36,7 @@ class ProductController implements IProductController {
         const { params: { uuid } } = req;
 
         return this.productService.findOne(uuid)
-            .then((result) => HttpResponse.success(req, res, result))
+            .then((result) => HttpResponse.success(req, res, result?.toDetailData()))
             .catch((err) => HttpErrorHandler(err, req, res));
     }
     findAll(req: Request, res: Response): Response | Promise<Response> {
@@ -98,7 +98,11 @@ class ProductController implements IProductController {
             limit: '',
             data: [{}]
         }
-        return this.productService.findAll(new GetProductRequest(query))
+        const user = req.user
+        return this.productService.findAllWithUser(new GetProductRequest({
+            ...query,
+            user_uuid: user.uuid
+        }))
             .then((result) => {
                 obj.totalPage = Math.ceil(result.total / +limitVal)
                 obj.totalData = result.total || 0

@@ -102,6 +102,16 @@ import CartService from "./services/cart";
 import { ICartController } from "./api/controllers/interfaces/cart";
 import { ICartService } from "./services/interfaces/cart";
 import { ICartRepository } from "./repositories/interfaces/cart";
+import { IPaymentController } from "./api/controllers/interfaces/payment";
+import { IPaymentService } from "./services/interfaces/payment";
+import { IPaymentRepository } from "./repositories/interfaces/payment";
+import PaymentController from "./api/controllers/payment";
+import PaymentRouter from "./api/routes/payment";
+import PaymentRepository from "./repositories/payment";
+import PaymentService from "./services/payment";
+import { IProfileController } from "./api/controllers/interfaces/profile";
+import ProfileController from "./api/controllers/profile";
+import ProfileRouter from "./api/routes/profile";
 
 
 decorate(injectable(), BaseRouter);
@@ -153,6 +163,9 @@ container.bind<ISellerRequestController>(TYPES.SellerRequestController).to(Selle
 container.bind<ISellerRequestService>(TYPES.SellerRequestService).to(SellerRequestService).inSingletonScope()
 container.bind<ISellerRequestRepository>(TYPES.SellerRequestRepository).to(SellerRequestRepository).inSingletonScope()
 
+
+container.bind<IRouter>(TYPES.ProfileRouter).to(ProfileRouter).inSingletonScope()
+container.bind<IProfileController>(TYPES.ProfileController).to(ProfileController).inSingletonScope()
 container.bind<IProfileService>(TYPES.ProfileService).to(ProfileService).inSingletonScope()
 container.bind<IProfileRepository>(TYPES.ProfileRepository).to(ProfileRepository).inSingletonScope()
 
@@ -179,6 +192,10 @@ container.bind<ICartController>(TYPES.CartController).to(CartController).inSingl
 container.bind<ICartService>(TYPES.CartService).to(CartService).inSingletonScope()
 container.bind<ICartRepository>(TYPES.CartRepository).to(CartRepository).inSingletonScope()
 
+container.bind<IRouter>(TYPES.PaymentRouter).to(PaymentRouter).inSingletonScope()
+container.bind<IPaymentController>(TYPES.PaymentController).to(PaymentController).inSingletonScope()
+container.bind<IPaymentService>(TYPES.PaymentService).to(PaymentService).inSingletonScope()
+container.bind<IPaymentRepository>(TYPES.PaymentRepository).to(PaymentRepository).inSingletonScope()
 
 container.bind<IEmailService>(TYPES.EmailService).to(EmailService).inSingletonScope()
 

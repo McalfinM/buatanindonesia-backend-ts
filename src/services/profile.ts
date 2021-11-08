@@ -63,6 +63,7 @@ class ProfileService implements IProfileService {
             created_at: data.created_at,
             province: data.province,
             bank: data.bank,
+            is_active: false,
             updated_at: data.updated_at,
             deleted_at: null
         })
@@ -120,6 +121,7 @@ class ProfileService implements IProfileService {
                 uuid: bank?.uuid ?? '',
                 name: bank?.name ?? ''
             },
+            is_active: searchProfile.is_active,
             created_at: searchProfile.created_at,
             updated_at: new Date,
             deleted_at: null
@@ -186,6 +188,12 @@ class ProfileService implements IProfileService {
         await this.profileReopsitory.update(data)
 
         return { success: true }
+    }
+
+    async findMyProfile(user: IUser): Promise<{ success: true }> {
+        await this.profileReopsitory.findOne(user.uuid)
+        return { success: true }
+
     }
 
 }

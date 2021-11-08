@@ -19,6 +19,7 @@ class ProductRepository implements IProductRepository {
             stock: data.stock,
             image: data.image,
             category: data.category,
+            city: data.city,
             cloudinary_id: data.cloudinary_id,
             is_active: data.is_active,
             created_at: data.created_at,
@@ -54,11 +55,20 @@ class ProductRepository implements IProductRepository {
     }
 
     async delete(uuid: string, user_uuid: string): Promise<{ success: true }> {
-        const result = await ProductModel.updateOne({ uuid: uuid, "created.by": user_uuid }, {
+
+        const result = await ProductModel.updateOne({ uuid: uuid, "created_by.uuid": user_uuid }, {
             deleted_at: new Date
         })
 
         return { success: true }
+    }
+
+    async reduceStock(uuid: string, quantity: number): Promise<void> {
+        await ProductModel.updateOne({ uuid }, {
+            $set: {
+                stock: quantity
+            }
+        })
     }
 
     async findAll(

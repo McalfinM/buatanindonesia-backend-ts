@@ -98,6 +98,6 @@ let ProvinceRepository = class ProvinceRepository {
     }
 };
 ProvinceRepository = __decorate([
-    inversify_1.injectable()
+    (0, inversify_1.injectable)()
 ], ProvinceRepository);
 exports.default = ProvinceRepository;

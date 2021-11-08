@@ -9,5 +9,5 @@ const VillageSchema = new mongoose_1.Schema({
     code: { type: String },
 });
 VillageSchema.index('uuid');
-const VillageModel = mongoose_1.model("villages", VillageSchema);
+const VillageModel = (0, mongoose_1.model)("villages", VillageSchema);
 exports.default = VillageModel;

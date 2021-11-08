@@ -4,7 +4,7 @@ const express_1 = require("express");
 class BaseRouter {
     router;
     constructor() {
-        this.router = express_1.Router();
+        this.router = (0, express_1.Router)();
     }
     bind(_this) {
         Object.getOwnPropertyNames(Object.getPrototypeOf(_this)).map((fname) => {

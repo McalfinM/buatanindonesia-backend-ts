@@ -28,7 +28,7 @@ let UserController = class UserController {
             .then((result) => {
             return httpResponse_1.default.created(req, res, result);
         })
-            .catch((err) => errors_1.HttpErrorHandler(err, req, res));
+            .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
     update(req, res) {
         const user = req.user;
@@ -36,11 +36,11 @@ let UserController = class UserController {
             .then((result) => {
             return httpResponse_1.default.success(req, res, result);
         })
-            .catch((err) => errors_1.HttpErrorHandler(err, req, res));
+            .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
 };
 UserController = __decorate([
-    inversify_1.injectable(),
-    __param(0, inversify_1.inject(types_1.TYPES.UserService))
+    (0, inversify_1.injectable)(),
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.UserService))
 ], UserController);
 exports.default = UserController;

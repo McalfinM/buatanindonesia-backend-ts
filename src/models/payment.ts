@@ -21,6 +21,8 @@ const PaymentSchema: Schema = new Schema(
         product: { type: Object },
         total_price: { type: Number },
         image: { type: String },
+        status_payment: { type: String },
+        macaddress: { type: String },
         cloudinary_id: { type: String },
         created_at: { type: Date },
         updated_at: { type: Date },

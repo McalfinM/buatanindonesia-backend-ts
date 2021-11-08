@@ -1,7 +1,7 @@
 
 class GetPaymentRequest {
     protected _no_invoice?: string;
-    protected _buyers?: string;
+    protected _name?: string;
     protected _delivery_date?: Date
     protected _product_uuid?: string
     protected _status?: string
@@ -14,7 +14,7 @@ class GetPaymentRequest {
     constructor(queryParams: {
         uuid?: string
         no_invoice?: string
-        buyers?: string
+        name?: string
         delivery_date?: Date
         product_uuid?: string
         status?: string
@@ -25,7 +25,7 @@ class GetPaymentRequest {
         search?: string
     }) {
         this._no_invoice = queryParams.no_invoice
-        this._buyers = queryParams.buyers
+        this._name = queryParams.name
         this._delivery_date = queryParams.delivery_date
         this._product_uuid = queryParams.product_uuid
         this._status = queryParams.status
@@ -48,12 +48,12 @@ class GetPaymentRequest {
         return this._no_invoice
     }
 
-    get buyers(): string | undefined {
-        return this._buyers
+    get name(): string | undefined {
+        return this._name
     }
 
     get status(): string | undefined {
-        return this._buyers
+        return this._name
     }
 
     get sort_by(): string | undefined {

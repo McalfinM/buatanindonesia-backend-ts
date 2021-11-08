@@ -22,7 +22,7 @@ let BankRouter = class BankRouter extends baseRouter_1.default {
     constructor(bankController) {
         super();
         this.bankController = bankController;
-        this.router = express_1.Router();
+        this.router = (0, express_1.Router)();
         this.bindings();
         this.routes();
     }
@@ -34,7 +34,7 @@ let BankRouter = class BankRouter extends baseRouter_1.default {
     }
 };
 BankRouter = __decorate([
-    inversify_1.injectable(),
-    __param(0, inversify_1.inject(types_1.TYPES.BankController))
+    (0, inversify_1.injectable)(),
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.BankController))
 ], BankRouter);
 exports.default = BankRouter;

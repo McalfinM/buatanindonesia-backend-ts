@@ -10,13 +10,18 @@ export enum PaymentMethod {
 }
 
 export enum StatusPayment {
-  ORDER = 'Order',
   AWAITINGPAYMENT = 'Awaiting Payment',
+  VALIDATIONPROCESS = 'Validation Process',
+  VALIDATIONSUCCESS = 'Validation Success',
   PAID = 'PAID',
   CANCELED = 'Cancel'
 }
 
-
+export enum StatusOrder {
+  ORDER = 'Order',
+  ONGOING = 'Ongoing',
+  DONE = 'Done'
+}
 
 
 export enum Imagedefault {

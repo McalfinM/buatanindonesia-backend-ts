@@ -19,6 +19,7 @@ export interface IProductEntity {
     cloudinary_id: string
     is_active: boolean
     category: IEmbed
+    city: IEmbed
     created_at: Date | null
     updated_at: Date | null
     deleted_at: Date | null

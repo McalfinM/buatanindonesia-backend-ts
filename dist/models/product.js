@@ -12,6 +12,7 @@ const ProductSchema = new mongoose_1.Schema({
     image: { type: String },
     cloudinary_id: { type: String },
     is_active: { type: Boolean },
+    city: { type: Object },
     category: { type: Object },
     created_at: { type: Date },
     updated_at: { type: Date },
@@ -20,5 +21,5 @@ const ProductSchema = new mongoose_1.Schema({
 ProductSchema.index('uuid');
 ProductSchema.index('slug');
 ProductSchema.index('name');
-const ProductModel = mongoose_1.model("products", ProductSchema);
+const ProductModel = (0, mongoose_1.model)("products", ProductSchema);
 exports.default = ProductModel;

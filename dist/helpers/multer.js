@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const multer_1 = __importDefault(require("multer"));
 const path_1 = __importDefault(require("path"));
 // Multer config
-exports.default = multer_1.default({
+exports.default = (0, multer_1.default)({
     storage: multer_1.default.diskStorage({}),
     fileFilter: (req, file, cb) => {
         let ext = path_1.default.extname(file.originalname);

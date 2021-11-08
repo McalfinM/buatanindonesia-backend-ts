@@ -7,12 +7,10 @@ class CreatePaymentRequest {
     protected _phone: string
     protected _email: string
     protected _notes: string
-    protected _product_uuid: string
-    protected _seller_uuid: string
+    protected _id: string
     protected _payment_method: PaymentMethod
     protected _card_number: string
     protected _idempotency: string
-    protected _status: StatusPayment
     protected _card_name: string
     protected _quantity: number
     protected _total_price: number
@@ -29,14 +27,12 @@ class CreatePaymentRequest {
         payment_method: PaymentMethod
         card_number: string
         idempotency: string
-        status: StatusPayment
         card_name: string
         quantity: number
         total_price: number
         image: string
         cloudinary_id: string
-        product_uuid: string
-        seller_uuid: string
+        id: string
 
     }) {
         this._address = body.address
@@ -47,111 +43,97 @@ class CreatePaymentRequest {
         this._payment_method = body.payment_method
         this._card_number = body.card_number
         this._idempotency = body.idempotency
-        this._status = body.status
         this._card_name = body.card_name
         this._quantity = body.quantity
         this._total_price = body.total_price
         this._image = body.image
         this._cloudinary_id = body.cloudinary_id
-        this._product_uuid = body.product_uuid
-        this._seller_uuid = body.seller_uuid
+        this._id = body.id
     }
 
-    get address(): string {
-        return this.address
+    get address() {
+        return this._address;
     }
-    set address(address: string) {
-        this._address = address
+    set address(address) {
+        this._address = address;
     }
-    get delivery_date(): Date {
-        return this.delivery_date
+    get delivery_date() {
+        return this._delivery_date;
     }
-    set delivery_date(delivery_date: Date) {
-        this._delivery_date = delivery_date
+    set delivery_date(delivery_date) {
+        this._delivery_date = delivery_date;
     }
-    get phone(): string {
-        return this.phone
+    get phone() {
+        return this._phone;
     }
-    set phone(phone: string) {
-        this._phone = phone
+    set phone(phone) {
+        this._phone = phone;
     }
-    get email(): string {
-        return this.email
+    get email() {
+        return this._email;
     }
-    set email(email: string) {
-        this._email = email
+    set email(email) {
+        this._email = email;
     }
-    get notes(): string {
-        return this.notes
+    get notes() {
+        return this._notes;
     }
-    set notes(notes: string) {
-        this.notes = notes
+    set notes(notes) {
+        this._notes = notes;
     }
-    get payment_method(): PaymentMethod {
-        return this.payment_method
+    get payment_method() {
+        return this._payment_method;
     }
-    set payment_method(payment_method: PaymentMethod) {
-        this.payment_method = payment_method
+    set payment_method(payment_method) {
+        this.payment_method = payment_method;
     }
-    get card_number(): string {
-        return this.card_number
+    get card_number() {
+        return this._card_number;
     }
-    set card_number(card_number: string) {
-        this.card_number = card_number
+    set card_number(card_number) {
+        this._card_number = card_number;
     }
-    get idempotency(): string {
-        return this.idempotency
+    get idempotency() {
+        return this._idempotency;
     }
-    set idempotency(idempotency: string) {
-        this.idempotency = idempotency
+    set idempotency(idempotency) {
+        this._idempotency = idempotency;
     }
-    get status(): StatusPayment {
-        return this.status
+    get card_name() {
+        return this._card_name;
     }
-    set status(status: StatusPayment) {
-        this.status = status
+    set card_name(card_name) {
+        this._card_name = card_name;
     }
-    get card_name(): string {
-        return this.card_name
+    get quantity() {
+        return this._quantity;
     }
-    set card_name(card_name: string) {
-        this.card_name = card_name
+    set quantity(quantity) {
+        this._quantity = quantity;
     }
-    get quantity(): number {
-        return this.quantity
+    get total_price() {
+        return this._total_price;
     }
-    set quantity(quantity: number) {
-        this.quantity = quantity
+    set total_price(total_price) {
+        this._total_price = total_price;
     }
-    get total_price(): number {
-        return this.total_price
+    get image() {
+        return this._image;
     }
-    set total_price(total_price: number) {
-        this.total_price = total_price
+    set image(image) {
+        this._image = image;
     }
-    get image(): string {
-        return this.image
+    get cloudinary_id() {
+        return this._cloudinary_id;
     }
-    set image(image: string) {
-        this.image = image
+    set cloudinary_id(cloudinary_id) {
+        this._cloudinary_id = cloudinary_id;
     }
-    get cloudinary_id(): string {
-        return this.cloudinary_id
+    get id() {
+        return this._id;
     }
-    set cloudinary_id(cloudinary_id: string) {
-        this.cloudinary_id = cloudinary_id
-    }
-    get product_uuid(): string {
-        return this._product_uuid
-    }
-    set product_uuid(product_uuid: string) {
-        this._product_uuid = product_uuid
-    }
-    get seller_uuid(): string {
-        return this._seller_uuid
-    }
-    set seller_uuid(seller_uuid: string) {
-        this._seller_uuid = seller_uuid
+    set id(id) {
+        this._id = id;
     }
 
 }

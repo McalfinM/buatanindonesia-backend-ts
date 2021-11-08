@@ -12,8 +12,6 @@ class IndexRouter {
 
     @inject(TYPES.UserRouter) private userRouter: IRouter,
     @inject(TYPES.AuthRouter) private authRouter: IRouter,
-    // @inject(TYPES.PostRouter) private postRouter: IRouter,
-    // @inject(TYPES.ProfileRouter) private profileRouter: IRouter,
     // @inject(TYPES.CommentRouter) private commentRouter: IRouter,
     // @inject(TYPES.LikeRouter) private likeRouter: IRouter,
     // @inject(TYPES.CategoryRouter) private categoryRouter: IRouter,
@@ -25,7 +23,9 @@ class IndexRouter {
     @inject(TYPES.SellerRequestRouter) private sellerRequestRouter: IRouter,
     @inject(TYPES.BankRouter) private bankRouter: IRouter,
     @inject(TYPES.ProductRouter) private productRouter: IRouter,
-    @inject(TYPES.CartRouter) private cartRouter: IRouter
+    @inject(TYPES.CartRouter) private cartRouter: IRouter,
+    @inject(TYPES.PaymentRouter) private paymentRouter: IRouter,
+    @inject(TYPES.ProfileRouter) private profileRouter: IRouter
 
   ) {
     this.router = Router();
@@ -35,7 +35,7 @@ class IndexRouter {
   routes(): IRouter {
     this.router.use("/api/v1/users", this.userRouter.router)
     this.router.use("/api/v1/auth", this.authRouter.router)
-    // this.router.use("/api/v1/profiles", this.profileRouter.router)
+    this.router.use("/api/v1/profiles", this.profileRouter.router)
     // this.router.use("/api/v1/comments", this.commentRouter.router)
     // this.router.use("/api/v1/category", this.categoryRouter.router)
     // this.router.use("/api/v1/likes", this.likeRouter.router)
@@ -48,6 +48,7 @@ class IndexRouter {
     this.router.use("/api/v1/banks", this.bankRouter.router)
     this.router.use("/api/v1/products", this.productRouter.router)
     this.router.use("/api/v1/carts", this.cartRouter.router)
+    this.router.use("/api/v1/payments", this.paymentRouter.router)
     return this
   }
 

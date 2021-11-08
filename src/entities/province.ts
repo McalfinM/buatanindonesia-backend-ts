@@ -50,7 +50,7 @@ class ProvinceEntity extends BaseEntity {
         return {
             uuid: this.uuid,
             name: this.name,
-            code: this.code
+
         };
     }
 

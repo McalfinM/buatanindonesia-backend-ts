@@ -27,8 +27,8 @@ class CartRouter extends BaseRouter {
         this.router.get('/', authenticate, this.cartController.findAll)
         this.router.post('/', authenticate, bodyValidation(), validate, this.cartController.createOrUpdate)
         this.router.get('/:uuid', authenticate, this.cartController.findOne)
-        this.router.delete('/:slug', this.cartController.delete)
-
+        this.router.delete('/:uuid', authenticate, this.cartController.delete)
+        this.router.patch('/:uuid', authenticate, this.cartController.minusQuantity)
         return this
     }
 

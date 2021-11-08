@@ -12,6 +12,10 @@ export interface ISellerRequestEntity {
     image: string[]
     status: string
     ktp_image: string | null
+    province: IEmbed
+    city: IEmbed
+    district: IEmbed
+    village: IEmbed
     created_at: Date | null
     updated_at: Date | null
     deleted_at: Date | null

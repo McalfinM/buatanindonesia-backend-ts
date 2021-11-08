@@ -25,7 +25,7 @@ let ProductRouter = class ProductRouter extends baseRouter_1.default {
     constructor(productController) {
         super();
         this.productController = productController;
-        this.router = express_1.Router();
+        this.router = (0, express_1.Router)();
         this.bindings();
         this.routes();
     }
@@ -33,15 +33,15 @@ let ProductRouter = class ProductRouter extends baseRouter_1.default {
         // call controllers here
         this.router.get('/', this.productController.findAll);
         this.router.get('/my-product', auth_1.authenticate, this.productController.findAllWithUser);
-        this.router.post('/', auth_1.authenticate, product_1.bodyValidation(), requestValidation_1.validate, this.productController.create);
-        this.router.put('/:uuid', auth_1.authenticate, product_1.bodyValidation(), requestValidation_1.validate, this.productController.update);
-        this.router.get('/:uuid', auth_1.authenticate, this.productController.findOne);
+        this.router.post('/', auth_1.authenticate, (0, product_1.bodyValidation)(), requestValidation_1.validate, this.productController.create);
+        this.router.put('/:uuid', auth_1.authenticate, (0, product_1.bodyValidation)(), requestValidation_1.validate, this.productController.update);
+        this.router.get('/:uuid', this.productController.findOne);
         this.router.delete('/:uuid', auth_1.authenticate, this.productController.delete);
         return this;
     }
 };
 ProductRouter = __decorate([
-    inversify_1.injectable(),
-    __param(0, inversify_1.inject(types_1.TYPES.ProductController))
+    (0, inversify_1.injectable)(),
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.ProductController))
 ], ProductRouter);
 exports.default = ProductRouter;

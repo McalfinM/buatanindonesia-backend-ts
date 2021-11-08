@@ -36,7 +36,6 @@ class ProvinceEntity extends baseEntity_1.default {
         return {
             uuid: this.uuid,
             name: this.name,
-            code: this.code
         };
     }
     toListData() {

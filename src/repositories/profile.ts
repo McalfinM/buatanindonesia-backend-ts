@@ -74,6 +74,7 @@ class ProfileRepository implements IProfileRepository {
     }
 
     async update(data: ProfileEntity): Promise<ProfileEntity> {
+        console.log(data.province, data.city)
         const result = await ProfileModel.updateOne({ "created_by.uuid": data.created_by.uuid ?? '' }, {
             ...data.toJson()
         })
@@ -142,6 +143,7 @@ class ProfileRepository implements IProfileRepository {
                             province: data.province,
                             bank: data.bank,
                             updated_at: data.updated_at,
+                            is_active: true,
                             deleted_at: null
                         });
                     }),

@@ -25,17 +25,17 @@ let DistrictController = class DistrictController {
         const { params: { uuid } } = req;
         return this.districtService.findOne(uuid)
             .then((result) => httpResponse_1.default.success(req, res, result))
-            .catch((err) => errors_1.HttpErrorHandler(err, req, res));
+            .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
     async findAll(req, res) {
         const { query } = req;
         return this.districtService.findAll(query)
             .then((result) => httpResponse_1.default.success(req, res, result))
-            .catch((err) => errors_1.HttpErrorHandler(err, req, res));
+            .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
 };
 DistrictController = __decorate([
-    inversify_1.injectable(),
-    __param(0, inversify_1.inject(types_1.TYPES.DistrictService))
+    (0, inversify_1.injectable)(),
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.DistrictService))
 ], DistrictController);
 exports.default = DistrictController;

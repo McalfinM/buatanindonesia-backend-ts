@@ -7,5 +7,5 @@ const BankSchema = new mongoose_1.Schema({
     code: { type: String },
 });
 BankSchema.index('uuid');
-const BankModel = mongoose_1.model("bank", BankSchema);
+const BankModel = (0, mongoose_1.model)("bank", BankSchema);
 exports.default = BankModel;

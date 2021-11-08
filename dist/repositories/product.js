@@ -24,6 +24,7 @@ let ProductRepository = class ProductRepository {
             stock: data.stock,
             image: data.image,
             category: data.category,
+            city: data.city,
             cloudinary_id: data.cloudinary_id,
             is_active: data.is_active,
             created_at: data.created_at,
@@ -51,10 +52,17 @@ let ProductRepository = class ProductRepository {
         return result ? new product_1.default(result) : null;
     }
     async delete(uuid, user_uuid) {
-        const result = await product_2.default.updateOne({ uuid: uuid, "created.by": user_uuid }, {
+        const result = await product_2.default.updateOne({ uuid: uuid, "created_by.uuid": user_uuid }, {
             deleted_at: new Date
         });
         return { success: true };
+    }
+    async reduceStock(uuid, quantity) {
+        await product_2.default.updateOne({ uuid }, {
+            $set: {
+                stock: quantity
+            }
+        });
     }
     async findAll(specification) {
         const total_customer = await product_2.default.find({
@@ -82,6 +90,6 @@ let ProductRepository = class ProductRepository {
     }
 };
 ProductRepository = __decorate([
-    inversify_1.injectable()
+    (0, inversify_1.injectable)()
 ], ProductRepository);
 exports.default = ProductRepository;

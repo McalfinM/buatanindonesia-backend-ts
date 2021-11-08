@@ -98,6 +98,6 @@ let BankRepository = class BankRepository {
     }
 };
 BankRepository = __decorate([
-    inversify_1.injectable()
+    (0, inversify_1.injectable)()
 ], BankRepository);
 exports.default = BankRepository;

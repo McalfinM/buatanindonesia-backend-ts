@@ -14,5 +14,5 @@ const UserSchema = new mongoose_1.Schema({
 });
 UserSchema.index('name');
 UserSchema.index('uuid');
-const UserModel = mongoose_1.model("users", UserSchema);
+const UserModel = (0, mongoose_1.model)("users", UserSchema);
 exports.default = UserModel;

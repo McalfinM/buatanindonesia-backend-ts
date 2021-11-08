@@ -7,19 +7,21 @@ const ProfileSchema = new mongoose_1.Schema({
     slug: { type: String },
     address: { type: String },
     card_number: { type: String },
-    province_uuid: { type: String },
-    city_uuid: { type: String },
-    district_uuid: { type: String },
+    province: { type: Object },
+    city: { type: Object },
+    district: { type: Object },
+    village: { type: Object },
     phone: { type: String },
     bank: { type: Object },
     email: { type: String },
     image: { type: String },
     roles: { type: Array },
+    is_active: { type: Boolean },
     created_at: { type: Date },
     updated_at: { type: Date },
     deleted_at: { type: Date },
 });
 ProfileSchema.index('user_uuid');
 ProfileSchema.index('uuid');
-const ProfileModel = mongoose_1.model("profiles", ProfileSchema);
+const ProfileModel = (0, mongoose_1.model)("profiles", ProfileSchema);
 exports.default = ProfileModel;

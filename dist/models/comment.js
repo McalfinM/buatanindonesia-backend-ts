@@ -14,5 +14,5 @@ const CommentSchema = new mongoose_1.Schema({
 });
 CommentSchema.index('uuid');
 CommentSchema.index('user_uuid');
-const CommentModel = mongoose_1.model("comments", CommentSchema);
+const CommentModel = (0, mongoose_1.model)("comments", CommentSchema);
 exports.default = CommentModel;

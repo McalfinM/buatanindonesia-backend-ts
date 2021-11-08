@@ -27,20 +27,20 @@ let SellerRequestController = class SellerRequestController {
         const user = req.user;
         return this.sellerRequestService.create(new createSellerRequest_1.default(req.body), user)
             .then((result) => httpResponse_1.default.created(req, res, result))
-            .catch((err) => errors_1.HttpErrorHandler(err, req, res));
+            .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
     update(req, res) {
         const user = req.user;
         const { params: { uuid } } = req;
         return this.sellerRequestService.update(uuid, new createSellerRequest_1.default(req.body), user)
             .then((result) => httpResponse_1.default.success(req, res, result))
-            .catch((err) => errors_1.HttpErrorHandler(err, req, res));
+            .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
     findOne(req, res) {
         const { params: { uuid } } = req;
         return this.sellerRequestService.findOne(uuid)
             .then((result) => httpResponse_1.default.success(req, res, result))
-            .catch((err) => errors_1.HttpErrorHandler(err, req, res));
+            .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
     index(req, res) {
         const { query } = req;
@@ -56,24 +56,24 @@ let SellerRequestController = class SellerRequestController {
             const sellerRequest = result.data.map((data) => data.toListData());
             return httpResponse_1.default.success(req, res, sellerRequest);
         })
-            .catch(err => errors_1.HttpErrorHandler(err, req, res));
+            .catch(err => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
     UpdateToSeller(req, res) {
         const { params: { uuid } } = req;
         return this.sellerRequestService.updateToSeller(uuid)
             .then((result) => httpResponse_1.default.success(req, res, result))
-            .catch((err) => errors_1.HttpErrorHandler(err, req, res));
+            .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
     delete(req, res) {
         const { params: { uuid } } = req;
         const user = req.user;
         return this.sellerRequestService.delete(uuid, user.uuid)
             .then((result) => httpResponse_1.default.success(req, res, result))
-            .catch((err) => errors_1.HttpErrorHandler(err, req, res));
+            .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
 };
 SellerRequestController = __decorate([
-    inversify_1.injectable(),
-    __param(0, inversify_1.inject(types_1.TYPES.SellerRequestService))
+    (0, inversify_1.injectable)(),
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.SellerRequestService))
 ], SellerRequestController);
 exports.default = SellerRequestController;

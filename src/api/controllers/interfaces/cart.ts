@@ -5,4 +5,5 @@ export interface ICartController {
     findOne(req: Request, res: Response): Promise<Response>
     findAll(req: Request, res: Response): Promise<Response>
     delete(req: Request, res: Response): Promise<Response>
+    minusQuantity(req: Request, res: Response): Promise<Response>
 }

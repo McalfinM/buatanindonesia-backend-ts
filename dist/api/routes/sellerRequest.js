@@ -25,15 +25,15 @@ let SellerRequestRouter = class SellerRequestRouter extends baseRouter_1.default
     constructor(sellerRequestController) {
         super();
         this.sellerRequestController = sellerRequestController;
-        this.router = express_1.Router();
+        this.router = (0, express_1.Router)();
         this.bindings();
         this.routes();
     }
     routes() {
         // call controllers here
         this.router.get('/', auth_1.authenticate, this.sellerRequestController.index);
-        this.router.post('/', auth_1.authenticate, sellerRequest_1.sellerValidation(), requestValidation_1.validate, this.sellerRequestController.create);
-        this.router.patch('/:uuid', auth_1.authenticate, sellerRequest_1.sellerValidation(), requestValidation_1.validate, this.sellerRequestController.update);
+        this.router.post('/', auth_1.authenticate, (0, sellerRequest_1.sellerValidation)(), requestValidation_1.validate, this.sellerRequestController.create);
+        this.router.patch('/:uuid', auth_1.authenticate, (0, sellerRequest_1.sellerValidation)(), requestValidation_1.validate, this.sellerRequestController.update);
         this.router.patch('/:uuid/verify', auth_1.authenticate, this.sellerRequestController.UpdateToSeller);
         this.router.get('/:uuid', auth_1.authenticate, this.sellerRequestController.findOne);
         this.router.delete('/:uuid', this.sellerRequestController.delete);
@@ -41,7 +41,7 @@ let SellerRequestRouter = class SellerRequestRouter extends baseRouter_1.default
     }
 };
 SellerRequestRouter = __decorate([
-    inversify_1.injectable(),
-    __param(0, inversify_1.inject(types_1.TYPES.SellerRequestController))
+    (0, inversify_1.injectable)(),
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.SellerRequestController))
 ], SellerRequestRouter);
 exports.default = SellerRequestRouter;

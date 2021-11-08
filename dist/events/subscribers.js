@@ -31,8 +31,8 @@ let Subscribers = class Subscribers {
     }
 };
 Subscribers = __decorate([
-    inversify_1.injectable(),
-    __param(0, inversify_1.inject(types_1.TYPES.Connector)),
-    __param(1, inversify_1.inject(types_1.TYPES.ConsumerDispatcher))
+    (0, inversify_1.injectable)(),
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.Connector)),
+    __param(1, (0, inversify_1.inject)(types_1.TYPES.ConsumerDispatcher))
 ], Subscribers);
 exports.default = Subscribers;

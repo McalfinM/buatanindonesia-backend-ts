@@ -68,6 +68,6 @@ let KafkaConnector = class KafkaConnector {
     }
 };
 KafkaConnector = __decorate([
-    inversify_1.injectable()
+    (0, inversify_1.injectable)()
 ], KafkaConnector);
 exports.default = KafkaConnector;

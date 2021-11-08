@@ -2,22 +2,22 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 class GetProductSpecificationWithAuth {
     _name;
-    _stock;
+    _city;
     _price;
     _sort_by;
     _page;
     _limit;
     _search;
-    _user;
+    _user_uuid;
     constructor(request) {
         this._search = request.search;
-        this._stock = request.stock;
+        this._city = request.city;
         this._name = request.name;
         this._price = request.price;
         this._sort_by = request.sort ?? '-created_at';
         this._page = request.page ?? 1;
         this._limit = request.limit ?? 30;
-        this._user = request.user;
+        this._user_uuid = request.user_uuid;
     }
     specifies() {
         let specifications = {};
@@ -28,15 +28,15 @@ class GetProductSpecificationWithAuth {
         if (this._price) {
             specifications["price"] = this._price;
         }
-        if (this._stock) {
-            specifications["stock"] = this._stock;
+        if (this._city) {
+            specifications["city.uuid"] = this._city;
         }
         if (or_specifications.length > 0) {
             specifications["$or"] = or_specifications;
         }
         specifications.deleted_at = null;
         specifications.is_active = true;
-        specifications['created_by.uuid'] = this._user?.uuid;
+        specifications['created_by.uuid'] = this._user_uuid;
         return specifications;
     }
     specSort() {

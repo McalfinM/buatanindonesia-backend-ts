@@ -2,7 +2,8 @@
 class GetProductRequest {
     protected _name?: string;
     protected _price?: string;
-    protected _stock?: string;
+    protected _city?: string;
+    protected _user_uuid?: string;
     protected _sort_by?: any;
     protected _page?: number;
     protected _limit?: number;
@@ -11,7 +12,8 @@ class GetProductRequest {
     constructor(queryParams: {
         name?: string
         price?: string
-        stock?: string
+        city?: string
+        user_uuid?: string
         sort_by?: any
         page?: number
         limit?: number
@@ -20,7 +22,8 @@ class GetProductRequest {
 
         this._name = queryParams.name
         this._price = queryParams.price
-        this._stock = queryParams.stock
+        this._city = queryParams.city
+        this._user_uuid = queryParams.user_uuid
         this._sort_by = queryParams.sort_by
         this._page = queryParams.page
         this._limit = queryParams.limit
@@ -39,8 +42,12 @@ class GetProductRequest {
         return this._price
     }
 
-    get stock(): string | undefined {
-        return this._stock
+    get city(): string | undefined {
+        return this._city
+    }
+
+    get user_uuid(): string | undefined {
+        return this._user_uuid
     }
 
 

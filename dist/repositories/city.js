@@ -99,6 +99,6 @@ let CityRepository = class CityRepository {
     }
 };
 CityRepository = __decorate([
-    inversify_1.injectable()
+    (0, inversify_1.injectable)()
 ], CityRepository);
 exports.default = CityRepository;

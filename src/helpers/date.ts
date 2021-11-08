@@ -22,7 +22,7 @@ export const stringToDateV2 = (dateString?: string | null): Date | null => {
         if (date.length > 2) throw new Error();
 
         return new Date(`${year}-${month}-${date}`);
-    } catch (err) {
+    } catch (err: any) {
         throw new Error(err);
     }
 };
@@ -34,7 +34,7 @@ export const dateToStringV2 = (dateParam: Date): string => {
         const date = dateParam.getDate().toString().padStart(2, "0");
 
         return `${year}/${month}/${date}`;
-    } catch (err) {
+    } catch (err: any) {
         throw new Error(err);
     }
 };

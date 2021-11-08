@@ -12,10 +12,14 @@ const SellerRequest = new mongoose_1.Schema({
     ktp_image: { type: String },
     name: { type: String },
     status: { type: String },
+    province: { type: Object },
+    city: { type: Object },
+    district: { type: Object },
+    village: { type: Object },
     created_at: { type: Date },
     updated_at: { type: Date },
     deleted_at: { type: Date },
 });
 SellerRequest.index('uuid');
-const SellerRequestModel = mongoose_1.model("Seller_Request", SellerRequest);
+const SellerRequestModel = (0, mongoose_1.model)("Seller_Request", SellerRequest);
 exports.default = SellerRequestModel;

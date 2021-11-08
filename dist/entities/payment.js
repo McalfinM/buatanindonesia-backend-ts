@@ -22,6 +22,8 @@ class PaymentEntity extends baseEntity_1.default {
     _quantity;
     _product;
     _total_price;
+    _status_payment;
+    _macaddress;
     _image;
     _cloudinary_id;
     _created_at;
@@ -46,8 +48,10 @@ class PaymentEntity extends baseEntity_1.default {
         this._quantity = params.quantity;
         this._product = params.product;
         this._total_price = params.total_price;
+        this._macaddress = params.macaddress;
         this._image = params.image;
         this._cloudinary_id = params.cloudinary_id;
+        this._status_payment = params.status_payment;
         this._created_at = params.created_at;
         this._updated_at = params.updated_at;
         this._deleted_at = params.deleted_at;
@@ -130,6 +134,12 @@ class PaymentEntity extends baseEntity_1.default {
     set status(status) {
         this._status = status;
     }
+    get status_payment() {
+        return this._status_payment;
+    }
+    set status_payment(status_payment) {
+        this._status_payment = status_payment;
+    }
     get card_name() {
         return this._card_name;
     }
@@ -159,6 +169,12 @@ class PaymentEntity extends baseEntity_1.default {
     }
     set image(image) {
         this._image = image;
+    }
+    get macaddress() {
+        return this._macaddress;
+    }
+    set macaddress(macaddress) {
+        this._macaddress = macaddress;
     }
     get cloudinary_id() {
         return this._cloudinary_id;
@@ -204,6 +220,8 @@ class PaymentEntity extends baseEntity_1.default {
             product: this.product,
             total_price: this.total_price,
             image: this.image,
+            status_payment: this.status_payment,
+            macaddress: this.macaddress,
             cloudinary_id: this.cloudinary_id,
             created_at: this.created_at,
             updated_at: this.updated_at,
@@ -225,6 +243,8 @@ class PaymentEntity extends baseEntity_1.default {
             image: this.image,
             cloudinary_id: this.cloudinary_id,
             created_at: this.created_at,
+            status_payment: this.status_payment,
+            payment_method: this.payment_method
         };
     }
     toDetailData() {
@@ -247,6 +267,7 @@ class PaymentEntity extends baseEntity_1.default {
             product: this.product,
             total_price: this.total_price,
             image: this.image,
+            status_payment: this.status_payment,
             cloudinary_id: this.cloudinary_id,
             created_at: this.created_at,
             updated_at: this.updated_at,

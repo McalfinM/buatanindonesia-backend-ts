@@ -76,6 +76,6 @@ let CommentRepository = class CommentRepository {
     }
 };
 CommentRepository = __decorate([
-    inversify_1.injectable()
+    (0, inversify_1.injectable)()
 ], CommentRepository);
 exports.default = CommentRepository;

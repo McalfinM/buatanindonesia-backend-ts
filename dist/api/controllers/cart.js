@@ -28,7 +28,7 @@ let CartController = class CartController {
             .then((result) => {
             return httpResponse_1.default.created(req, res, result);
         })
-            .catch((err) => errors_1.HttpErrorHandler(err, req, res));
+            .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
     findOne(req, res) {
         const { params: { uuid } } = req;
@@ -37,7 +37,7 @@ let CartController = class CartController {
             .then((result) => {
             return httpResponse_1.default.success(req, res, result);
         })
-            .catch((err) => errors_1.HttpErrorHandler(err, req, res));
+            .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
     delete(req, res) {
         const { params: { uuid } } = req;
@@ -46,19 +46,28 @@ let CartController = class CartController {
             .then((result) => {
             return httpResponse_1.default.success(req, res, result);
         })
-            .catch((err) => errors_1.HttpErrorHandler(err, req, res));
+            .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
     findAll(req, res) {
         const user = req.user;
         return this.cartService.findAll(user.uuid)
             .then((result) => {
-            return httpResponse_1.default.success(req, res, result.map((data) => data.toListData()));
+            return httpResponse_1.default.success(req, res, result);
         })
-            .catch((err) => errors_1.HttpErrorHandler(err, req, res));
+            .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
+    }
+    minusQuantity(req, res) {
+        const user = req.user;
+        const { params: { uuid } } = req;
+        return this.cartService.minusQuantity(uuid, user.uuid)
+            .then((result) => {
+            return httpResponse_1.default.success(req, res, result);
+        })
+            .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
 };
 CartController = __decorate([
-    inversify_1.injectable(),
-    __param(0, inversify_1.inject(types_1.TYPES.CartService))
+    (0, inversify_1.injectable)(),
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.CartService))
 ], CartController);
 exports.default = CartController;

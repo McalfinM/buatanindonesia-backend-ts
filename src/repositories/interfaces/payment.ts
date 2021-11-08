@@ -7,4 +7,7 @@ export interface IPaymentRepository {
     findOne(uuid: string, user_uuid: string): Promise<PaymentEntity | null>
     findAll(specification: specificationInterface): Promise<{ total: number, data: PaymentEntity[] }>
     delete(uuid: string, user_uuid: string): Promise<{ success: true }>
+    findOneByNoInvoice(slug: string, user_uuid: string): Promise<PaymentEntity | null>
+    findPaymentStillNoPay(user_uuid: string): Promise<PaymentEntity | null>
+    findOneSeller(uuid: string, user_uuid: string): Promise<PaymentEntity | null>
 }

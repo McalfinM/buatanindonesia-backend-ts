@@ -7,7 +7,7 @@ exports.isDate = exports.isPhonenumber = exports.isEmail = exports.isNumber = ex
 const express_validator_1 = require("express-validator");
 const httpResponse_1 = __importDefault(require("../helpers/httpResponse"));
 const validate = (req, res, next) => {
-    const errors = express_validator_1.validationResult(req);
+    const errors = (0, express_validator_1.validationResult)(req);
     if (errors.isEmpty()) {
         return next();
     }
@@ -17,26 +17,26 @@ const validate = (req, res, next) => {
 };
 exports.validate = validate;
 const isRequired = (fields) => {
-    return fields.map(field => express_validator_1.body(field).notEmpty());
+    return fields.map(field => (0, express_validator_1.body)(field).notEmpty());
 };
 exports.isRequired = isRequired;
 const isString = (fields) => {
-    return fields.map(field => express_validator_1.body(field).isString());
+    return fields.map(field => (0, express_validator_1.body)(field).isString());
 };
 exports.isString = isString;
 const isNumber = (fields) => {
-    return fields.map(field => express_validator_1.body(field).isNumeric());
+    return fields.map(field => (0, express_validator_1.body)(field).isNumeric());
 };
 exports.isNumber = isNumber;
 const isEmail = (fields) => {
-    return fields.map(field => express_validator_1.body(field).isEmail());
+    return fields.map(field => (0, express_validator_1.body)(field).isEmail());
 };
 exports.isEmail = isEmail;
 const isPhonenumber = (fields) => {
-    return fields.map(field => express_validator_1.body(field).isMobilePhone('id-ID'));
+    return fields.map(field => (0, express_validator_1.body)(field).isMobilePhone('id-ID'));
 };
 exports.isPhonenumber = isPhonenumber;
 const isDate = (fields) => {
-    return fields.map(field => express_validator_1.body(field).isDate());
+    return fields.map(field => (0, express_validator_1.body)(field).isDate());
 };
 exports.isDate = isDate;

@@ -33,7 +33,7 @@ let CommentController = class CommentController {
             .then((result) => {
             return httpResponse_1.default.created(req, res, result);
         })
-            .catch((err) => errors_1.HttpErrorHandler(err, req, res));
+            .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
     update(req, res) {
         const user = req.user;
@@ -42,7 +42,7 @@ let CommentController = class CommentController {
             .then((result) => {
             return httpResponse_1.default.success(req, res, result);
         })
-            .catch((err) => errors_1.HttpErrorHandler(err, req, res));
+            .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
     findOne(req, res) {
         const { params: { uuid } } = req;
@@ -50,7 +50,7 @@ let CommentController = class CommentController {
             .then((result) => {
             return httpResponse_1.default.success(req, res, result);
         })
-            .catch((err) => errors_1.HttpErrorHandler(err, req, res));
+            .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
     delete(req, res) {
         const { params: { uuid } } = req;
@@ -59,11 +59,11 @@ let CommentController = class CommentController {
             .then((result) => {
             return httpResponse_1.default.success(req, res, result);
         })
-            .catch((err) => errors_1.HttpErrorHandler(err, req, res));
+            .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
 };
 CommentController = __decorate([
-    inversify_1.injectable(),
-    __param(0, inversify_1.inject(types_1.TYPES.CommentService))
+    (0, inversify_1.injectable)(),
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.CommentService))
 ], CommentController);
 exports.default = CommentController;

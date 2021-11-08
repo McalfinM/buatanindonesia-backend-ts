@@ -33,12 +33,16 @@ let ProductService = class ProductService {
     }
     async create(data, user) {
         const category = await this.categoryService.findOne(data.category_uuid);
+        if (!category)
+            throw new errors_1.ErrorNotFound('Kategori tidak ada', '@Service Create Product');
         const profile = await this.profileService.findOne(user.uuid);
+        if (!profile)
+            throw new errors_1.ErrorNotFound('User tidak ada', '@Service Create Product');
         const productEntity = new product_1.default({
-            uuid: uuid_1.v4(),
+            uuid: (0, uuid_1.v4)(),
             name: data.name,
             description: data.description,
-            slug: slugify_1.default(data.name) + uuid_1.v4(),
+            slug: (0, slugify_1.default)(data.name) + (0, uuid_1.v4)(),
             image: data.image ?? 'https://res.cloudinary.com/dti2eqvdi/image/upload/v1627998960/profile/No_Image_Available_kvppd7.jpg',
             cloudinary_id: data.cloudinary_id ?? 'https://res.cloudinary.com/dti2eqvdi/image/upload/v1627998960/profile/No_Image_Available_kvppd7.jpg',
             price: data.price,
@@ -51,6 +55,10 @@ let ProductService = class ProductService {
             category: {
                 uuid: category?.uuid,
                 name: category?.name
+            },
+            city: {
+                uuid: profile?.city.uuid,
+                name: profile?.city.name
             },
             is_active: false,
             created_at: new Date,
@@ -70,6 +78,8 @@ let ProductService = class ProductService {
     }
     async delete(uuid, user_uuid) {
         const result = await this.productRepository.delete(uuid, user_uuid);
+        if (!result)
+            throw new errors_1.ErrorNotFound('Produk tidak ada', '@Service Prodct => delete');
         return { success: true };
     }
     async update(uuid, data, user) {
@@ -84,7 +94,7 @@ let ProductService = class ProductService {
             throw new errors_1.ErrorNotFound('User not found', '@ Service product update');
         let slugi = '';
         if (product.name !== data.name) {
-            slugi = slugify_1.default(data.name) + uuid_1.v4();
+            slugi = (0, slugify_1.default)(data.name) + (0, uuid_1.v4)();
         }
         else {
             slugi = product.slug;
@@ -107,6 +117,10 @@ let ProductService = class ProductService {
                 uuid: category?.uuid,
                 name: category?.name
             },
+            city: {
+                uuid: profile?.city.uuid,
+                name: profile?.city.name
+            },
             is_active: product.is_active,
             created_at: product.created_at,
             updated_at: new Date,
@@ -121,12 +135,14 @@ let ProductService = class ProductService {
     async findAllWithUser(data) {
         return await this.productRepository.findAll(new productSpecWithAuth_1.default(data));
     }
+    async reduceStock(uuid, quantity) {
+    }
 };
 ProductService = __decorate([
-    inversify_1.injectable(),
-    __param(0, inversify_1.inject(types_1.TYPES.ProductRepository)),
-    __param(1, inversify_1.inject(types_1.TYPES.CategoryService)),
-    __param(2, inversify_1.inject(types_1.TYPES.ProfileService)),
-    __param(3, inversify_1.inject(types_1.TYPES.ProducerDispatcher))
+    (0, inversify_1.injectable)(),
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.ProductRepository)),
+    __param(1, (0, inversify_1.inject)(types_1.TYPES.CategoryService)),
+    __param(2, (0, inversify_1.inject)(types_1.TYPES.ProfileService)),
+    __param(3, (0, inversify_1.inject)(types_1.TYPES.ProducerDispatcher))
 ], ProductService);
 exports.default = ProductService;

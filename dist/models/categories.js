@@ -6,5 +6,5 @@ const CategorySchema = new mongoose_1.Schema({
     name: { type: String },
 });
 CategorySchema.index('uuid');
-const CategoryModel = mongoose_1.model("categories", CategorySchema);
+const CategoryModel = (0, mongoose_1.model)("categories", CategorySchema);
 exports.default = CategoryModel;

@@ -39,7 +39,7 @@ class UserRepository implements IUserRepository {
 
         const result = await UserModel.findOne({
             email: email,
-            $or: [{ deleted_at: undefined }]
+            $or: [{ deleted_at: undefined }, { deleted_at: null }]
         })
 
         return result ? new UserEntity(result) : null
@@ -49,7 +49,7 @@ class UserRepository implements IUserRepository {
 
         const result = await UserModel.findOne({
             name: name,
-            $or: [{ deleted_at: undefined }]
+            $or: [{ deleted_at: undefined }, { deleted_at: null }]
         })
 
         return result ? new UserEntity(result) : null
@@ -59,7 +59,7 @@ class UserRepository implements IUserRepository {
 
         const result = await UserModel.findOne({
             uuid: uuid,
-            $or: [{ deleted_at: undefined }]
+            $or: [{ deleted_at: undefined }, { deleted_at: null }]
         })
 
         return result ? new UserEntity(result) : null

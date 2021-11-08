@@ -7,5 +7,5 @@ const ProvinceSchema = new mongoose_1.Schema({
     code: { type: String },
 });
 ProvinceSchema.index('uuid');
-const ProvinceModel = mongoose_1.model("provinces", ProvinceSchema);
+const ProvinceModel = (0, mongoose_1.model)("provinces", ProvinceSchema);
 exports.default = ProvinceModel;

@@ -28,8 +28,8 @@ let VillageService = class VillageService {
     }
 };
 VillageService = __decorate([
-    inversify_1.injectable(),
-    __param(0, inversify_1.inject(types_1.TYPES.VillageRepository)),
-    __param(1, inversify_1.inject(types_1.TYPES.ProducerDispatcher))
+    (0, inversify_1.injectable)(),
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.VillageRepository)),
+    __param(1, (0, inversify_1.inject)(types_1.TYPES.ProducerDispatcher))
 ], VillageService);
 exports.default = VillageService;

@@ -5,6 +5,7 @@ import { IPaymentRepository } from "./interfaces/payment";
 import { v4 as uuidV4 } from 'uuid'
 import specificationInterface from "./specifications/specificationInterface";
 import PaymentModel from "../models/payment";
+import { PaymentMethod, StatusOrder, StatusPayment } from "../entities/enums/enum";
 
 
 @injectable()
@@ -29,6 +30,7 @@ class PaymentRepository implements IPaymentRepository {
             quantity: data.quantity,
             seller_by: data.seller_by,
             status: data.status,
+            status_payment: data.status_payment,
             total_price: data.total_price,
             created_at: data.created_at,
             updated_at: data.updated_at,
@@ -38,6 +40,7 @@ class PaymentRepository implements IPaymentRepository {
         return { success: true }
     }
     async update(data: PaymentEntity): Promise<{ success: true }> {
+        console.log(data, 'ini enti')
         const result = await PaymentModel.updateOne({ uuid: data.uuid, deleted_at: null }, {
             ...data.toJson()
         })
@@ -49,14 +52,22 @@ class PaymentRepository implements IPaymentRepository {
 
         return result ? new PaymentEntity(result) : null
     }
+
+    async findOneSeller(uuid: string, user_uuid: string): Promise<PaymentEntity | null> {
+        const result = await PaymentModel.findOne({ uuid: uuid, "seller_by.uuid": user_uuid, deleted_at: null })
+
+        return result ? new PaymentEntity(result) : null
+    }
+
     async findOneWithUser(uuid: string, user_uuid: string): Promise<PaymentEntity | null> {
         const result = await PaymentModel.findOne({ uuid: uuid, "created_by.uuid": user_uuid, deleted_at: null })
 
         return result ? new PaymentEntity(result) : null
     }
 
-    async findOneBySlug(slug: string): Promise<PaymentEntity | null> {
-        const result = await PaymentModel.findOne({ slug: slug, deleted_at: null })
+    async findOneByNoInvoice(no_invoice: string, user_uuid: string): Promise<PaymentEntity | null> {
+        console.log(no_invoice, user_uuid, 'ini')
+        const result = await PaymentModel.findOne({ no_invoice: no_invoice, "created_by.uuid": user_uuid, deleted_at: null })
 
         return result ? new PaymentEntity(result) : null
     }
@@ -104,6 +115,14 @@ class PaymentRepository implements IPaymentRepository {
             });
     }
 
+    async findPaymentStillNoPay(user_uuid: string): Promise<PaymentEntity | null> {
+        const payment = await PaymentModel.findOne({
+            "created_by.uuid": user_uuid,
+            status: StatusOrder.ORDER
+        })
+
+        return payment ? new PaymentEntity(payment) : null
+    }
 
 }
 

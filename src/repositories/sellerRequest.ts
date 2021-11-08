@@ -10,6 +10,7 @@ import { ISellerRequestRepository } from "./interfaces/sellerRequest";
 @injectable()
 class SellerRequestRepository implements ISellerRequestRepository {
     async create(data: SellerRequestEntity): Promise<{ success: true }> {
+        console.log(data.village, data.district)
         const result = await SellerRequestModel.create({
             uuid: data.uuid,
             created_by: data.created_by,
@@ -21,6 +22,10 @@ class SellerRequestRepository implements ISellerRequestRepository {
             status: data.status,
             ktp_image: data.ktp_image,
             name: data.name,
+            province: data.province,
+            city: data.city,
+            district: data.district,
+            village: data.village,
             created_at: data.created_at,
             updated_at: data.updated_at,
             deleted_at: null
@@ -32,6 +37,16 @@ class SellerRequestRepository implements ISellerRequestRepository {
     async findOne(uuid: string): Promise<SellerRequestEntity | null> {
         const result = await SellerRequestModel.findOne({
             uuid: uuid,
+            $or: [{ deleted_at: undefined }, { deleted_at: null }]
+        })
+
+        return result ? new SellerRequestEntity(result) : null
+    }
+
+    async findOneByUserUuid(uuid: string): Promise<SellerRequestEntity | null> {
+        const result = await SellerRequestModel.findOne({
+
+            "created_by.uuid": uuid,
             $or: [{ deleted_at: undefined }, { deleted_at: null }]
         })
 
@@ -89,6 +104,10 @@ class SellerRequestRepository implements ISellerRequestRepository {
                             phone: data.phone,
                             ktp_image: data.ktp_image,
                             name: data.name,
+                            province: data.province,
+                            city: data.city,
+                            district: data.district,
+                            village: data.village,
                             created_at: data.created_at,
                             updated_at: data.updated_at,
                             deleted_at: data.deleted_at

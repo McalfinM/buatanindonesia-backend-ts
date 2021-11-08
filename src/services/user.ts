@@ -68,6 +68,7 @@ class UserService implements IUserService {
             phone: '',
             cloudinary_id: '',
             bank: {},
+            is_active: false,
             created_at: new Date,
             province: {},
             updated_at: new Date,

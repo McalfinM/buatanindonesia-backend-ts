@@ -2,9 +2,9 @@
 
 
 class CreateUserRequest {
-    protected _uuid: string | null
-    protected _name: string | null
-    protected _email: string | null
+    protected _uuid: string
+    protected _name: string
+    protected _email: string
     protected _password: string
     protected _confirm_password: string
     protected _created_at: Date | null
@@ -13,9 +13,9 @@ class CreateUserRequest {
 
 
     constructor(body: {
-        uuid: string | null
-        name: string | null
-        email: string | null
+        uuid: string
+        name: string
+        email: string
         password: string
         confirm_password: string
         created_at: Date | null
@@ -33,13 +33,11 @@ class CreateUserRequest {
         this._deleted_at = body.deleted_at
     }
 
-    get uuid(): string | null {
-        return this._uuid
-    }
-    get name(): string | null {
+
+    get name(): string {
         return this._name
     }
-    get email(): string | null {
+    get email(): string {
         return this._email
     }
     get password(): string {

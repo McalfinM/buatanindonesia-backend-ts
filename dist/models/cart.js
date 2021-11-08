@@ -12,5 +12,5 @@ const CartSchema = new mongoose_1.Schema({
 });
 CartSchema.index('uuid');
 CartSchema.index('created_by');
-const CartModel = mongoose_1.model("cart", CartSchema);
+const CartModel = (0, mongoose_1.model)("cart", CartSchema);
 exports.default = CartModel;

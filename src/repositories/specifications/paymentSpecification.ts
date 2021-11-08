@@ -1,4 +1,5 @@
 
+import { UserRole } from "../../entities/enums/enum";
 import { IUser } from "../../models/interfaces/user";
 import ISpecification from "./specificationInterface";
 
@@ -7,6 +8,7 @@ class GetPaymentSpecification implements ISpecification {
     protected _invoice?: string;
     protected _name?: string;
     protected _email?: string;
+    protected _place?: string
     protected _sort_by: any;
     protected _page: number;
     protected _limit: number;
@@ -19,6 +21,7 @@ class GetPaymentSpecification implements ISpecification {
         card_holder_invoice?: string
         name?: string
         email?: string
+        place?: string
         sort?: string
         page?: number
         limit?: number
@@ -29,6 +32,7 @@ class GetPaymentSpecification implements ISpecification {
         this._name = request.name;
         this._invoice = request.invoice;
         this._email = request.email
+        this._place = request.place;
         this._sort_by = request.sort ?? '-created_at'
         this._page = request.page ?? 1
         this._limit = request.limit ?? 30
@@ -43,7 +47,7 @@ class GetPaymentSpecification implements ISpecification {
         if (this._search) {
 
             or_specifications.push(
-                { 'invoice': new RegExp(this._search, 'i') }
+                { 'no_invoice': new RegExp(this._search, 'i') }
             )
         }
 
@@ -60,7 +64,12 @@ class GetPaymentSpecification implements ISpecification {
             specifications["$or"] = or_specifications;
         }
         specifications.deleted_at = null;
-        specifications.is_active = true
+        if (this._place == 'seller') {
+            specifications['seller_by.uuid'] = this._user?.uuid
+        } else {
+
+            specifications['created_by.uuid'] = this._user?.uuid
+        }
 
         return specifications;
     }

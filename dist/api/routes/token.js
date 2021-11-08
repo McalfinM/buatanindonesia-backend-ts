@@ -23,7 +23,7 @@ let TokenRouter = class TokenRouter extends baseRouter_1.default {
     constructor(tokenController) {
         super();
         this.tokenController = tokenController;
-        this.router = express_1.Router();
+        this.router = (0, express_1.Router)();
         this.bindings();
         this.routes();
     }
@@ -36,7 +36,7 @@ let TokenRouter = class TokenRouter extends baseRouter_1.default {
     }
 };
 TokenRouter = __decorate([
-    inversify_1.injectable(),
-    __param(0, inversify_1.inject(types_1.TYPES.TokenController))
+    (0, inversify_1.injectable)(),
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.TokenController))
 ], TokenRouter);
 exports.default = TokenRouter;

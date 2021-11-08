@@ -51,7 +51,7 @@ let UserService = class UserService {
         const userEntity = new user_1.default({
             name: data.name,
             email: data.email,
-            uuid: uuid_1.v4(),
+            uuid: (0, uuid_1.v4)(),
             password: hash,
             roles: [enum_1.UserRole.MEMBER],
             is_active: false,
@@ -60,12 +60,12 @@ let UserService = class UserService {
             deleted_at: null
         });
         const profile = new profile_1.default({
-            uuid: uuid_1.v4(),
+            uuid: (0, uuid_1.v4)(),
             created_by: {
                 uuid: userEntity.uuid ?? '',
                 name: userEntity.name ?? '',
             },
-            slug: slugify_1.default(userEntity.name ?? '') + uuid_1.v4(),
+            slug: (0, slugify_1.default)(userEntity.name ?? '') + (0, uuid_1.v4)(),
             roles: [enum_1.UserRole.MEMBER],
             address: '',
             card_number: '',
@@ -77,6 +77,7 @@ let UserService = class UserService {
             phone: '',
             cloudinary_id: '',
             bank: {},
+            is_active: false,
             created_at: new Date,
             province: {},
             updated_at: new Date,
@@ -119,11 +120,11 @@ let UserService = class UserService {
     }
 };
 UserService = __decorate([
-    inversify_1.injectable(),
-    __param(0, inversify_1.inject(types_1.TYPES.UserRepository)),
-    __param(1, inversify_1.inject(types_1.TYPES.TokenService)),
-    __param(2, inversify_1.inject(types_1.TYPES.ProfileService)),
-    __param(3, inversify_1.inject(types_1.TYPES.EmailService)),
-    __param(4, inversify_1.inject(types_1.TYPES.ProducerDispatcher))
+    (0, inversify_1.injectable)(),
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.UserRepository)),
+    __param(1, (0, inversify_1.inject)(types_1.TYPES.TokenService)),
+    __param(2, (0, inversify_1.inject)(types_1.TYPES.ProfileService)),
+    __param(3, (0, inversify_1.inject)(types_1.TYPES.EmailService)),
+    __param(4, (0, inversify_1.inject)(types_1.TYPES.ProducerDispatcher))
 ], UserService);
 exports.default = UserService;

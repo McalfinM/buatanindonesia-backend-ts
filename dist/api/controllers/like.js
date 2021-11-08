@@ -29,7 +29,7 @@ let LikeController = class LikeController {
             .then((result) => {
             return httpResponse_1.default.created(req, res, result);
         })
-            .catch((err) => errors_1.HttpErrorHandler(err, req, res));
+            .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
     findOne(req, res) {
         const { body: { post_uuid, user_uuid } } = req;
@@ -37,7 +37,7 @@ let LikeController = class LikeController {
             .then((result) => {
             return httpResponse_1.default.success(req, res, result);
         })
-            .catch((err) => errors_1.HttpErrorHandler(err, req, res));
+            .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
     delete(req, res) {
         const { params: { uuid } } = req;
@@ -46,11 +46,11 @@ let LikeController = class LikeController {
             .then((result) => {
             return httpResponse_1.default.success(req, res, result);
         })
-            .catch((err) => errors_1.HttpErrorHandler(err, req, res));
+            .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
 };
 LikeController = __decorate([
-    inversify_1.injectable(),
-    __param(0, inversify_1.inject(types_1.TYPES.LikeService))
+    (0, inversify_1.injectable)(),
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.LikeService))
 ], LikeController);
 exports.default = LikeController;

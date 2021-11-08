@@ -3,6 +3,6 @@ import { translate } from '../../../helpers/validatorTranslation'
 
 export const bodyValidation = (): ValidationChain[] => {
     return [
-        body('product_uuid', 'product harus di isi').notEmpty().isUUID(),
+        body('product_uuid', 'please fill this uuid').notEmpty().isUUID(),
     ]
 }

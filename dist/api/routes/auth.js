@@ -24,19 +24,19 @@ let AuthRouter = class AuthRouter extends baseRouter_1.default {
     constructor(authController) {
         super();
         this.authController = authController;
-        this.router = express_1.Router();
+        this.router = (0, express_1.Router)();
         this.bindings();
         this.routes();
     }
     routes() {
         // call controllers here
         this.router.post('/login', this.authController.login);
-        this.router.post('/register', auth_1.bodyValidation(), requestValidation_1.validate, this.authController.register);
+        this.router.post('/register', (0, auth_1.bodyValidation)(), requestValidation_1.validate, this.authController.register);
         return this;
     }
 };
 AuthRouter = __decorate([
-    inversify_1.injectable(),
-    __param(0, inversify_1.inject(types_1.TYPES.AuthController))
+    (0, inversify_1.injectable)(),
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.AuthController))
 ], AuthRouter);
 exports.default = AuthRouter;

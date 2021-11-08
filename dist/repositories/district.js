@@ -98,6 +98,6 @@ let DistrictRepository = class DistrictRepository {
     }
 };
 DistrictRepository = __decorate([
-    inversify_1.injectable()
+    (0, inversify_1.injectable)()
 ], DistrictRepository);
 exports.default = DistrictRepository;

@@ -15,6 +15,10 @@ class SellerRequestEntity extends BaseEntity {
     protected _image: string[]
     protected _status: string
     protected _phone: string
+    protected _province: IEmbed
+    protected _city: IEmbed
+    protected _district: IEmbed
+    protected _village: IEmbed
     protected _ktp_image: string | null
     protected _created_at: Date | null
     protected _updated_at: Date | null
@@ -36,6 +40,10 @@ class SellerRequestEntity extends BaseEntity {
         this._name = params.name
         this._ktp_image = params.ktp_image
         this._bank = params.bank
+        this._province = params.province
+        this._city = params.city
+        this._district = params.district
+        this._village = params.village
         this._created_at = params.created_at
         this._updated_at = params.updated_at
         this._deleted_at = params.deleted_at
@@ -127,6 +135,31 @@ class SellerRequestEntity extends BaseEntity {
 
     set bank(bank: IEmbed) {
         this._bank = bank
+    }
+
+    get province(): IEmbed {
+        return this._province
+    }
+    set province(province: IEmbed) {
+        this._province = province
+    }
+    get city(): IEmbed {
+        return this._city
+    }
+    set city(city: IEmbed) {
+        this._city = city
+    }
+    get district(): IEmbed {
+        return this._district
+    }
+    set district(district: IEmbed) {
+        this._district = district
+    }
+    get village(): IEmbed {
+        return this._village
+    }
+    set village(village: IEmbed) {
+        this._village = village
     }
 
     get created_at(): Date | null {

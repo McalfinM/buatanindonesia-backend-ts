@@ -4,7 +4,6 @@ class GetProfileSpecification {
     _nickname;
     _full_name;
     _sort_by;
-    _roles;
     _page;
     _limit;
     _search;
@@ -12,7 +11,6 @@ class GetProfileSpecification {
         this._search = request.search;
         this._nickname = request.nickname;
         this._full_name = request.full_name;
-        this._roles = request.roles ?? ['member'];
         this._sort_by = request.sort ?? '-created_at';
         this._page = request.page ?? 1;
         this._limit = request.limit ?? 30;
@@ -31,7 +29,7 @@ class GetProfileSpecification {
         }
         specifications.deleted_at = null;
         specifications.is_active = true;
-        specifications.roles = ['member', 'remaja_masjid'] && ['member', 'remaja_masjid', 'admin'];
+        specifications.roles = ["member", "seller"];
         return specifications;
     }
     specSort() {

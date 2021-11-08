@@ -27,6 +27,6 @@ let SyncConsumer = class SyncConsumer extends event_dispatch_1.EventDispatcher {
     }
 };
 SyncConsumer = __decorate([
-    event_dispatch_1.EventSubscriber()
+    (0, event_dispatch_1.EventSubscriber)()
 ], SyncConsumer);
 exports.default = SyncConsumer;

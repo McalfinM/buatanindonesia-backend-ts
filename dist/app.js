@@ -39,8 +39,8 @@ class App {
     app;
     mongooseClient;
     constructor() {
-        dotenv_1.config();
-        this.app = express_1.default();
+        (0, dotenv_1.config)();
+        this.app = (0, express_1.default)();
         this.mongooseClient = mongoose_1.default;
         this.applyMiddleware();
         this.routes();
@@ -76,9 +76,9 @@ class App {
     }
     applyMiddleware() {
         // middlewares here
-        this.app.use(express_1.json());
-        this.app.use(cors_1.default());
-        this.app.use(express_1.urlencoded({ extended: true }));
+        this.app.use((0, express_1.json)());
+        this.app.use((0, cors_1.default)());
+        this.app.use((0, express_1.urlencoded)({ extended: true }));
         this.app.use(requestQueryValidation_1.default.validatePage);
         this.app.use(requestQueryValidation_1.default.validateLimit);
         this.app.use(i18next_http_middleware_1.default.handle(i18next_1.default, {}));

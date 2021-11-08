@@ -25,13 +25,13 @@ let CommentRouter = class CommentRouter extends baseRouter_1.default {
     constructor(commentController) {
         super();
         this.commentController = commentController;
-        this.router = express_1.Router();
+        this.router = (0, express_1.Router)();
         this.bindings();
         this.routes();
     }
     routes() {
         // call controllers here
-        this.router.post('/', auth_1.authenticate, comment_1.bodyValidation(), requestBodyValidation_1.validate, this.commentController.create);
+        this.router.post('/', auth_1.authenticate, (0, comment_1.bodyValidation)(), requestBodyValidation_1.validate, this.commentController.create);
         this.router.put('/:uuid', auth_1.authenticate, this.commentController.update);
         this.router.delete('/:uuid', auth_1.authenticate, this.commentController.delete);
         this.router.get('/:uuid', auth_1.authenticate, this.commentController.findOne);
@@ -39,7 +39,7 @@ let CommentRouter = class CommentRouter extends baseRouter_1.default {
     }
 };
 CommentRouter = __decorate([
-    inversify_1.injectable(),
-    __param(0, inversify_1.inject(types_1.TYPES.CommentController))
+    (0, inversify_1.injectable)(),
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.CommentController))
 ], CommentRouter);
 exports.default = CommentRouter;

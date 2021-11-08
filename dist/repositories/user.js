@@ -38,21 +38,21 @@ let UserRepository = class UserRepository {
     async checkEmail(email) {
         const result = await user_2.default.findOne({
             email: email,
-            $or: [{ deleted_at: undefined }]
+            $or: [{ deleted_at: undefined }, { deleted_at: null }]
         });
         return result ? new user_1.default(result) : null;
     }
     async checkUsername(name) {
         const result = await user_2.default.findOne({
             name: name,
-            $or: [{ deleted_at: undefined }]
+            $or: [{ deleted_at: undefined }, { deleted_at: null }]
         });
         return result ? new user_1.default(result) : null;
     }
     async findOneByUuid(uuid) {
         const result = await user_2.default.findOne({
             uuid: uuid,
-            $or: [{ deleted_at: undefined }]
+            $or: [{ deleted_at: undefined }, { deleted_at: null }]
         });
         return result ? new user_1.default(result) : null;
     }
@@ -77,6 +77,6 @@ let UserRepository = class UserRepository {
     }
 };
 UserRepository = __decorate([
-    inversify_1.injectable()
+    (0, inversify_1.injectable)()
 ], UserRepository);
 exports.default = UserRepository;

@@ -13,5 +13,5 @@ const LikeSchema = new mongoose_1.Schema({
 LikeSchema.index('uuid');
 LikeSchema.index('user_uuid');
 LikeSchema.index('post_uuid');
-const LikeModel = mongoose_1.model("likes", LikeSchema);
+const LikeModel = (0, mongoose_1.model)("likes", LikeSchema);
 exports.default = LikeModel;

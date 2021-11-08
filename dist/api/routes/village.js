@@ -22,7 +22,7 @@ let VillageRouter = class VillageRouter extends baseRouter_1.default {
     constructor(villageController) {
         super();
         this.villageController = villageController;
-        this.router = express_1.Router();
+        this.router = (0, express_1.Router)();
         this.bindings();
         this.routes();
     }
@@ -34,7 +34,7 @@ let VillageRouter = class VillageRouter extends baseRouter_1.default {
     }
 };
 VillageRouter = __decorate([
-    inversify_1.injectable(),
-    __param(0, inversify_1.inject(types_1.TYPES.VillageController))
+    (0, inversify_1.injectable)(),
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.VillageController))
 ], VillageRouter);
 exports.default = VillageRouter;

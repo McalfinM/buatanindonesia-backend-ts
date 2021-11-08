@@ -25,21 +25,22 @@ let CartRouter = class CartRouter extends baseRouter_1.default {
     constructor(cartController) {
         super();
         this.cartController = cartController;
-        this.router = express_1.Router();
+        this.router = (0, express_1.Router)();
         this.bindings();
         this.routes();
     }
     routes() {
         // call controllers here
         this.router.get('/', auth_1.authenticate, this.cartController.findAll);
-        this.router.post('/', auth_1.authenticate, vehicleBrand_1.bodyValidation(), requestValidation_1.validate, this.cartController.createOrUpdate);
+        this.router.post('/', auth_1.authenticate, (0, vehicleBrand_1.bodyValidation)(), requestValidation_1.validate, this.cartController.createOrUpdate);
         this.router.get('/:uuid', auth_1.authenticate, this.cartController.findOne);
-        this.router.delete('/:slug', this.cartController.delete);
+        this.router.delete('/:uuid', auth_1.authenticate, this.cartController.delete);
+        this.router.patch('/:uuid', auth_1.authenticate, this.cartController.minusQuantity);
         return this;
     }
 };
 CartRouter = __decorate([
-    inversify_1.injectable(),
-    __param(0, inversify_1.inject(types_1.TYPES.CartController))
+    (0, inversify_1.injectable)(),
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.CartController))
 ], CartRouter);
 exports.default = CartRouter;

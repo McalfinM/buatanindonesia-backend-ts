@@ -38,8 +38,7 @@ let CartRepository = class CartRepository {
         return result ? new cart_1.default(result) : null;
     }
     async delete(uuid, user_uuid) {
-        console.log(uuid);
-        await cart_2.default.updateOne({ "created_by.uuid": user_uuid }, { $pull: { product: { uuid: uuid } } }, {
+        const deleteCart = await cart_2.default.updateOne({ "created_by.uuid": user_uuid, "product.uuid": uuid }, { $pull: { product: { uuid: uuid } } }, {
             upsert: false,
             multi: true
         });
@@ -52,23 +51,11 @@ let CartRepository = class CartRepository {
         return { success: true };
     }
     async findAll(user_uuid) {
-        return await cart_2.default.find({ "created_by.uuid": user_uuid })
-            .then(data => {
-            return data.map((result) => {
-                return new cart_1.default({
-                    uuid: result.uuid,
-                    created_by: result.created_by,
-                    product: result.product,
-                    quantity: result.quantity,
-                    created_at: result.created_at,
-                    deleted_at: result.deleted_at,
-                    updated_at: result.updated_at
-                });
-            });
-        });
+        const cart = await cart_2.default.findOne({ "created_by.uuid": user_uuid });
+        return cart ? new cart_1.default(cart) : null;
     }
 };
 CartRepository = __decorate([
-    inversify_1.injectable()
+    (0, inversify_1.injectable)()
 ], CartRepository);
 exports.default = CartRepository;

@@ -15,6 +15,10 @@ class SellerRequestEntity extends baseEntity_1.default {
     _image;
     _status;
     _phone;
+    _province;
+    _city;
+    _district;
+    _village;
     _ktp_image;
     _created_at;
     _updated_at;
@@ -32,6 +36,10 @@ class SellerRequestEntity extends baseEntity_1.default {
         this._name = params.name;
         this._ktp_image = params.ktp_image;
         this._bank = params.bank;
+        this._province = params.province;
+        this._city = params.city;
+        this._district = params.district;
+        this._village = params.village;
         this._created_at = params.created_at;
         this._updated_at = params.updated_at;
         this._deleted_at = params.deleted_at;
@@ -101,6 +109,30 @@ class SellerRequestEntity extends baseEntity_1.default {
     }
     set bank(bank) {
         this._bank = bank;
+    }
+    get province() {
+        return this._province;
+    }
+    set province(province) {
+        this._province = province;
+    }
+    get city() {
+        return this._city;
+    }
+    set city(city) {
+        this._city = city;
+    }
+    get district() {
+        return this._district;
+    }
+    set district(district) {
+        this._district = district;
+    }
+    get village() {
+        return this._village;
+    }
+    set village(village) {
+        this._village = village;
     }
     get created_at() {
         return this._created_at;

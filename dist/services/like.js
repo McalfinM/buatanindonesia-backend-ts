@@ -35,7 +35,7 @@ let LikeService = class LikeService {
         }
         else {
             const likeEntity = new like_1.default({
-                uuid: uuid_1.v4(),
+                uuid: (0, uuid_1.v4)(),
                 user_uuid: user.uuid,
                 post_uuid: data.post_uuid,
                 created_at: new Date,
@@ -65,8 +65,8 @@ let LikeService = class LikeService {
     }
 };
 LikeService = __decorate([
-    inversify_1.injectable(),
-    __param(0, inversify_1.inject(types_1.TYPES.LikeRepository)),
-    __param(1, inversify_1.inject(types_1.TYPES.ProducerDispatcher))
+    (0, inversify_1.injectable)(),
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.LikeRepository)),
+    __param(1, (0, inversify_1.inject)(types_1.TYPES.ProducerDispatcher))
 ], LikeService);
 exports.default = LikeService;

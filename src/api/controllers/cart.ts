@@ -50,7 +50,17 @@ class CartController implements ICartController {
         const user = req.user
         return this.cartService.findAll(user.uuid)
             .then((result) => {
-                return HttpResponse.success(req, res, result.map((data) => data.toListData()));
+                return HttpResponse.success(req, res, result);
+            })
+            .catch((err) => HttpErrorHandler(err, req, res));
+    }
+
+    minusQuantity(req: Request, res: Response): Promise<Response> {
+        const user = req.user
+        const { params: { uuid } } = req
+        return this.cartService.minusQuantity(uuid, user.uuid)
+            .then((result) => {
+                return HttpResponse.success(req, res, result);
             })
             .catch((err) => HttpErrorHandler(err, req, res));
     }

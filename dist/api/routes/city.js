@@ -22,7 +22,7 @@ let CityRouter = class CityRouter extends baseRouter_1.default {
     constructor(cityController) {
         super();
         this.cityController = cityController;
-        this.router = express_1.Router();
+        this.router = (0, express_1.Router)();
         this.bindings();
         this.routes();
     }
@@ -34,7 +34,7 @@ let CityRouter = class CityRouter extends baseRouter_1.default {
     }
 };
 CityRouter = __decorate([
-    inversify_1.injectable(),
-    __param(0, inversify_1.inject(types_1.TYPES.CityController))
+    (0, inversify_1.injectable)(),
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.CityController))
 ], CityRouter);
 exports.default = CityRouter;

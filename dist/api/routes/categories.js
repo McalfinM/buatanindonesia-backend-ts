@@ -22,7 +22,7 @@ let CategoryRouter = class CategoryRouter extends baseRouter_1.default {
     constructor(categoryController) {
         super();
         this.categoryController = categoryController;
-        this.router = express_1.Router();
+        this.router = (0, express_1.Router)();
         this.bindings();
         this.routes();
     }
@@ -33,7 +33,7 @@ let CategoryRouter = class CategoryRouter extends baseRouter_1.default {
     }
 };
 CategoryRouter = __decorate([
-    inversify_1.injectable(),
-    __param(0, inversify_1.inject(types_1.TYPES.CategoryController))
+    (0, inversify_1.injectable)(),
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.CategoryController))
 ], CategoryRouter);
 exports.default = CategoryRouter;

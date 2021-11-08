@@ -65,6 +65,7 @@ let ProfileRepository = class ProfileRepository {
         return result ? new profile_1.default(result) : null;
     }
     async update(data) {
+        console.log(data.province, data.city);
         const result = await profile_2.default.updateOne({ "created_by.uuid": data.created_by.uuid ?? '' }, {
             ...data.toJson()
         });
@@ -118,6 +119,7 @@ let ProfileRepository = class ProfileRepository {
                         province: data.province,
                         bank: data.bank,
                         updated_at: data.updated_at,
+                        is_active: true,
                         deleted_at: null
                     });
                 }),
@@ -129,6 +131,6 @@ let ProfileRepository = class ProfileRepository {
     }
 };
 ProfileRepository = __decorate([
-    inversify_1.injectable()
+    (0, inversify_1.injectable)()
 ], ProfileRepository);
 exports.default = ProfileRepository;

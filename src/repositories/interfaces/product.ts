@@ -10,4 +10,5 @@ export interface IProductRepository {
     findOneBySlug(slug: string): Promise<ProductEntity | null>
     findAll(specification: specificationInterface): Promise<{ total: number, data: ProductEntity[] }>
     delete(uuid: string, user_uuid: string): Promise<{ success: true }>
+    reduceStock(uuid: string, quantity: number): Promise<void>
 }

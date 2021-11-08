@@ -100,6 +100,6 @@ let VillageRepository = class VillageRepository {
     }
 };
 VillageRepository = __decorate([
-    inversify_1.injectable()
+    (0, inversify_1.injectable)()
 ], VillageRepository);
 exports.default = VillageRepository;

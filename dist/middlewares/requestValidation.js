@@ -7,7 +7,7 @@ exports.validate = void 0;
 const express_validator_1 = require("express-validator");
 const httpResponse_1 = __importDefault(require("../helpers/httpResponse"));
 const validate = (req, res, next) => {
-    const errors = express_validator_1.validationResult(req);
+    const errors = (0, express_validator_1.validationResult)(req);
     if (errors.isEmpty()) {
         return next();
     }

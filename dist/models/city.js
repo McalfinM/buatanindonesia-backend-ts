@@ -9,5 +9,5 @@ const CitySchema = new mongoose_1.Schema({
 });
 CitySchema.index('uuid');
 CitySchema.index('province_uuid');
-const CityModel = mongoose_1.model("cities", CitySchema);
+const CityModel = (0, mongoose_1.model)("cities", CitySchema);
 exports.default = CityModel;

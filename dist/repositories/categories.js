@@ -32,6 +32,6 @@ let CategoryRepository = class CategoryRepository {
     }
 };
 CategoryRepository = __decorate([
-    inversify_1.injectable()
+    (0, inversify_1.injectable)()
 ], CategoryRepository);
 exports.default = CategoryRepository;

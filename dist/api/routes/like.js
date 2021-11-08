@@ -23,7 +23,7 @@ let LikeRouter = class LikeRouter extends baseRouter_1.default {
     constructor(likeController) {
         super();
         this.likeController = likeController;
-        this.router = express_1.Router();
+        this.router = (0, express_1.Router)();
         this.bindings();
         this.routes();
     }
@@ -36,7 +36,7 @@ let LikeRouter = class LikeRouter extends baseRouter_1.default {
     }
 };
 LikeRouter = __decorate([
-    inversify_1.injectable(),
-    __param(0, inversify_1.inject(types_1.TYPES.LikeController))
+    (0, inversify_1.injectable)(),
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.LikeController))
 ], LikeRouter);
 exports.default = LikeRouter;

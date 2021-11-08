@@ -8,5 +8,5 @@ const DistrictSchema = new mongoose_1.Schema({
     code: { type: String },
 });
 DistrictSchema.index('uuid');
-const DistrictModel = mongoose_1.model("district", DistrictSchema);
+const DistrictModel = (0, mongoose_1.model)("district", DistrictSchema);
 exports.default = DistrictModel;

@@ -32,7 +32,7 @@ let CommentService = class CommentService {
         if (!userEntity)
             throw new errors_1.ErrorNotFound('User not found', '@Service Create Comment');
         const commentEntity = new comment_1.default({
-            uuid: uuid_1.v4(),
+            uuid: (0, uuid_1.v4)(),
             created_by: {
                 uuid: userEntity.uuid ?? '',
                 name: userEntity.name ?? ''
@@ -87,9 +87,9 @@ let CommentService = class CommentService {
     }
 };
 CommentService = __decorate([
-    inversify_1.injectable(),
-    __param(0, inversify_1.inject(types_1.TYPES.CommentRepository)),
-    __param(1, inversify_1.inject(types_1.TYPES.UserRepository)),
-    __param(2, inversify_1.inject(types_1.TYPES.ProducerDispatcher))
+    (0, inversify_1.injectable)(),
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.CommentRepository)),
+    __param(1, (0, inversify_1.inject)(types_1.TYPES.UserRepository)),
+    __param(2, (0, inversify_1.inject)(types_1.TYPES.ProducerDispatcher))
 ], CommentService);
 exports.default = CommentService;

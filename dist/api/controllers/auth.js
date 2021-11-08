@@ -64,11 +64,11 @@ let AuthController = class AuthController {
             .then((result) => {
             return httpResponse_1.default.created(req, res, result);
         })
-            .catch((err) => errors_1.HttpErrorHandler(err, req, res));
+            .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
 };
 AuthController = __decorate([
-    inversify_1.injectable(),
-    __param(0, inversify_1.inject(types_1.TYPES.UserService))
+    (0, inversify_1.injectable)(),
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.UserService))
 ], AuthController);
 exports.default = AuthController;

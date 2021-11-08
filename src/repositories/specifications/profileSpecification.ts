@@ -6,7 +6,6 @@ class GetProfileSpecification implements ISpecification {
     protected _nickname?: string;
     protected _full_name?: string;
     protected _sort_by: any;
-    protected _roles: string[]
     protected _page: number;
     protected _limit: number;
     protected _search?: string;
@@ -23,7 +22,6 @@ class GetProfileSpecification implements ISpecification {
         this._search = request.search;
         this._nickname = request.nickname;
         this._full_name = request.full_name;
-        this._roles = request.roles ?? ['member'];
         this._sort_by = request.sort ?? '-created_at'
         this._page = request.page ?? 1
         this._limit = request.limit ?? 30
@@ -52,7 +50,7 @@ class GetProfileSpecification implements ISpecification {
         }
         specifications.deleted_at = null;
         specifications.is_active = true
-        specifications.roles = ['member', 'remaja_masjid'] && ['member', 'remaja_masjid', 'admin']
+        specifications.roles = ["member", "seller"]
 
         return specifications;
     }

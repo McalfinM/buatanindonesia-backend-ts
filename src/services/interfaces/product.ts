@@ -22,4 +22,5 @@ export interface IProductService {
         total: number;
         data: ProductEntity[];
     }>
+    reduceStock(uuid: string, quantity: number): Promise<void>
 }

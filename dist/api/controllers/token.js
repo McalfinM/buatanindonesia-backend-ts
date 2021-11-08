@@ -27,7 +27,7 @@ let TokenController = class TokenController {
             .then((result) => {
             return httpResponse_1.default.success(req, res, result);
         })
-            .catch((err) => errors_1.HttpErrorHandler(err, req, res));
+            .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
     findOneWithToken(req, res) {
         const { body: { token } } = req;
@@ -35,7 +35,7 @@ let TokenController = class TokenController {
             .then((result) => {
             return httpResponse_1.default.success(req, res, result);
         })
-            .catch((err) => errors_1.HttpErrorHandler(err, req, res));
+            .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
     update(req, res) {
         const { params: { token } } = req;
@@ -43,11 +43,11 @@ let TokenController = class TokenController {
             .then((result) => {
             return httpResponse_1.default.success(req, res, result);
         })
-            .catch((err) => errors_1.HttpErrorHandler(err, req, res));
+            .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
 };
 TokenController = __decorate([
-    inversify_1.injectable(),
-    __param(0, inversify_1.inject(types_1.TYPES.TokenService))
+    (0, inversify_1.injectable)(),
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.TokenService))
 ], TokenController);
 exports.default = TokenController;

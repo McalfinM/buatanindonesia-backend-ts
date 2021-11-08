@@ -51,6 +51,6 @@ class SeederService {
     }
 }
 __decorate([
-    arguments_1.import_arguments(["MONGO_URI", "SEEDER_NAME"])
+    (0, arguments_1.import_arguments)(["MONGO_URI", "SEEDER_NAME"])
 ], SeederService.prototype, "run", null);
 new SeederService().run();

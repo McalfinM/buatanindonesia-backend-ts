@@ -47,10 +47,10 @@ let ProfileService = class ProfileService {
                 uuid: data.created_by.uuid ?? '',
                 name: data.created_by.name ?? '',
             },
-            slug: slugify_1.default(data.created_by.name ?? '', {
+            slug: (0, slugify_1.default)(data.created_by.name ?? '', {
                 replacement: '-',
                 strict: true
-            }) + uuid_1.v4(),
+            }) + (0, uuid_1.v4)(),
             roles: [enum_1.UserRole.MEMBER],
             address: '',
             card_number: '',
@@ -64,6 +64,7 @@ let ProfileService = class ProfileService {
             created_at: data.created_at,
             province: data.province,
             bank: data.bank,
+            is_active: false,
             updated_at: data.updated_at,
             deleted_at: null
         });
@@ -86,10 +87,10 @@ let ProfileService = class ProfileService {
             throw new errors_1.ErrorNotFound('Data not found', '@Service Update profile');
         let slugi = '';
         if (searchProfile.created_by.name !== data.name) {
-            slugi = slugify_1.default(data.name ?? '', {
+            slugi = (0, slugify_1.default)(data.name ?? '', {
                 replacement: '-',
                 strict: true,
-            }) + uuid_1.v4();
+            }) + (0, uuid_1.v4)();
         }
         else {
             slugi = searchProfile.slug;
@@ -119,6 +120,7 @@ let ProfileService = class ProfileService {
                 uuid: bank?.uuid ?? '',
                 name: bank?.name ?? ''
             },
+            is_active: searchProfile.is_active,
             created_at: searchProfile.created_at,
             updated_at: new Date,
             deleted_at: null
@@ -166,16 +168,20 @@ let ProfileService = class ProfileService {
         await this.profileReopsitory.update(data);
         return { success: true };
     }
+    async findMyProfile(user) {
+        await this.profileReopsitory.findOne(user.uuid);
+        return { success: true };
+    }
 };
 ProfileService = __decorate([
-    inversify_1.injectable(),
-    __param(0, inversify_1.inject(types_1.TYPES.ProfileRepository)),
-    __param(1, inversify_1.inject(types_1.TYPES.CommentService)),
-    __param(2, inversify_1.inject(types_1.TYPES.ProvinceService)),
-    __param(3, inversify_1.inject(types_1.TYPES.CityService)),
-    __param(4, inversify_1.inject(types_1.TYPES.DistrictService)),
-    __param(5, inversify_1.inject(types_1.TYPES.VillageService)),
-    __param(6, inversify_1.inject(types_1.TYPES.BankService)),
-    __param(7, inversify_1.inject(types_1.TYPES.ProducerDispatcher))
+    (0, inversify_1.injectable)(),
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.ProfileRepository)),
+    __param(1, (0, inversify_1.inject)(types_1.TYPES.CommentService)),
+    __param(2, (0, inversify_1.inject)(types_1.TYPES.ProvinceService)),
+    __param(3, (0, inversify_1.inject)(types_1.TYPES.CityService)),
+    __param(4, (0, inversify_1.inject)(types_1.TYPES.DistrictService)),
+    __param(5, (0, inversify_1.inject)(types_1.TYPES.VillageService)),
+    __param(6, (0, inversify_1.inject)(types_1.TYPES.BankService)),
+    __param(7, (0, inversify_1.inject)(types_1.TYPES.ProducerDispatcher))
 ], ProfileService);
 exports.default = ProfileService;

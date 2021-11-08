@@ -28,7 +28,7 @@ class ProductRouter extends BaseRouter {
         this.router.get('/my-product', authenticate, this.productController.findAllWithUser)
         this.router.post('/', authenticate, bodyValidation(), validate, this.productController.create)
         this.router.put('/:uuid', authenticate, bodyValidation(), validate, this.productController.update)
-        this.router.get('/:uuid', authenticate, this.productController.findOne)
+        this.router.get('/:uuid', this.productController.findOne)
         this.router.delete('/:uuid', authenticate, this.productController.delete)
         return this
     }

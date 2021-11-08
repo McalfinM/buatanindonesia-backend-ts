@@ -14,6 +14,7 @@ class ProductEntity extends BaseEntity {
     protected _cloudinary_id: string
     protected _is_active: boolean
     protected _category: IEmbed
+    protected _city: IEmbed
     protected _created_at: Date | null
     protected _updated_at: Date | null
     protected _deleted_at: Date | null
@@ -30,6 +31,7 @@ class ProductEntity extends BaseEntity {
         this._cloudinary_id = params.cloudinary_id
         this._is_active = params.is_active
         this._category = params.category
+        this._city = params.city
         this._created_at = params.created_at
         this._updated_at = params.updated_at
         this._deleted_at = params.deleted_at
@@ -101,6 +103,12 @@ class ProductEntity extends BaseEntity {
     set category(category: IEmbed) {
         this._category = category
     }
+    get city(): IEmbed {
+        return this._city
+    }
+    set city(city: IEmbed) {
+        this._city = city
+    }
     get created_at(): Date | null {
         return this._created_at
     }
@@ -139,10 +147,12 @@ class ProductEntity extends BaseEntity {
 
     toListData(): {} {
         return {
+            uuid: this.uuid,
             created_by: this.created_by,
             name: this.name,
             slug: this.slug,
             price: this.price,
+            city: this.city,
             stock: this.stock,
             image: this.image,
         };
@@ -153,15 +163,13 @@ class ProductEntity extends BaseEntity {
             uuid: this.uuid,
             created_by: this.created_by,
             name: this.name,
-            slug: this.slug,
             description: this.description,
             price: this.price,
             stock: this.stock,
+            city: this.city,
             image: this.image,
             is_active: this.is_active,
             created_at: this.created_at,
-            updated_at: this.updated_at,
-            deleted_at: this.deleted_at,
         };
     }
 }

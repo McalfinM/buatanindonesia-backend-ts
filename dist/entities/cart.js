@@ -80,9 +80,6 @@ class CartEntity extends baseEntity_1.default {
             uuid: this.uuid,
             quantity: this.quantity,
             product: this.product,
-            created_at: this.created_at,
-            updated_at: this.updated_at,
-            deleted_at: this.deleted_at,
         };
     }
 }

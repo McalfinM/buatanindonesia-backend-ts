@@ -27,7 +27,9 @@ class ProductService implements IProductService {
     async create(data: CreateProductRequest, user: IUser): Promise<{ success: true }> {
 
         const category = await this.categoryService.findOne(data.category_uuid)
+        if (!category) throw new ErrorNotFound('Kategori tidak ada', '@Service Create Product')
         const profile = await this.profileService.findOne(user.uuid)
+        if (!profile) throw new ErrorNotFound('User tidak ada', '@Service Create Product')
         const productEntity = new ProductEntity({
             uuid: uuidv4(),
             name: data.name,
@@ -45,6 +47,10 @@ class ProductService implements IProductService {
             category: {
                 uuid: category?.uuid,
                 name: category?.name
+            },
+            city: {
+                uuid: profile?.city.uuid,
+                name: profile?.city.name
             },
             is_active: false,
             created_at: new Date,
@@ -69,7 +75,7 @@ class ProductService implements IProductService {
     }
     async delete(uuid: string, user_uuid: string): Promise<{ success: true }> {
         const result = await this.productRepository.delete(uuid, user_uuid)
-
+        if (!result) throw new ErrorNotFound('Produk tidak ada', '@Service Prodct => delete')
         return { success: true }
     }
     async update(uuid: string, data: CreateProductRequest, user: IUser): Promise<{ success: true }> {
@@ -103,6 +109,10 @@ class ProductService implements IProductService {
                 uuid: category?.uuid,
                 name: category?.name
             },
+            city: {
+                uuid: profile?.city.uuid,
+                name: profile?.city.name
+            },
             is_active: product.is_active,
             created_at: product.created_at,
             updated_at: new Date,
@@ -131,6 +141,10 @@ class ProductService implements IProductService {
         return await this.productRepository.findAll(
             new GetProductSpecificationWithAuth(data)
         );
+    }
+
+    async reduceStock(uuid: string, quantity: number) {
+
     }
 }
 

@@ -33,7 +33,7 @@ let TokenService = class TokenService {
     async create(data) {
         var id = crypto_1.default.randomBytes(100).toString('hex');
         const entity = new token_1.default({
-            uuid: uuid_1.v4(),
+            uuid: (0, uuid_1.v4)(),
             user_uuid: data.user_uuid,
             activity: data.activity,
             email: data.email,
@@ -84,9 +84,9 @@ let TokenService = class TokenService {
     }
 };
 TokenService = __decorate([
-    inversify_1.injectable(),
-    __param(0, inversify_1.inject(types_1.TYPES.TokenRepository)),
-    __param(1, inversify_1.inject(types_1.TYPES.UserRepository)),
-    __param(2, inversify_1.inject(types_1.TYPES.ProducerDispatcher))
+    (0, inversify_1.injectable)(),
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.TokenRepository)),
+    __param(1, (0, inversify_1.inject)(types_1.TYPES.UserRepository)),
+    __param(2, (0, inversify_1.inject)(types_1.TYPES.ProducerDispatcher))
 ], TokenService);
 exports.default = TokenService;

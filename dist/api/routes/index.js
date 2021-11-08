@@ -24,14 +24,14 @@ let IndexRouter = class IndexRouter {
     bankRouter;
     productRouter;
     cartRouter;
+    paymentRouter;
+    profileRouter;
     router;
     constructor(userRouter, authRouter, 
-    // @inject(TYPES.PostRouter) private postRouter: IRouter,
-    // @inject(TYPES.ProfileRouter) private profileRouter: IRouter,
     // @inject(TYPES.CommentRouter) private commentRouter: IRouter,
     // @inject(TYPES.LikeRouter) private likeRouter: IRouter,
     // @inject(TYPES.CategoryRouter) private categoryRouter: IRouter,
-    tokenRouter, provinceRouter, cityRouter, districtRouter, villageRouter, sellerRequestRouter, bankRouter, productRouter, cartRouter) {
+    tokenRouter, provinceRouter, cityRouter, districtRouter, villageRouter, sellerRequestRouter, bankRouter, productRouter, cartRouter, paymentRouter, profileRouter) {
         this.userRouter = userRouter;
         this.authRouter = authRouter;
         this.tokenRouter = tokenRouter;
@@ -43,13 +43,15 @@ let IndexRouter = class IndexRouter {
         this.bankRouter = bankRouter;
         this.productRouter = productRouter;
         this.cartRouter = cartRouter;
-        this.router = express_1.Router();
+        this.paymentRouter = paymentRouter;
+        this.profileRouter = profileRouter;
+        this.router = (0, express_1.Router)();
         this.routes();
     }
     routes() {
         this.router.use("/api/v1/users", this.userRouter.router);
         this.router.use("/api/v1/auth", this.authRouter.router);
-        // this.router.use("/api/v1/profiles", this.profileRouter.router)
+        this.router.use("/api/v1/profiles", this.profileRouter.router);
         // this.router.use("/api/v1/comments", this.commentRouter.router)
         // this.router.use("/api/v1/category", this.categoryRouter.router)
         // this.router.use("/api/v1/likes", this.likeRouter.router)
@@ -62,21 +64,24 @@ let IndexRouter = class IndexRouter {
         this.router.use("/api/v1/banks", this.bankRouter.router);
         this.router.use("/api/v1/products", this.productRouter.router);
         this.router.use("/api/v1/carts", this.cartRouter.router);
+        this.router.use("/api/v1/payments", this.paymentRouter.router);
         return this;
     }
 };
 IndexRouter = __decorate([
-    inversify_1.injectable(),
-    __param(0, inversify_1.inject(types_1.TYPES.UserRouter)),
-    __param(1, inversify_1.inject(types_1.TYPES.AuthRouter)),
-    __param(2, inversify_1.inject(types_1.TYPES.TokenRouter)),
-    __param(3, inversify_1.inject(types_1.TYPES.ProvinceRouter)),
-    __param(4, inversify_1.inject(types_1.TYPES.CityRouter)),
-    __param(5, inversify_1.inject(types_1.TYPES.DistrictRouter)),
-    __param(6, inversify_1.inject(types_1.TYPES.VillageRouter)),
-    __param(7, inversify_1.inject(types_1.TYPES.SellerRequestRouter)),
-    __param(8, inversify_1.inject(types_1.TYPES.BankRouter)),
-    __param(9, inversify_1.inject(types_1.TYPES.ProductRouter)),
-    __param(10, inversify_1.inject(types_1.TYPES.CartRouter))
+    (0, inversify_1.injectable)(),
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.UserRouter)),
+    __param(1, (0, inversify_1.inject)(types_1.TYPES.AuthRouter)),
+    __param(2, (0, inversify_1.inject)(types_1.TYPES.TokenRouter)),
+    __param(3, (0, inversify_1.inject)(types_1.TYPES.ProvinceRouter)),
+    __param(4, (0, inversify_1.inject)(types_1.TYPES.CityRouter)),
+    __param(5, (0, inversify_1.inject)(types_1.TYPES.DistrictRouter)),
+    __param(6, (0, inversify_1.inject)(types_1.TYPES.VillageRouter)),
+    __param(7, (0, inversify_1.inject)(types_1.TYPES.SellerRequestRouter)),
+    __param(8, (0, inversify_1.inject)(types_1.TYPES.BankRouter)),
+    __param(9, (0, inversify_1.inject)(types_1.TYPES.ProductRouter)),
+    __param(10, (0, inversify_1.inject)(types_1.TYPES.CartRouter)),
+    __param(11, (0, inversify_1.inject)(types_1.TYPES.PaymentRouter)),
+    __param(12, (0, inversify_1.inject)(types_1.TYPES.ProfileRouter))
 ], IndexRouter);
 exports.default = IndexRouter;

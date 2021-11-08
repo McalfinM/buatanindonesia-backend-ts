@@ -22,7 +22,7 @@ let ProvinceRouter = class ProvinceRouter extends baseRouter_1.default {
     constructor(provinceController) {
         super();
         this.provinceController = provinceController;
-        this.router = express_1.Router();
+        this.router = (0, express_1.Router)();
         this.bindings();
         this.routes();
     }
@@ -34,7 +34,7 @@ let ProvinceRouter = class ProvinceRouter extends baseRouter_1.default {
     }
 };
 ProvinceRouter = __decorate([
-    inversify_1.injectable(),
-    __param(0, inversify_1.inject(types_1.TYPES.ProvinceController))
+    (0, inversify_1.injectable)(),
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.ProvinceController))
 ], ProvinceRouter);
 exports.default = ProvinceRouter;

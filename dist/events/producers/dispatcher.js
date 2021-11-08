@@ -20,7 +20,7 @@ let ProducerDispatcher = class ProducerDispatcher extends EventDispatcher_1.Even
     }
 };
 ProducerDispatcher = __decorate([
-    decorators_1.EventSubscriber(),
-    inversify_1.injectable()
+    (0, decorators_1.EventSubscriber)(),
+    (0, inversify_1.injectable)()
 ], ProducerDispatcher);
 exports.ProducerDispatcher = ProducerDispatcher;

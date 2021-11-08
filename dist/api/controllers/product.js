@@ -27,20 +27,20 @@ let ProductController = class ProductController {
         const user = req.user;
         return this.productService.create(new createProductRequest_1.default(req.body), user)
             .then((result) => httpResponse_1.default.created(req, res, result))
-            .catch((err) => errors_1.HttpErrorHandler(err, req, res));
+            .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
     update(req, res) {
         const user = req.user;
         const { params: { uuid } } = req;
         return this.productService.update(uuid, new createProductRequest_1.default(req.body), user)
             .then((result) => httpResponse_1.default.success(req, res, result))
-            .catch((err) => errors_1.HttpErrorHandler(err, req, res));
+            .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
     findOne(req, res) {
         const { params: { uuid } } = req;
         return this.productService.findOne(uuid)
-            .then((result) => httpResponse_1.default.success(req, res, result))
-            .catch((err) => errors_1.HttpErrorHandler(err, req, res));
+            .then((result) => httpResponse_1.default.success(req, res, result?.toDetailData()))
+            .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
     findAll(req, res) {
         const { query } = req;
@@ -67,21 +67,21 @@ let ProductController = class ProductController {
             obj.data = result.data.map((data) => data.toListData());
             return httpResponse_1.default.success(req, res, obj);
         })
-            .catch(err => errors_1.HttpErrorHandler(err, req, res));
+            .catch(err => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
     delete(req, res) {
         const { params: { uuid } } = req;
         const user = req.user;
         return this.productService.delete(uuid, user.uuid)
             .then((result) => httpResponse_1.default.success(req, res, result))
-            .catch((err) => errors_1.HttpErrorHandler(err, req, res));
+            .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
     findOneBySlug(req, res) {
         const { params: { slug } } = req;
         const user = req.user;
         return this.productService.findOneBySlug(slug)
             .then((result) => httpResponse_1.default.success(req, res, result))
-            .catch((err) => errors_1.HttpErrorHandler(err, req, res));
+            .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
     findAllWithUser(req, res) {
         const { query } = req;
@@ -95,7 +95,11 @@ let ProductController = class ProductController {
             limit: '',
             data: [{}]
         };
-        return this.productService.findAll(new getProductRequest_1.default(query))
+        const user = req.user;
+        return this.productService.findAllWithUser(new getProductRequest_1.default({
+            ...query,
+            user_uuid: user.uuid
+        }))
             .then((result) => {
             obj.totalPage = Math.ceil(result.total / +limitVal);
             obj.totalData = result.total || 0;
@@ -108,11 +112,11 @@ let ProductController = class ProductController {
             obj.data = result.data.map((data) => data.toListData());
             return httpResponse_1.default.success(req, res, obj);
         })
-            .catch(err => errors_1.HttpErrorHandler(err, req, res));
+            .catch(err => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
 };
 ProductController = __decorate([
-    inversify_1.injectable(),
-    __param(0, inversify_1.inject(types_1.TYPES.ProductService))
+    (0, inversify_1.injectable)(),
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.ProductService))
 ], ProductController);
 exports.default = ProductController;

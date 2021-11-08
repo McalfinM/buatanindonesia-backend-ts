@@ -22,7 +22,7 @@ let DistrictRouter = class DistrictRouter extends baseRouter_1.default {
     constructor(districtController) {
         super();
         this.districtController = districtController;
-        this.router = express_1.Router();
+        this.router = (0, express_1.Router)();
         this.bindings();
         this.routes();
     }
@@ -34,7 +34,7 @@ let DistrictRouter = class DistrictRouter extends baseRouter_1.default {
     }
 };
 DistrictRouter = __decorate([
-    inversify_1.injectable(),
-    __param(0, inversify_1.inject(types_1.TYPES.DistrictController))
+    (0, inversify_1.injectable)(),
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.DistrictController))
 ], DistrictRouter);
 exports.default = DistrictRouter;

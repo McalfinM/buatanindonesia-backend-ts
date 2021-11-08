@@ -22,7 +22,7 @@ let UserRouter = class UserRouter extends baseRouter_1.default {
     constructor(userController) {
         super();
         this.userController = userController;
-        this.router = express_1.Router();
+        this.router = (0, express_1.Router)();
         this.bindings();
         this.routes();
     }
@@ -34,7 +34,7 @@ let UserRouter = class UserRouter extends baseRouter_1.default {
     }
 };
 UserRouter = __decorate([
-    inversify_1.injectable(),
-    __param(0, inversify_1.inject(types_1.TYPES.UserController))
+    (0, inversify_1.injectable)(),
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.UserController))
 ], UserRouter);
 exports.default = UserRouter;

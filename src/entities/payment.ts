@@ -1,6 +1,6 @@
 
 import BaseEntity from "./baseEntity";
-import { PaymentMethod, StatusPayment } from "./enums/enum";
+import { PaymentMethod, StatusOrder, StatusPayment } from "./enums/enum";
 import { IProduct } from "./interfaces/cart";
 import { IPaymentEntity } from "./interfaces/payment";
 import { IEmbed } from "./interfaces/product";
@@ -18,11 +18,13 @@ class PaymentEntity extends BaseEntity {
     protected _idempotency: string
     protected _created_by: IEmbed
     protected _seller_by: IEmbed
-    protected _status: StatusPayment
+    protected _status: StatusOrder
     protected _card_name: string
     protected _quantity: number
     protected _product: IProduct
     protected _total_price: number
+    protected _status_payment: StatusPayment
+    protected _macaddress: string | null
     protected _image: string
     protected _cloudinary_id: string
     protected _created_at: Date | null
@@ -48,8 +50,10 @@ class PaymentEntity extends BaseEntity {
         this._quantity = params.quantity
         this._product = params.product
         this._total_price = params.total_price
+        this._macaddress = params.macaddress
         this._image = params.image
         this._cloudinary_id = params.cloudinary_id
+        this._status_payment = params.status_payment
         this._created_at = params.created_at
         this._updated_at = params.updated_at
         this._deleted_at = params.deleted_at
@@ -127,11 +131,18 @@ class PaymentEntity extends BaseEntity {
     set seller_by(seller_by: IEmbed) {
         this._seller_by = seller_by
     }
-    get status(): StatusPayment {
+    get status(): StatusOrder {
         return this._status
     }
-    set status(status: StatusPayment) {
+    set status(status: StatusOrder) {
         this._status = status
+    }
+
+    get status_payment(): StatusPayment {
+        return this._status_payment
+    }
+    set status_payment(status_payment: StatusPayment) {
+        this._status_payment = status_payment
     }
     get card_name(): string {
         return this._card_name
@@ -162,6 +173,12 @@ class PaymentEntity extends BaseEntity {
     }
     set image(image: string) {
         this._image = image
+    }
+    get macaddress(): string | null {
+        return this._macaddress
+    }
+    set macaddress(macaddress: string | null) {
+        this._macaddress = macaddress
     }
     get cloudinary_id(): string {
         return this._cloudinary_id
@@ -208,6 +225,8 @@ class PaymentEntity extends BaseEntity {
             product: this.product,
             total_price: this.total_price,
             image: this.image,
+            status_payment: this.status_payment,
+            macaddress: this.macaddress,
             cloudinary_id: this.cloudinary_id,
             created_at: this.created_at,
             updated_at: this.updated_at,
@@ -230,7 +249,8 @@ class PaymentEntity extends BaseEntity {
             image: this.image,
             cloudinary_id: this.cloudinary_id,
             created_at: this.created_at,
-
+            status_payment: this.status_payment,
+            payment_method: this.payment_method
         };
     }
 
@@ -254,6 +274,7 @@ class PaymentEntity extends BaseEntity {
             product: this.product,
             total_price: this.total_price,
             image: this.image,
+            status_payment: this.status_payment,
             cloudinary_id: this.cloudinary_id,
             created_at: this.created_at,
             updated_at: this.updated_at,

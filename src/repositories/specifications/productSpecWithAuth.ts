@@ -5,34 +5,34 @@ import ISpecification from "./specificationInterface";
 
 class GetProductSpecificationWithAuth implements ISpecification {
     protected _name?: string;
-    protected _stock?: string;
+    protected _city?: string;
     protected _price?: string;
     protected _sort_by: any;
     protected _page: number;
     protected _limit: number;
     protected _search?: string;
-    protected _user?: IUser;
+    protected _user_uuid?: string;
 
     constructor(request: {
 
         name?: string
         card_holder_name?: string
-        stock?: string
+        city?: string
         price?: string
         sort?: string
         page?: number
         limit?: number
         search?: string
-        user?: IUser
+        user_uuid?: string
     }) {
         this._search = request.search;
-        this._stock = request.stock;
+        this._city = request.city;
         this._name = request.name;
         this._price = request.price
         this._sort_by = request.sort ?? '-created_at'
         this._page = request.page ?? 1
         this._limit = request.limit ?? 30
-        this._user = request.user
+        this._user_uuid = request.user_uuid
     }
 
 
@@ -52,8 +52,8 @@ class GetProductSpecificationWithAuth implements ISpecification {
             specifications["price"] = this._price
         }
 
-        if (this._stock) {
-            specifications["stock"] = this._stock
+        if (this._city) {
+            specifications["city.uuid"] = this._city
         }
 
         if (or_specifications.length > 0) {
@@ -61,7 +61,7 @@ class GetProductSpecificationWithAuth implements ISpecification {
         }
         specifications.deleted_at = null;
         specifications.is_active = true
-        specifications['created_by.uuid'] = this._user?.uuid
+        specifications['created_by.uuid'] = this._user_uuid
 
         return specifications;
     }

@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 class GetPaymentRequest {
     _no_invoice;
-    _buyers;
+    _name;
     _delivery_date;
     _product_uuid;
     _status;
@@ -13,7 +13,7 @@ class GetPaymentRequest {
     _search;
     constructor(queryParams) {
         this._no_invoice = queryParams.no_invoice;
-        this._buyers = queryParams.buyers;
+        this._name = queryParams.name;
         this._delivery_date = queryParams.delivery_date;
         this._product_uuid = queryParams.product_uuid;
         this._status = queryParams.status;
@@ -32,11 +32,11 @@ class GetPaymentRequest {
     get no_invoice() {
         return this._no_invoice;
     }
-    get buyers() {
-        return this._buyers;
+    get name() {
+        return this._name;
     }
     get status() {
-        return this._buyers;
+        return this._name;
     }
     get sort_by() {
         return this._sort_by;

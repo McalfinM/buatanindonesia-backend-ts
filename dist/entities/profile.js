@@ -20,6 +20,7 @@ class ProfileEntity extends baseEntity_1.default {
     _cloudinary_id;
     _roles;
     _bank;
+    _is_active;
     _created_at;
     _updated_at;
     _deleted_at;
@@ -40,6 +41,7 @@ class ProfileEntity extends baseEntity_1.default {
         this._image = params.image;
         this._roles = params.roles;
         this._bank = params.bank;
+        this._is_active = params.is_active;
         this._created_at = params.created_at;
         this._updated_at = params.updated_at;
         this._deleted_at = params.deleted_at;
@@ -134,6 +136,12 @@ class ProfileEntity extends baseEntity_1.default {
     set bank(bank) {
         this._bank = bank;
     }
+    get is_active() {
+        return this._is_active;
+    }
+    set is_active(is_active) {
+        this._is_active = is_active;
+    }
     get created_at() {
         return this._created_at;
     }
@@ -178,11 +186,9 @@ class ProfileEntity extends baseEntity_1.default {
         return {
             uuid: this.uuid,
             created_by: this.created_by,
+            city: this.city,
             image: this.image,
-            roles: this.roles,
-            created_at: this.created_at,
-            updated_at: this.updated_at,
-            deleted_at: this.deleted_at,
+            slug: this.slug
         };
     }
     toDetailData() {

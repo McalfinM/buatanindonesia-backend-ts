@@ -13,6 +13,7 @@ const ProductSchema: Schema = new Schema(
         image: { type: String },
         cloudinary_id: { type: String },
         is_active: { type: Boolean },
+        city: { type: Object },
         category: { type: Object },
         created_at: { type: Date },
         updated_at: { type: Date },

@@ -16,7 +16,7 @@ const authenticate = async (req, res, next) => {
         }
         const token = authorization?.split(' ')[1];
         let decoded = jsonwebtoken_1.default.verify(token ?? '', process?.env?.JWT_SECRET ?? '');
-        if (date_1.dateToUnixTimestamp(new Date()) > (decoded.iat + exports.TOKEN_EXPIRE_TIME_IN_SECOND)) {
+        if ((0, date_1.dateToUnixTimestamp)(new Date()) > (decoded.iat + exports.TOKEN_EXPIRE_TIME_IN_SECOND)) {
             throw new errors_1.ErrorUnauthenticated('expired_token', "authenticate");
         }
         // getCacheData(`auth_update:::${decoded.uuid}`, (err, reply) => {

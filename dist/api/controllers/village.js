@@ -25,17 +25,17 @@ let VillageController = class VillageController {
         const { params: { uuid } } = req;
         return this.villageService.findOne(uuid)
             .then((result) => httpResponse_1.default.success(req, res, result))
-            .catch((err) => errors_1.HttpErrorHandler(err, req, res));
+            .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
     async findAll(req, res) {
         const { query } = req;
         return this.villageService.findAll(query)
             .then((result) => httpResponse_1.default.success(req, res, result))
-            .catch((err) => errors_1.HttpErrorHandler(err, req, res));
+            .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
 };
 VillageController = __decorate([
-    inversify_1.injectable(),
-    __param(0, inversify_1.inject(types_1.TYPES.VillageService))
+    (0, inversify_1.injectable)(),
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.VillageService))
 ], VillageController);
 exports.default = VillageController;

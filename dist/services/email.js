@@ -49,7 +49,7 @@ let EmailService = class EmailService {
     }
 };
 EmailService = __decorate([
-    inversify_1.injectable(),
-    __param(0, inversify_1.inject(types_1.TYPES.ProducerDispatcher))
+    (0, inversify_1.injectable)(),
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.ProducerDispatcher))
 ], EmailService);
 exports.default = EmailService;

@@ -2,12 +2,12 @@
 import BaseEntity from "./baseEntity";
 
 export interface IUserEntitiy {
-    uuid: string | null
-    name: string | null
-    email: string | null
+    uuid: string
+    name: string
+    email: string
     password: string
     roles: string[]
-    is_active?: boolean
+    is_active: boolean
     created_at: Date | null
     updated_at: Date | null
     deleted_at: Date | null
@@ -15,12 +15,12 @@ export interface IUserEntitiy {
 }
 
 class UserEntity extends BaseEntity {
-    protected _uuid: string | null
-    protected _name: string | null
-    protected _email: string | null
+    protected _uuid: string
+    protected _name: string
+    protected _email: string
     protected _password: string
     protected _roles: string[]
-    protected _is_active?: boolean
+    protected _is_active: boolean
     protected _created_at: Date | null
     protected _updated_at: Date | null
     protected _deleted_at: Date | null
@@ -39,15 +39,15 @@ class UserEntity extends BaseEntity {
         this._deleted_at = params.deleted_at
     }
 
-    get uuid(): string | null {
+    get uuid(): string {
         return this._uuid;
     }
 
-    set uuid(uuid: string | null) {
+    set uuid(uuid: string) {
         this._uuid = uuid;
     }
 
-    get name(): string | null {
+    get name(): string {
         return this._name
     }
     get roles(): string[] {
@@ -57,15 +57,15 @@ class UserEntity extends BaseEntity {
         this._roles = roles
     }
 
-    set name(name: string | null) {
+    set name(name: string) {
         this._name = name
     }
 
-    get email(): string | null {
+    get email(): string {
         return this._email
     }
 
-    set email(email: string | null) {
+    set email(email: string) {
         this._email = email
     }
 
@@ -78,11 +78,11 @@ class UserEntity extends BaseEntity {
         this._password = password
     }
 
-    get is_active(): boolean | undefined {
+    get is_active(): boolean {
         return this._is_active
     }
 
-    set is_active(is_active: boolean | undefined) {
+    set is_active(is_active: boolean) {
         this._is_active = is_active
     }
 

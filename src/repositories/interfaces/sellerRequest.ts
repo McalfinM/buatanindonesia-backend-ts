@@ -8,6 +8,7 @@ export interface ISellerRequestRepository {
     create(data: SellerRequestEntity): Promise<{ success: true }>
     update(data: SellerRequestEntity): Promise<SellerRequestEntity>
     findOne(uuid: string): Promise<SellerRequestEntity | null>
+    findOneByUserUuid(uuid: string): Promise<SellerRequestEntity | null>
     delete(uuid: string, user_uuid: string): Promise<{ success: true }>
     index(specification: specificationInterface): Promise<{ total: number, data: SellerRequestEntity[] }>
 }

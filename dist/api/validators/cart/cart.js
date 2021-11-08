@@ -4,7 +4,7 @@ exports.bodyValidation = void 0;
 const express_validator_1 = require("express-validator");
 const bodyValidation = () => {
     return [
-        express_validator_1.body('product_uuid', 'product harus di isi').notEmpty().isUUID(),
+        (0, express_validator_1.body)('product_uuid', 'please fill this uuid').notEmpty().isUUID(),
     ];
 };
 exports.bodyValidation = bodyValidation;

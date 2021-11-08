@@ -4,6 +4,7 @@ class GetPaymentSpecification {
     _invoice;
     _name;
     _email;
+    _place;
     _sort_by;
     _page;
     _limit;
@@ -14,6 +15,7 @@ class GetPaymentSpecification {
         this._name = request.name;
         this._invoice = request.invoice;
         this._email = request.email;
+        this._place = request.place;
         this._sort_by = request.sort ?? '-created_at';
         this._page = request.page ?? 1;
         this._limit = request.limit ?? 30;
@@ -23,7 +25,7 @@ class GetPaymentSpecification {
         let specifications = {};
         let or_specifications = [];
         if (this._search) {
-            or_specifications.push({ 'invoice': new RegExp(this._search, 'i') });
+            or_specifications.push({ 'no_invoice': new RegExp(this._search, 'i') });
         }
         if (this._email) {
             specifications["email"] = this._email;
@@ -35,7 +37,12 @@ class GetPaymentSpecification {
             specifications["$or"] = or_specifications;
         }
         specifications.deleted_at = null;
-        specifications.is_active = true;
+        if (this._place == 'seller') {
+            specifications['seller_by.uuid'] = this._user?.uuid;
+        }
+        else {
+            specifications['created_by.uuid'] = this._user?.uuid;
+        }
         return specifications;
     }
     specSort() {

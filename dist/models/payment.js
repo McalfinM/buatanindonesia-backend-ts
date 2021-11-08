@@ -20,6 +20,8 @@ const PaymentSchema = new mongoose_1.Schema({
     product: { type: Object },
     total_price: { type: Number },
     image: { type: String },
+    status_payment: { type: String },
+    macaddress: { type: String },
     cloudinary_id: { type: String },
     created_at: { type: Date },
     updated_at: { type: Date },
@@ -27,5 +29,5 @@ const PaymentSchema = new mongoose_1.Schema({
 });
 PaymentSchema.index('uuid');
 PaymentSchema.index('payment_method');
-const PaymentModel = mongoose_1.model("payments", PaymentSchema);
+const PaymentModel = (0, mongoose_1.model)("payments", PaymentSchema);
 exports.default = PaymentModel;

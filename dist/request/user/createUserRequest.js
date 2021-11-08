@@ -19,9 +19,6 @@ class CreateUserRequest {
         this._updated_at = body.updated_at;
         this._deleted_at = body.deleted_at;
     }
-    get uuid() {
-        return this._uuid;
-    }
     get name() {
         return this._name;
     }

@@ -25,17 +25,17 @@ let ProvinceController = class ProvinceController {
         const { params: { uuid } } = req;
         return this.provinceService.findOne(uuid)
             .then((result) => httpResponse_1.default.success(req, res, result))
-            .catch((err) => errors_1.HttpErrorHandler(err, req, res));
+            .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
     async findAll(req, res) {
         const { query } = req;
         return this.provinceService.findAll(query)
             .then((result) => httpResponse_1.default.success(req, res, result))
-            .catch((err) => errors_1.HttpErrorHandler(err, req, res));
+            .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
 };
 ProvinceController = __decorate([
-    inversify_1.injectable(),
-    __param(0, inversify_1.inject(types_1.TYPES.ProvinceService))
+    (0, inversify_1.injectable)(),
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.ProvinceService))
 ], ProvinceController);
 exports.default = ProvinceController;

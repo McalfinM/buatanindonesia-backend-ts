@@ -18,7 +18,7 @@ const setCacheData = (key, value, expire_time_in_second = exports.TOKEN_EXPIRE_T
     redisClient.set(key, value, (err, reply) => {
         if (err === null) {
             // console.log(`Caching ${key}:`, reply)
-            redisClient.expireat(key, date_1.dateToUnixTimestamp(new Date()) + expire_time_in_second);
+            redisClient.expireat(key, (0, date_1.dateToUnixTimestamp)(new Date()) + expire_time_in_second);
         }
     });
 };

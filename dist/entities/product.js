@@ -16,6 +16,7 @@ class ProductEntity extends baseEntity_1.default {
     _cloudinary_id;
     _is_active;
     _category;
+    _city;
     _created_at;
     _updated_at;
     _deleted_at;
@@ -32,6 +33,7 @@ class ProductEntity extends baseEntity_1.default {
         this._cloudinary_id = params.cloudinary_id;
         this._is_active = params.is_active;
         this._category = params.category;
+        this._city = params.city;
         this._created_at = params.created_at;
         this._updated_at = params.updated_at;
         this._deleted_at = params.deleted_at;
@@ -102,6 +104,12 @@ class ProductEntity extends baseEntity_1.default {
     set category(category) {
         this._category = category;
     }
+    get city() {
+        return this._city;
+    }
+    set city(city) {
+        this._city = city;
+    }
     get created_at() {
         return this._created_at;
     }
@@ -139,10 +147,12 @@ class ProductEntity extends baseEntity_1.default {
     }
     toListData() {
         return {
+            uuid: this.uuid,
             created_by: this.created_by,
             name: this.name,
             slug: this.slug,
             price: this.price,
+            city: this.city,
             stock: this.stock,
             image: this.image,
         };
@@ -152,15 +162,13 @@ class ProductEntity extends baseEntity_1.default {
             uuid: this.uuid,
             created_by: this.created_by,
             name: this.name,
-            slug: this.slug,
             description: this.description,
             price: this.price,
             stock: this.stock,
+            city: this.city,
             image: this.image,
             is_active: this.is_active,
             created_at: this.created_at,
-            updated_at: this.updated_at,
-            deleted_at: this.deleted_at,
         };
     }
 }

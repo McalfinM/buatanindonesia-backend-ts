@@ -14,5 +14,5 @@ const TokenSchema = new mongoose_1.Schema({
 TokenSchema.index('email');
 TokenSchema.index('uuid');
 TokenSchema.index('activity');
-const TokenModel = mongoose_1.model("token", TokenSchema);
+const TokenModel = (0, mongoose_1.model)("token", TokenSchema);
 exports.default = TokenModel;

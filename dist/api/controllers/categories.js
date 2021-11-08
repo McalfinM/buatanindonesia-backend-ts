@@ -28,7 +28,7 @@ let CategoryController = class CategoryController {
     }
 };
 CategoryController = __decorate([
-    inversify_1.injectable(),
-    __param(0, inversify_1.inject(types_1.TYPES.CategoryService))
+    (0, inversify_1.injectable)(),
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.CategoryService))
 ], CategoryController);
 exports.default = CategoryController;

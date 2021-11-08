@@ -22,6 +22,7 @@ class ProfileEntity extends BaseEntity {
     protected _cloudinary_id: string
     protected _roles: string[]
     protected _bank: IEmbed
+    protected _is_active: boolean
     protected _created_at: Date | null
     protected _updated_at: Date | null
     protected _deleted_at: Date | null
@@ -43,6 +44,7 @@ class ProfileEntity extends BaseEntity {
         this._image = params.image
         this._roles = params.roles
         this._bank = params.bank
+        this._is_active = params.is_active
         this._created_at = params.created_at
         this._updated_at = params.updated_at
         this._deleted_at = params.deleted_at
@@ -138,6 +140,12 @@ class ProfileEntity extends BaseEntity {
     set bank(bank: IEmbed) {
         this._bank = bank
     }
+    get is_active(): boolean {
+        return this._is_active
+    }
+    set is_active(is_active: boolean) {
+        this._is_active = is_active
+    }
     get created_at(): Date | null {
         return this._created_at
     }
@@ -184,11 +192,9 @@ class ProfileEntity extends BaseEntity {
         return {
             uuid: this.uuid,
             created_by: this.created_by,
+            city: this.city,
             image: this.image,
-            roles: this.roles,
-            created_at: this.created_at,
-            updated_at: this.updated_at,
-            deleted_at: this.deleted_at,
+            slug: this.slug
         };
     }
 

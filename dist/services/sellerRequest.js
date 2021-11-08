@@ -26,21 +26,42 @@ let SellerRequestService = class SellerRequestService {
     profileService;
     userService;
     bankService;
-    dispatcher;
-    constructor(sellerRequestRepository, profileService, userService, bankService, dispatcher) {
+    provinceService;
+    cityService;
+    districtService;
+    villageService;
+    constructor(sellerRequestRepository, profileService, userService, bankService, provinceService, cityService, districtService, villageService) {
         this.sellerRequestRepository = sellerRequestRepository;
         this.profileService = profileService;
         this.userService = userService;
         this.bankService = bankService;
-        this.dispatcher = dispatcher;
+        this.provinceService = provinceService;
+        this.cityService = cityService;
+        this.districtService = districtService;
+        this.villageService = villageService;
     }
     async create(data, user) {
         const searchUser = await this.profileService.findOne(user.uuid);
         if (!searchUser)
-            throw new errors_1.ErrorNotFound('User not found', '@Service Create Seller');
+            throw new errors_1.ErrorNotFound('User tidak ditemukan', '@Service Create Seller');
+        const sellerRequest = await this.sellerRequestRepository.findOneByUserUuid(searchUser.created_by.uuid ?? '');
+        if (sellerRequest)
+            throw new errors_1.ErrorBadRequest('Kamu sudah pernah request sebagai seller', '@Service Create Request Seller');
+        const province = await this.provinceService.findOne(data.province_uuid);
+        if (!province)
+            throw new errors_1.ErrorNotFound('Province tidak ditemukan', '@Service Create Request Seller');
+        const city = await this.cityService.findOne(data.city_uuid);
+        if (!city)
+            throw new errors_1.ErrorNotFound('City tidak ditemukan', '@Service Create Request Seller');
+        const district = await this.districtService.findOne(data.district_uuid);
+        if (!district)
+            throw new errors_1.ErrorNotFound('District tidak ditemukan', '@Service Create Request Seller');
+        const village = await this.villageService.findOne(data.village_uuid);
+        if (!village)
+            throw new errors_1.ErrorNotFound('Village tidak ditemukan', '@Service Create Request Seller');
         const bank = await this.bankService.findOne(data.bank_uuid);
         const entity = new sellerRequest_1.default({
-            uuid: uuid_1.v4(),
+            uuid: (0, uuid_1.v4)(),
             card_holder_name: data.card_holder_name,
             card_number: data.card_number,
             created_by: {
@@ -54,7 +75,23 @@ let SellerRequestService = class SellerRequestService {
             ktp_image: data.ktp_image,
             name: data.name,
             status: 'Pending',
-            bank: bank.toJson(),
+            bank: bank,
+            province: {
+                uuid: province.uuid,
+                name: province.name,
+            },
+            city: {
+                uuid: city.uuid,
+                name: city.name,
+            },
+            district: {
+                uuid: district.uuid,
+                name: district.name
+            },
+            village: {
+                uuid: village.uuid,
+                name: village.name,
+            },
             deleted_at: null,
             created_at: new Date,
             updated_at: new Date,
@@ -75,6 +112,10 @@ let SellerRequestService = class SellerRequestService {
         const bank = await this.bankService.findOne(data.bank_uuid);
         if (!bank)
             throw new errors_1.ErrorNotFound('Bank not found', '@Service update to seller');
+        const province = await this.provinceService.findOne(data.province_uuid);
+        const city = await this.cityService.findOne(data.city_uuid);
+        const district = await this.districtService.findOne(data.district_uuid);
+        const village = await this.villageService.findOne(data.village_uuid);
         const entity = new sellerRequest_1.default({
             uuid: searchSellerRequest?.uuid ?? '',
             card_holder_name: data.card_holder_name,
@@ -92,6 +133,10 @@ let SellerRequestService = class SellerRequestService {
             status: 'Pending',
             bank: bank,
             deleted_at: null,
+            province: province,
+            city: city,
+            district: district,
+            village: village,
             created_at: searchSellerRequest?.created_at ?? new Date,
             updated_at: searchSellerRequest?.updated_at ?? new Date,
         });
@@ -100,7 +145,8 @@ let SellerRequestService = class SellerRequestService {
     }
     async updateToSeller(uuid) {
         const searchRequest = await this.sellerRequestRepository.findOne(uuid);
-        // if (searchRequest?.status === 'Completed') throw new ErrorNotFound('Expired Data', '@Servoce change to seller ')
+        if (searchRequest?.status === 'Completed')
+            throw new errors_1.ErrorNotFound('Expired Data', '@Servoce change to seller ');
         if (!searchRequest)
             throw new errors_1.ErrorNotFound('Data not found', '@Service Change member to seller');
         const searchProfile = await this.profileService.findOne(searchRequest.created_by.uuid ?? '');
@@ -112,10 +158,10 @@ let SellerRequestService = class SellerRequestService {
         const profileEntity = new profile_1.default({
             uuid: searchProfile.uuid,
             card_number: searchRequest.card_number,
-            province: searchProfile.province,
-            city: searchProfile.city,
-            district: searchProfile.district,
-            village: searchProfile.village,
+            province: searchRequest.province,
+            city: searchRequest.city,
+            district: searchRequest.district,
+            village: searchRequest.village,
             cloudinary_id: searchProfile.cloudinary_id,
             email: searchProfile.email,
             created_by: searchProfile.created_by,
@@ -125,6 +171,7 @@ let SellerRequestService = class SellerRequestService {
             updated_at: searchProfile.updated_at,
             deleted_at: searchProfile.deleted_at,
             roles: [enum_1.UserRole.MEMBER, enum_1.UserRole.Seller],
+            is_active: searchProfile.is_active,
             slug: searchProfile.slug,
             address: searchProfile.address,
             bank: searchRequest.bank
@@ -143,6 +190,7 @@ let SellerRequestService = class SellerRequestService {
         await this.userService.updateForSeller(userEntity);
         await this.profileService.updateForSeller(profileEntity);
         searchRequest.status = 'Completed';
+        searchRequest.deleted_at = new Date();
         await this.sellerRequestRepository.update(searchRequest);
         return { success: true };
     }
@@ -155,11 +203,14 @@ let SellerRequestService = class SellerRequestService {
     }
 };
 SellerRequestService = __decorate([
-    inversify_1.injectable(),
-    __param(0, inversify_1.inject(types_1.TYPES.SellerRequestRepository)),
-    __param(1, inversify_1.inject(types_1.TYPES.ProfileService)),
-    __param(2, inversify_1.inject(types_1.TYPES.UserService)),
-    __param(3, inversify_1.inject(types_1.TYPES.BankService)),
-    __param(4, inversify_1.inject(types_1.TYPES.ProducerDispatcher))
+    (0, inversify_1.injectable)(),
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.SellerRequestRepository)),
+    __param(1, (0, inversify_1.inject)(types_1.TYPES.ProfileService)),
+    __param(2, (0, inversify_1.inject)(types_1.TYPES.UserService)),
+    __param(3, (0, inversify_1.inject)(types_1.TYPES.BankService)),
+    __param(4, (0, inversify_1.inject)(types_1.TYPES.ProvinceService)),
+    __param(5, (0, inversify_1.inject)(types_1.TYPES.CityService)),
+    __param(6, (0, inversify_1.inject)(types_1.TYPES.DistrictService)),
+    __param(7, (0, inversify_1.inject)(types_1.TYPES.VillageService))
 ], SellerRequestService);
 exports.default = SellerRequestService;

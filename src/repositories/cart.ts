@@ -44,8 +44,8 @@ class CartRepository implements ICartRepository {
     }
 
     async delete(uuid: string, user_uuid: string): Promise<{ success: true }> {
-        console.log(uuid)
-        await CartModel.updateOne({ "created_by.uuid": user_uuid },
+
+        const deleteCart = await CartModel.updateOne({ "created_by.uuid": user_uuid, "product.uuid": uuid },
             { $pull: { product: { uuid: uuid } } },
             {
                 upsert: false,
@@ -53,10 +53,8 @@ class CartRepository implements ICartRepository {
             }
 
         )
-
         return { success: true }
     }
-
     async update(data: CartEntity): Promise<{ success: true }> {
 
         await CartModel.updateOne({ uuid: data.uuid }, {
@@ -67,21 +65,10 @@ class CartRepository implements ICartRepository {
     }
 
 
-    async findAll(user_uuid: string): Promise<CartEntity[]> {
-        return await CartModel.find({ "created_by.uuid": user_uuid })
-            .then(data => {
-                return data.map((result) => {
-                    return new CartEntity({
-                        uuid: result.uuid,
-                        created_by: result.created_by,
-                        product: result.product,
-                        quantity: result.quantity,
-                        created_at: result.created_at,
-                        deleted_at: result.deleted_at,
-                        updated_at: result.updated_at
-                    })
-                })
-            })
+    async findAll(user_uuid: string): Promise<CartEntity | null> {
+        const cart = await CartModel.findOne({ "created_by.uuid": user_uuid })
+
+        return cart ? new CartEntity(cart) : null
     }
 
 
