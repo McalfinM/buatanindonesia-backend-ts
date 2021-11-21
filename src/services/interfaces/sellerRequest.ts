@@ -18,4 +18,5 @@ export interface ISellerRequestService {
         data: SellerRequestEntity[];
     }>
     updateToSeller(uuid: string): Promise<{ success: true }>
+    findOneByUserUuid(user_uuid: string): Promise<SellerRequestEntity | null>
 }

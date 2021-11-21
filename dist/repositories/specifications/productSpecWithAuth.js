@@ -9,6 +9,7 @@ class GetProductSpecificationWithAuth {
     _limit;
     _search;
     _user_uuid;
+    _is_active;
     constructor(request) {
         this._search = request.search;
         this._city = request.city;
@@ -18,6 +19,7 @@ class GetProductSpecificationWithAuth {
         this._page = request.page ?? 1;
         this._limit = request.limit ?? 30;
         this._user_uuid = request.user_uuid;
+        this._is_active = request.is_active ?? true;
     }
     specifies() {
         let specifications = {};
@@ -35,7 +37,7 @@ class GetProductSpecificationWithAuth {
             specifications["$or"] = or_specifications;
         }
         specifications.deleted_at = null;
-        specifications.is_active = true;
+        specifications.is_active = this._is_active;
         specifications['created_by.uuid'] = this._user_uuid;
         return specifications;
     }

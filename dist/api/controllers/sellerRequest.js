@@ -25,7 +25,12 @@ let SellerRequestController = class SellerRequestController {
     }
     create(req, res) {
         const user = req.user;
-        return this.sellerRequestService.create(new createSellerRequest_1.default(req.body), user)
+        const file = req.files;
+        return this.sellerRequestService.create(new createSellerRequest_1.default({
+            ...req.body,
+            image: file.image[0].path,
+            ktp_image: file.ktp_image[0].path,
+        }), user)
             .then((result) => httpResponse_1.default.created(req, res, result))
             .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
@@ -68,6 +73,12 @@ let SellerRequestController = class SellerRequestController {
         const { params: { uuid } } = req;
         const user = req.user;
         return this.sellerRequestService.delete(uuid, user.uuid)
+            .then((result) => httpResponse_1.default.success(req, res, result))
+            .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
+    }
+    findOneByUserUuid(req, res) {
+        const user = req.user;
+        return this.sellerRequestService.findOneByUserUuid(user.uuid)
             .then((result) => httpResponse_1.default.success(req, res, result))
             .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
     }

@@ -7,4 +7,5 @@ export interface IProductController {
     findAll(req: Request, res: Response): Response | Promise<Response>
     findAllWithUser(req: Request, res: Response): Response | Promise<Response>
     delete(req: Request, res: Response): Response | Promise<Response>
+    findAllWithUserNoAuth(req: Request, res: Response): Response | Promise<Response>
 }

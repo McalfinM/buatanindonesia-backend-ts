@@ -3,11 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 class CreateSellerRequest {
     _name;
     _ktp_image;
-    _card_holder_name;
-    _card_number;
     _bank_uuid;
     _image;
     _phone;
+    _address;
     _province_uuid;
     _city_uuid;
     _district_uuid;
@@ -15,10 +14,9 @@ class CreateSellerRequest {
     constructor(body) {
         this._name = body.name;
         this._ktp_image = body.ktp_image;
-        this._card_holder_name = body.card_holder_name;
-        this._card_number = body.card_number;
         this._image = body.image;
         this._phone = body.phone;
+        this._address = body.address;
         this._bank_uuid = body.bank_uuid;
         this._province_uuid = body.province_uuid;
         this._city_uuid = body.city_uuid;
@@ -30,12 +28,6 @@ class CreateSellerRequest {
     }
     get ktp_image() {
         return this._ktp_image;
-    }
-    get card_holder_name() {
-        return this._card_holder_name;
-    }
-    get card_number() {
-        return this._card_number;
     }
     get image() {
         return this._image;
@@ -69,6 +61,12 @@ class CreateSellerRequest {
     }
     set village_uuid(village_uuid) {
         this._village_uuid = village_uuid;
+    }
+    get address() {
+        return this._address;
+    }
+    set address(address) {
+        this._address = address;
     }
 }
 exports.default = CreateSellerRequest;

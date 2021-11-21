@@ -16,6 +16,7 @@ import GetProductSpecification from "../repositories/specifications/productSpeci
 import { IProductService } from "./interfaces/product";
 import { ErrorNotFound } from "../helpers/errors";
 import GetProductSpecificationWithAuth from "../repositories/specifications/productSpecWithAuth";
+import { cloudSellerRequest } from "../helpers/cloudinary";
 
 @injectable()
 class ProductService implements IProductService {
@@ -35,8 +36,8 @@ class ProductService implements IProductService {
             name: data.name,
             description: data.description,
             slug: slugify(data.name) + uuidv4(),
-            image: data.image ?? 'https://res.cloudinary.com/dti2eqvdi/image/upload/v1627998960/profile/No_Image_Available_kvppd7.jpg',
-            cloudinary_id: data.cloudinary_id ?? 'https://res.cloudinary.com/dti2eqvdi/image/upload/v1627998960/profile/No_Image_Available_kvppd7.jpg',
+            image: 'https://res.cloudinary.com/dti2eqvdi/image/upload/v1627998960/profile/No_Image_Available_kvppd7.jpg',
+            cloudinary_id: data.cloudinary_id ?? '',
             price: data.price,
             stock: data.stock,
             created_by: {
@@ -58,7 +59,7 @@ class ProductService implements IProductService {
             deleted_at: null
         })
         await this.productRepository.create(productEntity)
-
+        this.uploadImage(productEntity.uuid, data.image, 'image')
         return { success: true }
     }
 
@@ -146,6 +147,23 @@ class ProductService implements IProductService {
     async reduceStock(uuid: string, quantity: number) {
 
     }
+
+    async uploadImage(uuid: string, image: string, key: string): Promise<void> {
+        const upload = await cloudSellerRequest(image)
+        const menu = await this.productRepository.findOne(uuid)
+        if (!menu) throw new ErrorNotFound('Produk tidak di temukan', '@Service Product => uploadImage')
+        menu.image = upload.secure_url
+        menu.cloudinary_id = upload.cloudinary_id
+        await this.updateForImage(menu.uuid, menu)
+    }
+
+    async updateForImage(uuid: string, data: ProductEntity): Promise<{ success: true }> {
+
+        const sellerRequest = new ProductEntity(data)
+        await this.productRepository.update(sellerRequest)
+        return { success: true }
+    }
+
 }
 
 export default ProductService

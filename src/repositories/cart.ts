@@ -71,7 +71,6 @@ class CartRepository implements ICartRepository {
         return cart ? new CartEntity(cart) : null
     }
 
-
 }
 
 export default CartRepository;

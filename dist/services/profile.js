@@ -19,7 +19,6 @@ const profile_1 = __importDefault(require("../entities/profile"));
 const profileSpecification_1 = __importDefault(require("../repositories/specifications/profileSpecification"));
 const slugify_1 = __importDefault(require("slugify"));
 const errors_1 = require("../helpers/errors");
-const cloudinary_1 = require("../helpers/cloudinary");
 const enum_1 = require("../entities/enums/enum");
 let ProfileService = class ProfileService {
     profileReopsitory;
@@ -95,9 +94,9 @@ let ProfileService = class ProfileService {
         else {
             slugi = searchProfile.slug;
         }
-        if (searchProfile.cloudinary_id !== data.cloudinary_id) {
-            await cloudinary_1.cloud.uploader.destroy('profile/' + searchProfile.cloudinary_id);
-        }
+        // if (searchProfile.cloudinary_id !== data.cloudinary_id) {
+        //     await cloud.uploader.destroy('profile/' + searchProfile.cloudinary_id)
+        // }
         const profileEntity = new profile_1.default({
             uuid: searchProfile.uuid,
             created_by: {

@@ -8,6 +8,7 @@ const UserSchema = new mongoose_1.Schema({
     password: { type: String },
     roles: { type: Array },
     is_active: { type: Boolean },
+    phone_number: { type: String },
     created_at: { type: Date },
     updated_at: { type: Date },
     deleted_at: { type: Date },

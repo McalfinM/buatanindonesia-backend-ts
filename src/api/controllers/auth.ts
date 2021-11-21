@@ -7,18 +7,22 @@ import Authentication from "../../helpers/authentication";
 import CreateUserRequest from "../../request/user/createUserRequest";
 import httpResponse from "../../helpers/httpResponse";
 import { ErrorBadRequest, ErrorNotFound, HttpErrorHandler } from "../../helpers/errors";
+import { IProfileService } from "../../services/interfaces/profile";
 
 @injectable()
 class AuthController {
 
     constructor(
-        @inject(TYPES.UserService) private userService: IUserService
+        @inject(TYPES.UserService) private userService: IUserService,
+        @inject(TYPES.ProfileService) private profileService: IProfileService
     ) { }
 
     async login(req: Request, res: Response): Promise<Response> {
         try {
             const { email, password } = req.body
             const data = await this.userService.checkEmail(email)
+            const profile = await this.profileService.findOne(data?.uuid ?? '')
+            console.log(profile?.toJson(), 'profile')
             if (data?.is_active == false) {
                 return res.status(400).json({
                     message: 'Please active your account'
@@ -39,8 +43,11 @@ class AuthController {
                     token_type: 'Bearer',
                     token: token,
                     user: {
+                        name: data.name,
+                        email: email,
                         uuid: data.uuid,
-                        roles: data.roles
+                        image: profile?.image,
+                        roles: data.roles,
                     }
                 })
             }

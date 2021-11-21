@@ -21,6 +21,7 @@ let UserRepository = class UserRepository {
             password: data.password,
             roles: data.roles,
             is_active: data.is_active,
+            phone_number: data.phone_number,
             created_at: data.created_at,
             deleted_at: data.deleted_at,
             updated_at: data.updated_at
@@ -74,6 +75,13 @@ let UserRepository = class UserRepository {
             is_active: is_active
         });
         return { success: true };
+    }
+    async checkPhoneNumber(phone_number) {
+        const result = await user_2.default.findOne({
+            phone_number: phone_number,
+            $or: [{ deleted_at: undefined }, { deleted_at: null }]
+        });
+        return result ? new user_1.default(result) : null;
     }
 };
 UserRepository = __decorate([

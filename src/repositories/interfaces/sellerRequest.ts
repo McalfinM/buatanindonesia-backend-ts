@@ -5,7 +5,7 @@ import specificationInterface from "../specifications/specificationInterface";
 
 
 export interface ISellerRequestRepository {
-    create(data: SellerRequestEntity): Promise<{ success: true }>
+    create(data: SellerRequestEntity): Promise<SellerRequestEntity>
     update(data: SellerRequestEntity): Promise<SellerRequestEntity>
     findOne(uuid: string): Promise<SellerRequestEntity | null>
     findOneByUserUuid(uuid: string): Promise<SellerRequestEntity | null>

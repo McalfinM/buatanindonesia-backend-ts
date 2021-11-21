@@ -12,10 +12,11 @@ class SellerRequestEntity extends BaseEntity {
     protected _email: string
     protected _card_holder_name: string
     protected _card_number: string
-    protected _image: string[]
+    protected _image: string
     protected _status: string
     protected _phone: string
     protected _province: IEmbed
+    protected _address: string
     protected _city: IEmbed
     protected _district: IEmbed
     protected _village: IEmbed
@@ -44,6 +45,7 @@ class SellerRequestEntity extends BaseEntity {
         this._city = params.city
         this._district = params.district
         this._village = params.village
+        this._address = params.address
         this._created_at = params.created_at
         this._updated_at = params.updated_at
         this._deleted_at = params.deleted_at
@@ -105,12 +107,20 @@ class SellerRequestEntity extends BaseEntity {
         this._card_number = card_number
     }
 
-    get image(): string[] {
+    get image(): string {
         return this._image
     }
 
-    set image(image: string[]) {
+    set image(image: string) {
         this._image = image
+    }
+
+    get address(): string {
+        return this._address
+    }
+
+    set address(address: string) {
+        this._address = address
     }
 
     get phone(): string {
@@ -201,6 +211,7 @@ class SellerRequestEntity extends BaseEntity {
             status: this.status,
             phone: this.phone,
             ktp_image: this.ktp_image,
+            address: this.address,
             created_at: this.created_at,
             updated_at: this.updated_at,
             deleted_at: this.deleted_at,

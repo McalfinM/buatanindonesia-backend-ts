@@ -19,6 +19,7 @@ const types_1 = require("../../types");
 const sellerRequest_1 = require("../validators/sellerRequest/sellerRequest");
 const auth_1 = require("../../middlewares/auth");
 const requestValidation_1 = require("../../middlewares/requestValidation");
+const multer_1 = __importDefault(require("../../helpers/multer"));
 let SellerRequestRouter = class SellerRequestRouter extends baseRouter_1.default {
     sellerRequestController;
     router;
@@ -32,7 +33,8 @@ let SellerRequestRouter = class SellerRequestRouter extends baseRouter_1.default
     routes() {
         // call controllers here
         this.router.get('/', auth_1.authenticate, this.sellerRequestController.index);
-        this.router.post('/', auth_1.authenticate, (0, sellerRequest_1.sellerValidation)(), requestValidation_1.validate, this.sellerRequestController.create);
+        this.router.post('/', auth_1.authenticate, multer_1.default.fields([{ name: "image" }, { name: 'ktp_image' }]), this.sellerRequestController.create);
+        this.router.get('/my-request', auth_1.authenticate, this.sellerRequestController.findOneByUserUuid);
         this.router.patch('/:uuid', auth_1.authenticate, (0, sellerRequest_1.sellerValidation)(), requestValidation_1.validate, this.sellerRequestController.update);
         this.router.patch('/:uuid/verify', auth_1.authenticate, this.sellerRequestController.UpdateToSeller);
         this.router.get('/:uuid', auth_1.authenticate, this.sellerRequestController.findOne);

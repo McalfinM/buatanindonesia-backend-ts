@@ -14,7 +14,7 @@ class IndexRouter {
     @inject(TYPES.AuthRouter) private authRouter: IRouter,
     // @inject(TYPES.CommentRouter) private commentRouter: IRouter,
     // @inject(TYPES.LikeRouter) private likeRouter: IRouter,
-    // @inject(TYPES.CategoryRouter) private categoryRouter: IRouter,
+    @inject(TYPES.CategoryRouter) private categoryRouter: IRouter,
     @inject(TYPES.TokenRouter) private tokenRouter: IRouter,
     @inject(TYPES.ProvinceRouter) private provinceRouter: IRouter,
     @inject(TYPES.CityRouter) private cityRouter: IRouter,
@@ -37,7 +37,7 @@ class IndexRouter {
     this.router.use("/api/v1/auth", this.authRouter.router)
     this.router.use("/api/v1/profiles", this.profileRouter.router)
     // this.router.use("/api/v1/comments", this.commentRouter.router)
-    // this.router.use("/api/v1/category", this.categoryRouter.router)
+    this.router.use("/api/v1/categories", this.categoryRouter.router)
     // this.router.use("/api/v1/likes", this.likeRouter.router)
     this.router.use("/api/v1/token", this.tokenRouter.router)
     this.router.use("/api/v1/provinces", this.provinceRouter.router)

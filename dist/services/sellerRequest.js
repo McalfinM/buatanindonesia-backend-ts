@@ -21,6 +21,7 @@ const sellerRequestSpecification_1 = __importDefault(require("../repositories/sp
 const profile_1 = __importDefault(require("../entities/profile"));
 const enum_1 = require("../entities/enums/enum");
 const user_1 = __importDefault(require("../entities/user"));
+const cloudinary_1 = require("../helpers/cloudinary");
 let SellerRequestService = class SellerRequestService {
     sellerRequestRepository;
     profileService;
@@ -59,20 +60,23 @@ let SellerRequestService = class SellerRequestService {
         const village = await this.villageService.findOne(data.village_uuid);
         if (!village)
             throw new errors_1.ErrorNotFound('Village tidak ditemukan', '@Service Create Request Seller');
+        if (village.district_uuid !== district.uuid && district.city_uuid !== city.uuid && city.province_uuid !== province.uuid)
+            throw new errors_1.ErrorNotFound('Apakah anda yakin daerah itu ada ?', '@Service Seller Request => Create');
         const bank = await this.bankService.findOne(data.bank_uuid);
         const entity = new sellerRequest_1.default({
             uuid: (0, uuid_1.v4)(),
-            card_holder_name: data.card_holder_name,
-            card_number: data.card_number,
+            card_holder_name: "",
+            card_number: "",
             created_by: {
                 uuid: searchUser.created_by.uuid,
                 name: searchUser.created_by.name,
                 image: searchUser.image
             },
+            address: data.address,
             phone: data.phone,
             email: searchUser.email,
-            image: data.image,
-            ktp_image: data.ktp_image,
+            image: "",
+            ktp_image: "",
             name: data.name,
             status: 'Pending',
             bank: bank,
@@ -96,7 +100,10 @@ let SellerRequestService = class SellerRequestService {
             created_at: new Date,
             updated_at: new Date,
         });
-        return await this.sellerRequestRepository.create(entity);
+        const sellerEntity = await this.sellerRequestRepository.create(entity);
+        this.uploadImage(sellerEntity.uuid, data.image, 'image');
+        this.uploadImage(sellerEntity.uuid, data.ktp_image, 'ktp');
+        return { success: true };
     }
     async findOne(uuid) {
         const result = await this.sellerRequestRepository.findOne(uuid);
@@ -107,7 +114,7 @@ let SellerRequestService = class SellerRequestService {
         if (!searchSellerRequest)
             throw new errors_1.ErrorNotFound('Request not found ', '@Service update to seller');
         const searchUser = await this.profileService.findOne(searchSellerRequest?.created_by.uuid ?? '');
-        if (!searchUser)
+        if (!searchUser || searchUser.created_by.uuid !== user.uuid)
             throw new errors_1.ErrorNotFound('User not found', '@service update to seller');
         const bank = await this.bankService.findOne(data.bank_uuid);
         if (!bank)
@@ -118,8 +125,8 @@ let SellerRequestService = class SellerRequestService {
         const village = await this.villageService.findOne(data.village_uuid);
         const entity = new sellerRequest_1.default({
             uuid: searchSellerRequest?.uuid ?? '',
-            card_holder_name: data.card_holder_name,
-            card_number: data.card_number,
+            card_holder_name: "",
+            card_number: "",
             phone: data.phone,
             created_by: {
                 uuid: searchUser.created_by.uuid,
@@ -128,7 +135,7 @@ let SellerRequestService = class SellerRequestService {
             },
             email: searchUser.email,
             ktp_image: data.ktp_image,
-            name: data.name,
+            name: data.name ?? searchSellerRequest.name,
             image: data.image,
             status: 'Pending',
             bank: bank,
@@ -136,6 +143,7 @@ let SellerRequestService = class SellerRequestService {
             province: province,
             city: city,
             district: district,
+            address: searchSellerRequest.address,
             village: village,
             created_at: searchSellerRequest?.created_at ?? new Date,
             updated_at: searchSellerRequest?.updated_at ?? new Date,
@@ -182,6 +190,7 @@ let SellerRequestService = class SellerRequestService {
             name: searchUser.name,
             password: searchUser.password,
             roles: [enum_1.UserRole.MEMBER, enum_1.UserRole.Seller],
+            phone_number: searchUser.phone_number,
             is_active: searchUser.is_active,
             created_at: searchUser.created_at,
             updated_at: searchUser.updated_at,
@@ -200,6 +209,28 @@ let SellerRequestService = class SellerRequestService {
     async delete(uuid, user_uuid) {
         await this.sellerRequestRepository.delete(uuid, user_uuid);
         return { success: true };
+    }
+    async uploadImage(uuid, image, key) {
+        const upload = await (0, cloudinary_1.cloudSellerRequest)(image);
+        const menu = await this.findOne(uuid);
+        if (!menu)
+            throw new errors_1.ErrorNotFound('Menu tidak ada', '@Service menu upload image');
+        if (key == 'ktp') {
+            menu.ktp_image = upload.secure_url;
+        }
+        else if (key == 'image') {
+            menu.image = upload.secure_url;
+        }
+        await this.updateForImage(menu.uuid, menu);
+    }
+    async updateForImage(uuid, data) {
+        const sellerRequest = new sellerRequest_1.default(data);
+        await this.sellerRequestRepository.update(sellerRequest);
+        return { success: true };
+    }
+    async findOneByUserUuid(user_uuid) {
+        const sellerRequest = await this.sellerRequestRepository.findOneByUserUuid(user_uuid);
+        return sellerRequest ? new sellerRequest_1.default(sellerRequest) : null;
     }
 };
 SellerRequestService = __decorate([

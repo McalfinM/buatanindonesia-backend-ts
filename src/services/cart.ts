@@ -11,7 +11,7 @@ import CartEntity from "../entities/cart";
 import { v4 as uuidV4 } from 'uuid'
 import { IProfileService } from "./interfaces/profile";
 import { IProduct } from "../entities/interfaces/cart";
-import { ErrorBadRequest, ErrorNotFound } from "../helpers/errors";
+import { ErrorBadRequest, ErrorNotFound, ErrorUnprocessableEntity } from "../helpers/errors";
 
 @injectable()
 class CartService implements ICartService {
@@ -25,9 +25,9 @@ class CartService implements ICartService {
         const searchCart = await this.cartRepository.findOneMyCart(user.uuid)
         const searchUser = await this.profileService.findOne(user.uuid)
         let product: IProduct[] = []
-
         if (!searchCart) {
             const searchProduct = await this.productService.findOne(data.product_uuid)
+            if (searchProduct?.created_by.uuid === user.uuid) throw new ErrorUnprocessableEntity('Tidak bisa memasukan kedalam cart', '@Service Cart => createOrUpdate')
             if (!searchProduct) throw new ErrorNotFound('Product not found', '@Service create or update cart')
             if (searchProduct.created_by.uuid == user.uuid) throw new ErrorBadRequest('You can take alone your product', '@Service Cart Create or Update')
             product.push({
@@ -58,6 +58,7 @@ class CartService implements ICartService {
             await this.cartRepository.create(entityCart);
         } else {
             const searchProduct = await this.productService.findOne(data.product_uuid)
+            if (searchProduct?.created_by.uuid === user.uuid) throw new ErrorUnprocessableEntity('Tidak bisa memasukan kedalam cart', '@Service Cart => createOrUpdate')
             if (!searchProduct) throw new ErrorNotFound('Product not found', '@Service create or update cart')
             for (let i = 0; i < searchCart.product.length; i++) {
 
@@ -129,6 +130,7 @@ class CartService implements ICartService {
 
                 await this.cartRepository.delete(searchCart.product[i].uuid ?? '', user_uuid)
                 searchCart.product[i].quantity -= 1
+
                 searchCart.quantity = searchCart.product[i].quantity
 
                 return await this.cartRepository.update(searchCart);

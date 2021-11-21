@@ -182,6 +182,7 @@ class ProfileEntity extends BaseEntity {
             image: this.image,
             cloudinary_id: this.cloudinary_id,
             roles: this.roles,
+            is_active: this.is_active,
             created_at: this.created_at,
             updated_at: this.updated_at,
             deleted_at: this.deleted_at,
@@ -211,6 +212,20 @@ class ProfileEntity extends BaseEntity {
             phone: this.phone,
             email: this.email,
             image: this.image,
+            roles: this.roles,
+            created_at: this.created_at,
+            updated_at: this.updated_at,
+        };
+    }
+
+    toProfile(): {} {
+        return {
+            uuid: this.uuid,
+            name: this.created_by.name,
+            city: this.city,
+            image: this.image,
+            email: this.email,
+            phone: this.phone,
             roles: this.roles,
             created_at: this.created_at,
             updated_at: this.updated_at,

@@ -20,13 +20,17 @@ const httpResponse_1 = __importDefault(require("../../helpers/httpResponse"));
 const errors_1 = require("../../helpers/errors");
 let AuthController = class AuthController {
     userService;
-    constructor(userService) {
+    profileService;
+    constructor(userService, profileService) {
         this.userService = userService;
+        this.profileService = profileService;
     }
     async login(req, res) {
         try {
             const { email, password } = req.body;
             const data = await this.userService.checkEmail(email);
+            const profile = await this.profileService.findOne(data?.uuid ?? '');
+            console.log(profile?.toJson(), 'profile');
             if (data?.is_active == false) {
                 return res.status(400).json({
                     message: 'Please active your account'
@@ -45,8 +49,11 @@ let AuthController = class AuthController {
                     token_type: 'Bearer',
                     token: token,
                     user: {
+                        name: data.name,
+                        email: email,
                         uuid: data.uuid,
-                        roles: data.roles
+                        image: profile?.image,
+                        roles: data.roles,
                     }
                 });
             }
@@ -69,6 +76,7 @@ let AuthController = class AuthController {
 };
 AuthController = __decorate([
     (0, inversify_1.injectable)(),
-    __param(0, (0, inversify_1.inject)(types_1.TYPES.UserService))
+    __param(0, (0, inversify_1.inject)(types_1.TYPES.UserService)),
+    __param(1, (0, inversify_1.inject)(types_1.TYPES.ProfileService))
 ], AuthController);
 exports.default = AuthController;

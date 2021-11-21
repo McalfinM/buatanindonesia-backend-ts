@@ -7,6 +7,7 @@ import { ISellerRequestController } from '../controllers/interfaces/sellerReques
 import { sellerValidation } from '../validators/sellerRequest/sellerRequest'
 import { authenticate } from '../../middlewares/auth'
 import { validate } from '../../middlewares/requestValidation'
+import multer from '../../helpers/multer'
 
 @injectable()
 class SellerRequestRouter extends BaseRouter {
@@ -25,7 +26,8 @@ class SellerRequestRouter extends BaseRouter {
     routes(): IRouter {
         // call controllers here
         this.router.get('/', authenticate, this.sellerRequestController.index)
-        this.router.post('/', authenticate, sellerValidation(), validate, this.sellerRequestController.create)
+        this.router.post('/', authenticate, multer.fields([{ name: "image" }, { name: 'ktp_image' }]), this.sellerRequestController.create)
+        this.router.get('/my-request', authenticate, this.sellerRequestController.findOneByUserUuid)
         this.router.patch('/:uuid', authenticate, sellerValidation(), validate, this.sellerRequestController.update)
         this.router.patch('/:uuid/verify', authenticate, this.sellerRequestController.UpdateToSeller)
         this.router.get('/:uuid', authenticate, this.sellerRequestController.findOne)

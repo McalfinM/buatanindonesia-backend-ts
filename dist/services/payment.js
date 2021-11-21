@@ -52,7 +52,7 @@ let PaymentService = class PaymentService {
         if (!searchSeller)
             throw new errors_1.ErrorNotFound('Seller maybe not active now', '@Service payment service create');
         if (searchUser.created_by.uuid == searchSeller.created_by.uuid)
-            throw new errors_1.ErrorNotFound('Cant continue this transaction', '@Service create payment');
+            throw new errors_1.ErrorNotFound('Tidak bisa melanjutkan transaksi', '@Service create payment');
         const paymentEntity = new payment_1.default({
             uuid: (0, uuid_1.v4)(),
             no_invoice: 'MS' + Math.random().toString(20).substring(2, 10),

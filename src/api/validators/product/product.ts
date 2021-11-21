@@ -3,12 +3,10 @@ import { translate } from '../../../helpers/validatorTranslation'
 
 export const bodyValidation = (): ValidationChain[] => {
     return [
-        body('name', 'Judul harus di isi').notEmpty().isString(),
-        body('description', 'Kategori harus di isi').notEmpty().isString(),
-        body('category_uuid', 'Kontent harus di isi').notEmpty().isUUID(),
-        body('price', 'Harga harus di isi').notEmpty().isNumeric(),
-        body('stock', 'Stok wajib di isi').notEmpty().isNumeric(),
-        body('image'),
-        body('cloudinary_id')
+        body('name', 'Judul harus di isi').exists().isString(),
+        body('description', 'Kategori harus di isi').exists().isString(),
+        body('category_uuid', 'kategori harus di isi').exists().isUUID(),
+        body('price', 'Harga harus di isi').exists().isNumeric(),
+        body('stock', 'Stok wajib di isi').exists().isNumeric(),
     ]
 }

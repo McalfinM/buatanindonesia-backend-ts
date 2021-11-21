@@ -1,11 +1,10 @@
 class CreateSellerRequest {
     protected _name: string
     protected _ktp_image: string
-    protected _card_holder_name: string
-    protected _card_number: string
     protected _bank_uuid: string
-    protected _image: string[]
+    protected _image: string
     protected _phone: string
+    protected _address: string
     protected _province_uuid: string
     protected _city_uuid: string
     protected _district_uuid: string
@@ -15,12 +14,11 @@ class CreateSellerRequest {
     constructor(body: {
         name: string
         ktp_image: string
-        card_holder_name: string
-        card_number: string
-        image: string[]
+        image: string
         phone: string
         bank_uuid: string
         province_uuid: string
+        address: string
         city_uuid: string
         district_uuid: string
         village_uuid: string
@@ -28,10 +26,9 @@ class CreateSellerRequest {
     }) {
         this._name = body.name
         this._ktp_image = body.ktp_image
-        this._card_holder_name = body.card_holder_name
-        this._card_number = body.card_number
         this._image = body.image
         this._phone = body.phone
+        this._address = body.address
         this._bank_uuid = body.bank_uuid
         this._province_uuid = body.province_uuid
         this._city_uuid = body.city_uuid
@@ -45,13 +42,7 @@ class CreateSellerRequest {
     get ktp_image(): string {
         return this._ktp_image
     }
-    get card_holder_name(): string {
-        return this._card_holder_name
-    }
-    get card_number(): string {
-        return this._card_number
-    }
-    get image(): string[] {
+    get image(): string {
         return this._image
     }
     get phone(): string {
@@ -83,6 +74,12 @@ class CreateSellerRequest {
     }
     set village_uuid(village_uuid: string) {
         this._village_uuid = village_uuid
+    }
+    get address(): string {
+        return this._address
+    }
+    set address(address: string) {
+        this._address = address
     }
 
 

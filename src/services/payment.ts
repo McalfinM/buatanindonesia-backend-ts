@@ -40,7 +40,7 @@ class PaymentService implements IPaymentService {
         if (searchProduct.stock == 0) throw new ErrorNotFound('Maaf produk telah habis', '@Service Payment create')
         const searchSeller = await this.profileService.findOne(searchProduct?.created_by.uuid ?? '')
         if (!searchSeller) throw new ErrorNotFound('Seller maybe not active now', '@Service payment service create')
-        if (searchUser.created_by.uuid == searchSeller.created_by.uuid) throw new ErrorNotFound('Cant continue this transaction', '@Service create payment')
+        if (searchUser.created_by.uuid == searchSeller.created_by.uuid) throw new ErrorNotFound('Tidak bisa melanjutkan transaksi', '@Service create payment')
         const paymentEntity = new PaymentEntity({
             uuid: uuidv4(),
             no_invoice: 'MS' + Math.random().toString(20).substring(2, 10),

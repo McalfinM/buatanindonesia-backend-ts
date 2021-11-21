@@ -19,6 +19,7 @@ const requestValidation_1 = require("../../middlewares/requestValidation");
 const inversify_1 = require("inversify");
 const types_1 = require("../../types");
 const auth_1 = require("../../middlewares/auth");
+const multer_1 = __importDefault(require("../../helpers/multer"));
 let ProductRouter = class ProductRouter extends baseRouter_1.default {
     productController;
     router;
@@ -32,8 +33,9 @@ let ProductRouter = class ProductRouter extends baseRouter_1.default {
     routes() {
         // call controllers here
         this.router.get('/', this.productController.findAll);
-        this.router.get('/my-product', auth_1.authenticate, this.productController.findAllWithUser);
-        this.router.post('/', auth_1.authenticate, (0, product_1.bodyValidation)(), requestValidation_1.validate, this.productController.create);
+        this.router.get('/my-products', auth_1.authenticate, this.productController.findAllWithUser);
+        this.router.post('/', auth_1.authenticate, multer_1.default.single('image'), this.productController.create);
+        this.router.get('/my-products/:uuid', this.productController.findAllWithUserNoAuth);
         this.router.put('/:uuid', auth_1.authenticate, (0, product_1.bodyValidation)(), requestValidation_1.validate, this.productController.update);
         this.router.get('/:uuid', this.productController.findOne);
         this.router.delete('/:uuid', auth_1.authenticate, this.productController.delete);

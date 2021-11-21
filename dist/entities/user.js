@@ -11,6 +11,7 @@ class UserEntity extends baseEntity_1.default {
     _password;
     _roles;
     _is_active;
+    _phone_number;
     _created_at;
     _updated_at;
     _deleted_at;
@@ -22,6 +23,7 @@ class UserEntity extends baseEntity_1.default {
         this._password = params.password;
         this._roles = params.roles;
         this._is_active = params.is_active;
+        this._phone_number = params.phone_number;
         this._created_at = params.created_at;
         this._updated_at = params.updated_at;
         this._deleted_at = params.deleted_at;
@@ -62,6 +64,12 @@ class UserEntity extends baseEntity_1.default {
     set is_active(is_active) {
         this._is_active = is_active;
     }
+    get phone_number() {
+        return this._phone_number;
+    }
+    set phone_number(phone_number) {
+        this._phone_number = phone_number;
+    }
     get created_at() {
         return this._created_at;
     }
@@ -88,6 +96,7 @@ class UserEntity extends baseEntity_1.default {
             password: this.password,
             roles: this.roles,
             is_active: this.is_active,
+            phone_number: this.phone_number,
             created_at: this.created_at,
             updated_at: this.updated_at,
             deleted_at: this.deleted_at,

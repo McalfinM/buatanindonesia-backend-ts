@@ -8,7 +8,8 @@ const bodyValidation = () => {
         (0, express_validator_1.body)('email', 'Email tidak boleh kosong').notEmpty(),
         (0, express_validator_1.body)('email', 'Email harus berformat email').isEmail(),
         (0, express_validator_1.body)('password', 'Password tidak boleh kosong').notEmpty(),
-        (0, express_validator_1.body)('confirm_password', 'Confirm Password tidak boleh kosong').notEmpty()
+        (0, express_validator_1.body)('confirm_password', 'Confirm Password tidak boleh kosong').notEmpty(),
+        (0, express_validator_1.body)('phone', 'Nomor handphone tidak boleh kosong').notEmpty().isNumeric()
     ];
 };
 exports.bodyValidation = bodyValidation;

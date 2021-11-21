@@ -7,4 +7,5 @@ export interface ISellerRequestController {
     index(req: Request, res: Response): Response | Promise<Response>
     findOne(req: Request, res: Response): Response | Promise<Response>
     UpdateToSeller(req: Request, res: Response): Response | Promise<Response>
+    findOneByUserUuid(req: Request, res: Response): Response | Promise<Response>
 }

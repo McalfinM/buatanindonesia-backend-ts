@@ -7,6 +7,7 @@ class CreateUserRequest {
     protected _email: string
     protected _password: string
     protected _confirm_password: string
+    protected _phone: string
     protected _created_at: Date | null
     protected _updated_at: Date | null
     protected _deleted_at: Date | null
@@ -18,6 +19,7 @@ class CreateUserRequest {
         email: string
         password: string
         confirm_password: string
+        phone: string
         created_at: Date | null
         updated_at: Date | null
         deleted_at: Date | null
@@ -28,6 +30,7 @@ class CreateUserRequest {
         this._email = body.email
         this._password = body.password
         this._confirm_password = body.confirm_password
+        this._phone = body.phone
         this._created_at = body.created_at
         this._updated_at = body.updated_at
         this._deleted_at = body.deleted_at
@@ -45,6 +48,9 @@ class CreateUserRequest {
     }
     get confirm_password(): string {
         return this._confirm_password
+    }
+    get phone(): string {
+        return this._phone
     }
     get created_at(): Date | null {
         return this._created_at

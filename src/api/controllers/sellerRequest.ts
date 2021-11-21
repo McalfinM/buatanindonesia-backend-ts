@@ -15,7 +15,12 @@ class SellerRequestController implements ISellerRequestController {
 
     create(req: Request, res: Response): Response | Promise<Response> {
         const user = req.user
-        return this.sellerRequestService.create(new CreateSellerRequest(req.body), user)
+        const file: any = req.files
+        return this.sellerRequestService.create(new CreateSellerRequest({
+            ...req.body,
+            image: file.image[0].path,
+            ktp_image: file.ktp_image[0].path,
+        }), user)
             .then((result) => HttpResponse.created(req, res, result))
             .catch((err) => HttpErrorHandler(err, req, res));
     }
@@ -67,6 +72,13 @@ class SellerRequestController implements ISellerRequestController {
         const { params: { uuid } } = req;
         const user = req.user
         return this.sellerRequestService.delete(uuid, user.uuid)
+            .then((result) => HttpResponse.success(req, res, result))
+            .catch((err) => HttpErrorHandler(err, req, res));
+    }
+
+    findOneByUserUuid(req: Request, res: Response): Response | Promise<Response> {
+        const user = req.user
+        return this.sellerRequestService.findOneByUserUuid(user.uuid)
             .then((result) => HttpResponse.success(req, res, result))
             .catch((err) => HttpErrorHandler(err, req, res));
     }

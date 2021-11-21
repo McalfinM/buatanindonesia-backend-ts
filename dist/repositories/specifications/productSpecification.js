@@ -4,6 +4,7 @@ class GetProductSpecification {
     _name;
     _stock;
     _price;
+    _city_uuid;
     _sort_by;
     _page;
     _limit;
@@ -14,6 +15,7 @@ class GetProductSpecification {
         this._stock = request.stock;
         this._name = request.name;
         this._price = request.price;
+        this._city_uuid = request.city_uuid;
         this._sort_by = request.sort ?? '-created_at';
         this._page = request.page ?? 1;
         this._limit = request.limit ?? 30;
@@ -30,6 +32,9 @@ class GetProductSpecification {
         }
         if (this._stock) {
             specifications["stock"] = this._stock;
+        }
+        if (this._city_uuid) {
+            specifications["city.uuid"] = this._city_uuid;
         }
         if (or_specifications.length > 0) {
             specifications["$or"] = or_specifications;

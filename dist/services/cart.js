@@ -34,6 +34,8 @@ let CartService = class CartService {
         let product = [];
         if (!searchCart) {
             const searchProduct = await this.productService.findOne(data.product_uuid);
+            if (searchProduct?.created_by.uuid === user.uuid)
+                throw new errors_1.ErrorUnprocessableEntity('Tidak bisa memasukan kedalam cart', '@Service Cart => createOrUpdate');
             if (!searchProduct)
                 throw new errors_1.ErrorNotFound('Product not found', '@Service create or update cart');
             if (searchProduct.created_by.uuid == user.uuid)
@@ -66,6 +68,8 @@ let CartService = class CartService {
         }
         else {
             const searchProduct = await this.productService.findOne(data.product_uuid);
+            if (searchProduct?.created_by.uuid === user.uuid)
+                throw new errors_1.ErrorUnprocessableEntity('Tidak bisa memasukan kedalam cart', '@Service Cart => createOrUpdate');
             if (!searchProduct)
                 throw new errors_1.ErrorNotFound('Product not found', '@Service create or update cart');
             for (let i = 0; i < searchCart.product.length; i++) {

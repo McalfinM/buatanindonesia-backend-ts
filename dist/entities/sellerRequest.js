@@ -16,6 +16,7 @@ class SellerRequestEntity extends baseEntity_1.default {
     _status;
     _phone;
     _province;
+    _address;
     _city;
     _district;
     _village;
@@ -40,6 +41,7 @@ class SellerRequestEntity extends baseEntity_1.default {
         this._city = params.city;
         this._district = params.district;
         this._village = params.village;
+        this._address = params.address;
         this._created_at = params.created_at;
         this._updated_at = params.updated_at;
         this._deleted_at = params.deleted_at;
@@ -91,6 +93,12 @@ class SellerRequestEntity extends baseEntity_1.default {
     }
     set image(image) {
         this._image = image;
+    }
+    get address() {
+        return this._address;
+    }
+    set address(address) {
+        this._address = address;
     }
     get phone() {
         return this._phone;
@@ -165,6 +173,7 @@ class SellerRequestEntity extends baseEntity_1.default {
             status: this.status,
             phone: this.phone,
             ktp_image: this.ktp_image,
+            address: this.address,
             created_at: this.created_at,
             updated_at: this.updated_at,
             deleted_at: this.deleted_at,

@@ -9,9 +9,10 @@ export interface ISellerRequestEntity {
     card_holder_name: string
     card_number: string
     phone: string
-    image: string[]
+    image: string
     status: string
     ktp_image: string | null
+    address: string
     province: IEmbed
     city: IEmbed
     district: IEmbed

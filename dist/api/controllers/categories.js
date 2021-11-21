@@ -23,7 +23,7 @@ let CategoryController = class CategoryController {
     findAll(req, res) {
         return this.categoryService.findAll()
             .then(result => {
-            return httpResponse_1.default.success(req, res, result);
+            return httpResponse_1.default.success(req, res, result.data);
         });
     }
 };

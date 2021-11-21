@@ -20,6 +20,7 @@ const slugify_1 = __importDefault(require("slugify"));
 const productSpecification_1 = __importDefault(require("../repositories/specifications/productSpecification"));
 const errors_1 = require("../helpers/errors");
 const productSpecWithAuth_1 = __importDefault(require("../repositories/specifications/productSpecWithAuth"));
+const cloudinary_1 = require("../helpers/cloudinary");
 let ProductService = class ProductService {
     productRepository;
     categoryService;
@@ -43,8 +44,8 @@ let ProductService = class ProductService {
             name: data.name,
             description: data.description,
             slug: (0, slugify_1.default)(data.name) + (0, uuid_1.v4)(),
-            image: data.image ?? 'https://res.cloudinary.com/dti2eqvdi/image/upload/v1627998960/profile/No_Image_Available_kvppd7.jpg',
-            cloudinary_id: data.cloudinary_id ?? 'https://res.cloudinary.com/dti2eqvdi/image/upload/v1627998960/profile/No_Image_Available_kvppd7.jpg',
+            image: 'https://res.cloudinary.com/dti2eqvdi/image/upload/v1627998960/profile/No_Image_Available_kvppd7.jpg',
+            cloudinary_id: data.cloudinary_id ?? '',
             price: data.price,
             stock: data.stock,
             created_by: {
@@ -66,6 +67,7 @@ let ProductService = class ProductService {
             deleted_at: null
         });
         await this.productRepository.create(productEntity);
+        this.uploadImage(productEntity.uuid, data.image, 'image');
         return { success: true };
     }
     async findOne(uuid) {
@@ -136,6 +138,20 @@ let ProductService = class ProductService {
         return await this.productRepository.findAll(new productSpecWithAuth_1.default(data));
     }
     async reduceStock(uuid, quantity) {
+    }
+    async uploadImage(uuid, image, key) {
+        const upload = await (0, cloudinary_1.cloudSellerRequest)(image);
+        const menu = await this.productRepository.findOne(uuid);
+        if (!menu)
+            throw new errors_1.ErrorNotFound('Produk tidak di temukan', '@Service Product => uploadImage');
+        menu.image = upload.secure_url;
+        menu.cloudinary_id = upload.cloudinary_id;
+        await this.updateForImage(menu.uuid, menu);
+    }
+    async updateForImage(uuid, data) {
+        const sellerRequest = new product_1.default(data);
+        await this.productRepository.update(sellerRequest);
+        return { success: true };
     }
 };
 ProductService = __decorate([

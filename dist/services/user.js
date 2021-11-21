@@ -42,10 +42,13 @@ let UserService = class UserService {
         data.email?.toLowerCase();
         const findUser = await this.userRepository.checkEmail(data.email ?? '');
         const findUsername = await this.userRepository.checkUsername(data.name ?? '');
+        const phoneNumber = await this.userRepository.checkUsername(data.name ?? '');
         if (findUsername)
             throw new errors_1.ErrorBadRequest('Can\'t use this username', '@Service User Create');
         if (findUser)
             throw new errors_1.ErrorBadRequest('Email already registered', '@Service User Create');
+        if (phoneNumber)
+            throw new errors_1.ErrorBadRequest('Nomor handphone telah terdaftar', '@Service User => Create');
         const salt = await bcrypt_1.default.genSalt(12);
         const hash = bcrypt_1.default.hashSync(data.password, salt);
         const userEntity = new user_1.default({
@@ -55,6 +58,7 @@ let UserService = class UserService {
             password: hash,
             roles: [enum_1.UserRole.MEMBER],
             is_active: false,
+            phone_number: data.phone,
             created_at: new Date(),
             updated_at: new Date(),
             deleted_at: null

@@ -17,7 +17,7 @@ class CategoryController implements ICategoryConrtoller {
     findAll(req: Request, res: Response): Promise<Response> {
         return this.categoryService.findAll()
             .then(result => {
-                return HttpResponse.success(req, res, result)
+                return HttpResponse.success(req, res, result.data)
             })
     }
 

@@ -15,6 +15,7 @@ const types_1 = require("../../types");
 let IndexRouter = class IndexRouter {
     userRouter;
     authRouter;
+    categoryRouter;
     tokenRouter;
     provinceRouter;
     cityRouter;
@@ -30,10 +31,10 @@ let IndexRouter = class IndexRouter {
     constructor(userRouter, authRouter, 
     // @inject(TYPES.CommentRouter) private commentRouter: IRouter,
     // @inject(TYPES.LikeRouter) private likeRouter: IRouter,
-    // @inject(TYPES.CategoryRouter) private categoryRouter: IRouter,
-    tokenRouter, provinceRouter, cityRouter, districtRouter, villageRouter, sellerRequestRouter, bankRouter, productRouter, cartRouter, paymentRouter, profileRouter) {
+    categoryRouter, tokenRouter, provinceRouter, cityRouter, districtRouter, villageRouter, sellerRequestRouter, bankRouter, productRouter, cartRouter, paymentRouter, profileRouter) {
         this.userRouter = userRouter;
         this.authRouter = authRouter;
+        this.categoryRouter = categoryRouter;
         this.tokenRouter = tokenRouter;
         this.provinceRouter = provinceRouter;
         this.cityRouter = cityRouter;
@@ -53,7 +54,7 @@ let IndexRouter = class IndexRouter {
         this.router.use("/api/v1/auth", this.authRouter.router);
         this.router.use("/api/v1/profiles", this.profileRouter.router);
         // this.router.use("/api/v1/comments", this.commentRouter.router)
-        // this.router.use("/api/v1/category", this.categoryRouter.router)
+        this.router.use("/api/v1/categories", this.categoryRouter.router);
         // this.router.use("/api/v1/likes", this.likeRouter.router)
         this.router.use("/api/v1/token", this.tokenRouter.router);
         this.router.use("/api/v1/provinces", this.provinceRouter.router);
@@ -72,16 +73,17 @@ IndexRouter = __decorate([
     (0, inversify_1.injectable)(),
     __param(0, (0, inversify_1.inject)(types_1.TYPES.UserRouter)),
     __param(1, (0, inversify_1.inject)(types_1.TYPES.AuthRouter)),
-    __param(2, (0, inversify_1.inject)(types_1.TYPES.TokenRouter)),
-    __param(3, (0, inversify_1.inject)(types_1.TYPES.ProvinceRouter)),
-    __param(4, (0, inversify_1.inject)(types_1.TYPES.CityRouter)),
-    __param(5, (0, inversify_1.inject)(types_1.TYPES.DistrictRouter)),
-    __param(6, (0, inversify_1.inject)(types_1.TYPES.VillageRouter)),
-    __param(7, (0, inversify_1.inject)(types_1.TYPES.SellerRequestRouter)),
-    __param(8, (0, inversify_1.inject)(types_1.TYPES.BankRouter)),
-    __param(9, (0, inversify_1.inject)(types_1.TYPES.ProductRouter)),
-    __param(10, (0, inversify_1.inject)(types_1.TYPES.CartRouter)),
-    __param(11, (0, inversify_1.inject)(types_1.TYPES.PaymentRouter)),
-    __param(12, (0, inversify_1.inject)(types_1.TYPES.ProfileRouter))
+    __param(2, (0, inversify_1.inject)(types_1.TYPES.CategoryRouter)),
+    __param(3, (0, inversify_1.inject)(types_1.TYPES.TokenRouter)),
+    __param(4, (0, inversify_1.inject)(types_1.TYPES.ProvinceRouter)),
+    __param(5, (0, inversify_1.inject)(types_1.TYPES.CityRouter)),
+    __param(6, (0, inversify_1.inject)(types_1.TYPES.DistrictRouter)),
+    __param(7, (0, inversify_1.inject)(types_1.TYPES.VillageRouter)),
+    __param(8, (0, inversify_1.inject)(types_1.TYPES.SellerRequestRouter)),
+    __param(9, (0, inversify_1.inject)(types_1.TYPES.BankRouter)),
+    __param(10, (0, inversify_1.inject)(types_1.TYPES.ProductRouter)),
+    __param(11, (0, inversify_1.inject)(types_1.TYPES.CartRouter)),
+    __param(12, (0, inversify_1.inject)(types_1.TYPES.PaymentRouter)),
+    __param(13, (0, inversify_1.inject)(types_1.TYPES.ProfileRouter))
 ], IndexRouter);
 exports.default = IndexRouter;

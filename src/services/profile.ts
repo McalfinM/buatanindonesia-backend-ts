@@ -11,7 +11,6 @@ import slugify from "slugify";
 import { IUser } from "../models/interfaces/user";
 import UpdateProfileRequest from "../request/profile/updateProfileRequest";
 import { ErrorNotFound } from "../helpers/errors";
-import { cloud } from "../helpers/cloudinary";
 import { ICommentService } from "./interfaces/comment";
 import { IUserService } from "./interfaces/user";
 import { IUserRepository } from "../repositories/interfaces/user";
@@ -96,9 +95,9 @@ class ProfileService implements IProfileService {
             slugi = searchProfile.slug
         }
 
-        if (searchProfile.cloudinary_id !== data.cloudinary_id) {
-            await cloud.uploader.destroy('profile/' + searchProfile.cloudinary_id)
-        }
+        // if (searchProfile.cloudinary_id !== data.cloudinary_id) {
+        //     await cloud.uploader.destroy('profile/' + searchProfile.cloudinary_id)
+        // }
         const profileEntity = new ProfileEntity({
             uuid: searchProfile.uuid,
             created_by: {

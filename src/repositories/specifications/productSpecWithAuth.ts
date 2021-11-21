@@ -12,6 +12,7 @@ class GetProductSpecificationWithAuth implements ISpecification {
     protected _limit: number;
     protected _search?: string;
     protected _user_uuid?: string;
+    protected _is_active?: boolean
 
     constructor(request: {
 
@@ -24,6 +25,7 @@ class GetProductSpecificationWithAuth implements ISpecification {
         limit?: number
         search?: string
         user_uuid?: string
+        is_active?: boolean
     }) {
         this._search = request.search;
         this._city = request.city;
@@ -33,6 +35,7 @@ class GetProductSpecificationWithAuth implements ISpecification {
         this._page = request.page ?? 1
         this._limit = request.limit ?? 30
         this._user_uuid = request.user_uuid
+        this._is_active = request.is_active ?? true
     }
 
 
@@ -60,7 +63,7 @@ class GetProductSpecificationWithAuth implements ISpecification {
             specifications["$or"] = or_specifications;
         }
         specifications.deleted_at = null;
-        specifications.is_active = true
+        specifications.is_active = this._is_active
         specifications['created_by.uuid'] = this._user_uuid
 
         return specifications;

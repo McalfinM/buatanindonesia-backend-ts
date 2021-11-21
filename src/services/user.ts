@@ -35,8 +35,10 @@ class UserService implements IUserService {
         data.email?.toLowerCase()
         const findUser = await this.userRepository.checkEmail(data.email ?? '')
         const findUsername = await this.userRepository.checkUsername(data.name ?? '')
+        const phoneNumber = await this.userRepository.checkUsername(data.name ?? '')
         if (findUsername) throw new ErrorBadRequest('Can\'t use this username', '@Service User Create')
         if (findUser) throw new ErrorBadRequest('Email already registered', '@Service User Create')
+        if (phoneNumber) throw new ErrorBadRequest('Nomor handphone telah terdaftar', '@Service User => Create')
         const salt = await bcrypt.genSalt(12)
         const hash = bcrypt.hashSync(data.password, salt)
         const userEntity = new UserEntity({
@@ -46,6 +48,7 @@ class UserService implements IUserService {
             password: hash,
             roles: [UserRole.MEMBER],
             is_active: false,
+            phone_number: data.phone,
             created_at: new Date(),
             updated_at: new Date(),
             deleted_at: null

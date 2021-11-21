@@ -72,7 +72,7 @@ class ProfileController implements IProfileController {
     findMyProfile(req: Request, res: Response): Response | Promise<Response> {
         const user = req.user
         return this.profileService.findOne(user.uuid)
-            .then((result) => HttpResponse.success(req, res, result))
+            .then((result) => HttpResponse.success(req, res, result?.toProfile()))
             .catch((err) => HttpErrorHandler(err, req, res));
     }
 }

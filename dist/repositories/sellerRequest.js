@@ -14,27 +14,8 @@ const sellerRequest_1 = __importDefault(require("../entities/sellerRequest"));
 const sellerRequest_2 = __importDefault(require("../models/sellerRequest"));
 let SellerRequestRepository = class SellerRequestRepository {
     async create(data) {
-        console.log(data.village, data.district);
-        const result = await sellerRequest_2.default.create({
-            uuid: data.uuid,
-            created_by: data.created_by,
-            email: data.email,
-            card_holder_name: data.card_holder_name,
-            card_number: data.card_number,
-            image: data.image,
-            bank: data.bank,
-            status: data.status,
-            ktp_image: data.ktp_image,
-            name: data.name,
-            province: data.province,
-            city: data.city,
-            district: data.district,
-            village: data.village,
-            created_at: data.created_at,
-            updated_at: data.updated_at,
-            deleted_at: null
-        });
-        return { success: true };
+        const result = await sellerRequest_2.default.create(data.toJSON());
+        return new sellerRequest_1.default(result);
     }
     async findOne(uuid) {
         const result = await sellerRequest_2.default.findOne({
@@ -44,6 +25,7 @@ let SellerRequestRepository = class SellerRequestRepository {
         return result ? new sellerRequest_1.default(result) : null;
     }
     async findOneByUserUuid(uuid) {
+        console.log(uuid, 'uuid');
         const result = await sellerRequest_2.default.findOne({
             "created_by.uuid": uuid,
             $or: [{ deleted_at: undefined }, { deleted_at: null }]
@@ -87,6 +69,7 @@ let SellerRequestRepository = class SellerRequestRepository {
                         status: data.status,
                         phone: data.phone,
                         ktp_image: data.ktp_image,
+                        address: data.address,
                         name: data.name,
                         province: data.province,
                         city: data.city,

@@ -17,7 +17,11 @@ class ProductController implements IProductController {
 
     create(req: Request, res: Response): Response | Promise<Response> {
         const user = req.user
-        return this.productService.create(new CreateProductRequest(req.body), user)
+        console.log(req.body, 'body')
+        return this.productService.create(new CreateProductRequest({
+            ...req.body,
+            image: req.file?.path
+        }), user)
             .then((result) => HttpResponse.created(req, res, result))
             .catch((err) => HttpErrorHandler(err, req, res));
     }
@@ -101,7 +105,44 @@ class ProductController implements IProductController {
         const user = req.user
         return this.productService.findAllWithUser(new GetProductRequest({
             ...query,
-            user_uuid: user.uuid
+            user_uuid: user.uuid,
+
+        }))
+            .then((result) => {
+                obj.totalPage = Math.ceil(result.total / +limitVal)
+                obj.totalData = result.total || 0
+                obj.currentPage = pageVal
+                obj.limit = limitVal
+                // res.setHeader("X-Pagination-Total-Page", Math.ceil(result.total / +limitVal));
+                // res.setHeader("X-Pagination-Total-Data", result.total || 0);
+                // res.setHeader("X-Pagination-Current-Page", pageVal);
+                // res.setHeader("X-Pagination-Limit", limitVal);
+                obj.data = result.data.map((data) => data.toListData());
+
+                return HttpResponse.success(req, res, obj);
+            })
+
+
+            .catch(err => HttpErrorHandler(err, req, res))
+    }
+
+    findAllWithUserNoAuth(req: Request, res: Response): Response | Promise<Response> {
+        const { query } = req;
+        const { page, limit, sort, ...rest } = req.query;
+        const pageVal: string = page?.toString() ?? "1";
+        const limitVal: string = limit?.toString() ?? "30";
+        let obj = {
+            totalPage: 0,
+            totalData: 0,
+            currentPage: '',
+            limit: '',
+            data: [{}]
+        }
+        const { params: { uuid } } = req
+        console.log(uuid)
+        return this.productService.findAllWithUser(new GetProductRequest({
+            ...query,
+            user_uuid: uuid
         }))
             .then((result) => {
                 obj.totalPage = Math.ceil(result.total / +limitVal)

@@ -71,7 +71,7 @@ let ProfileController = class ProfileController {
     findMyProfile(req, res) {
         const user = req.user;
         return this.profileService.findOne(user.uuid)
-            .then((result) => httpResponse_1.default.success(req, res, result))
+            .then((result) => httpResponse_1.default.success(req, res, result?.toProfile()))
             .catch((err) => (0, errors_1.HttpErrorHandler)(err, req, res));
     }
 };

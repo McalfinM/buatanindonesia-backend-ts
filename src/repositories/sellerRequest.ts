@@ -9,29 +9,10 @@ import { ISellerRequestRepository } from "./interfaces/sellerRequest";
 
 @injectable()
 class SellerRequestRepository implements ISellerRequestRepository {
-    async create(data: SellerRequestEntity): Promise<{ success: true }> {
-        console.log(data.village, data.district)
-        const result = await SellerRequestModel.create({
-            uuid: data.uuid,
-            created_by: data.created_by,
-            email: data.email,
-            card_holder_name: data.card_holder_name,
-            card_number: data.card_number,
-            image: data.image,
-            bank: data.bank,
-            status: data.status,
-            ktp_image: data.ktp_image,
-            name: data.name,
-            province: data.province,
-            city: data.city,
-            district: data.district,
-            village: data.village,
-            created_at: data.created_at,
-            updated_at: data.updated_at,
-            deleted_at: null
-        })
+    async create(data: SellerRequestEntity): Promise<SellerRequestEntity> {
+        const result = await SellerRequestModel.create(data.toJSON())
 
-        return { success: true }
+        return new SellerRequestEntity(result)
     }
 
     async findOne(uuid: string): Promise<SellerRequestEntity | null> {
@@ -44,6 +25,7 @@ class SellerRequestRepository implements ISellerRequestRepository {
     }
 
     async findOneByUserUuid(uuid: string): Promise<SellerRequestEntity | null> {
+        console.log(uuid, 'uuid')
         const result = await SellerRequestModel.findOne({
 
             "created_by.uuid": uuid,
@@ -103,6 +85,7 @@ class SellerRequestRepository implements ISellerRequestRepository {
                             status: data.status,
                             phone: data.phone,
                             ktp_image: data.ktp_image,
+                            address: data.address,
                             name: data.name,
                             province: data.province,
                             city: data.city,

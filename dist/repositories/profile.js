@@ -31,6 +31,7 @@ let ProfileRepository = class ProfileRepository {
             phone: data.phone,
             created_at: data.created_at,
             province: data.province,
+            is_active: data.is_active,
             updated_at: data.updated_at,
             deleted_at: null
         });
